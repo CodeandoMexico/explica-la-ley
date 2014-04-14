@@ -33,6 +33,21 @@ module.exports.routes = {
 
   // Custom routes here...
 
+  '/storage': {
+    controller: 'storage',
+    action: 'index'
+  },
+
+  'get /storage/annotation': {
+    controller: 'annotation',
+    action: 'index'
+  },
+
+  'post /storage/annotation': {
+    controller: 'annotation',
+    action: 'create'
+  }
+
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options
