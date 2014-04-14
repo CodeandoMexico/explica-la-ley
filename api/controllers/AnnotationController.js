@@ -8,11 +8,11 @@
 module.exports = {
 
   index: function(req, res) {
-    Annotation.find().exec(function(err, annotations) {
+    Annotation.find({article: req.param('article')}).exec(function(err, annotations) {
       if (err) {
         return res.send(500);
       }
-      return res.json(annotations)
+      return res.json({rows: annotations})
     });
   },
 

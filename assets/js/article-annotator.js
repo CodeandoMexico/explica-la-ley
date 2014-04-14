@@ -1,5 +1,8 @@
 jQuery(function($) {
-  var article = $('.article').annotator();
+  // Matches the url of a document, puts a match group at the :id
+  var regex = /.*\/(\d+)/,
+      article = $('.article').annotator();
+
   article.annotator('addPlugin', 'Store', {
     prefix: '/storage',
     urls: {
@@ -10,7 +13,11 @@ jQuery(function($) {
       search:   '/annotation'
     },
     annotationData: {
-      article: document.URL.replace(/.*\/(\d+)/, "$1")
+      article: document.URL.replace(regex, "$1")
+    },
+    loadFromSearch: {
+      article: document.URL.replace(regex, "$1")
     }
   });
+
 });
