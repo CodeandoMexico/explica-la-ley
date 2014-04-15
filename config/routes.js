@@ -46,7 +46,12 @@ module.exports.routes = {
   'post /storage/annotation': {
     controller: 'annotation',
     action: 'create'
-  }
+  },
+
+  'put /storage/annotation/:id': {
+    controller: 'annotation',
+    action: 'update'
+  },
 
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
