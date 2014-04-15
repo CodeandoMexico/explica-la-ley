@@ -34,16 +34,29 @@ module.exports = {
 
   update: function(req, res) {
     var id = req.param('id');
-    Annotation.update(
-      {id: id},
-      {
-        text: req.param('text'),
-        quote: req.param('quote')
+    Annotation.update({
+      id: id
+    },
+    {
+      text: req.param('text'),
+      quote: req.param('quote')
     }).exec(function(err, annotations) {
       if (err) {
         res.send(500);
       }
       res.json(annotations);
+    });
+  },
+
+  destroy: function(req, res) {
+    var id = req.param('id');
+    Annotation.destroy({
+      id: id
+    }).exec(function(err) {
+      if (err) {
+        res.send(500);
+      }
+      res.json(200);
     });
   }
 	

@@ -53,6 +53,11 @@ module.exports.routes = {
     action: 'update'
   },
 
+  'delete /storage/annotation/:id': {
+    controller: 'annotation',
+    action: 'destroy'
+  }
+
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options
