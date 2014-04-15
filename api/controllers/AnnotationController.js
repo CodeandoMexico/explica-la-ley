@@ -12,7 +12,11 @@ module.exports = {
       if (err) {
         return res.send(500);
       }
-      return res.json({rows: annotations})
+      // Parse every ranges array, because posgresql saves them as string
+      annotations.forEach(function(annotation) {
+        annotation.ranges = JSON.parse(annotation.ranges);
+      });
+      return res.json({rows: annotations});
     });
   },
 
