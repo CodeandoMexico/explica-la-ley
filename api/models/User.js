@@ -21,7 +21,7 @@ module.exports = {
     password: {
       type: 'STRING',
       required: true,
-      minLenght: 6
+      minLength: 6
     },
     annotations: {
       collection: 'annotation',
