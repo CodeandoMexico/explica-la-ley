@@ -1,0 +1,9 @@
+<div>
+  <h1>Art&iacute;culos</h1>
+  <ul>
+    <% _.each(articles, function(article) { %>
+      <li><a href="/article/<%= article.id %>">Artículo<%= article.number %></a></li>
+    <% }) %>
+  </ul>
+</div>
+
