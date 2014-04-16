@@ -13,6 +13,9 @@ module.exports = {
     ranges: 'ARRAY',
     article: {
       model: 'article'
+    },
+    user: {
+      model: 'user'
     }
 	}
 
