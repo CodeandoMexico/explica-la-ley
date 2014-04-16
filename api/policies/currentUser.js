@@ -1,7 +1,7 @@
 /**
  * Gets the current user from a session, or returns 403
  */
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
   // User is allowed, proceed to controller
   if (req.session.user) {
