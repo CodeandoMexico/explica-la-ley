@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>New Sails App</title>
+    <title>Explica.la/ley</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -37,9 +37,50 @@
   </head>
 
   <body>
-    <%- body %>
-
-
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <h2 class="sidebar-brand"><a href="#">Explica.la</a></h2>
+        <h3 class="law-title">Ley Telecom</h3>
+        <form action="#" method="GET" class="search form-inline" role="form">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Buscar artículo" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+        </form>
+        <ul class="sidebar-nav">
+          <li><a href="#">Art&iacute;culo 1</a></li>
+        </ul>
+        <div class="share">
+          <h4>Comparte</h4>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-text="Entiende los puntos más importantes de la #LeyTelecom. Hoy se está discutiendo en el Senado." data-via="CodeandoMexico" data-size="large" data-count="none">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </div>
+        <div class="contribute">
+          <a href="mailto:equipo@codeandomexico.org">equipo@codeandomexico.org</a>
+        </div>
+        <div class="attribution">
+          <a href="http://codeandomexico.org" target="_blank">
+            <img src="/images/cmx-logo-white.png"/>
+          </a>
+        </div>
+      </div>
+      <div id="page-content-wrapper">
+        <div class="page-content">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-11">
+                <!-- content of page -->
+                <%- body %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--
         Client-side Templates

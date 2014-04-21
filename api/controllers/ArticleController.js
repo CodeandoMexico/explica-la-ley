@@ -10,7 +10,7 @@ module.exports = {
   index: function(req, res) {
     Article.find().exec(function(err, articles) {
       if (err) return res.send(500);
-      return res.view({articles: articles});
+      return res.json(articles);
     });
   },
 
