@@ -17,6 +17,26 @@ module.exports = {
       collection: 'annotation',
       via: 'article'
     }
-	}
+	},
+
+  beforeCreate: function(attrs, next) {
+    var marked = require('marked');
+    marked(attrs.body, function(err, body) {
+      if (err) return next(err);
+
+      attrs.body = body;
+      next();
+    });
+  },
+
+  beforeUpdate: function(attrs, next) {
+    var marked = require('marked');
+    marked(attrs.body, function(err, body) {
+      if (err) return next(err);
+
+      attrs.body = body;
+      next();
+    });
+  },
 
 };
