@@ -41,6 +41,23 @@ module.exports.policies = {
     'create': 'currentUser',
     'update': 'currentUser',
     'destroy': 'currentUser'
+  },
+
+  ArticleController: {
+    'index': true,
+    'find': true,
+    'create': 'currentUser',
+    'update': 'currentUser',
+    'destroy': 'currentUser'
+  },
+
+  LawController: {
+    '*': false
+  },
+
+  UserController: {
+    '*': false,
+    'login': true
   }
 };
 
