@@ -23,6 +23,10 @@ module.exports = {
       required: true,
       minLength: 6
     },
+    twitterProfile: {
+      type: 'STRING',
+      required: true,
+    },
     annotations: {
       collection: 'annotation',
       via: 'article'
