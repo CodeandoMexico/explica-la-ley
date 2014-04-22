@@ -42,17 +42,16 @@
         <h2 class="sidebar-brand"><a href="#">Explica.la</a></h2>
         <h3 class="law-title">Ley Telecom</h3>
         <form action="#" method="GET" class="search form-inline" role="form">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Buscar artículo" />
+          <div class="input-group col-md-12">
+            <input type="text" id="filter" class="form-control" placeholder="Buscar artículo" />
             <span class="input-group-btn">
-              <button type="submit" class="btn btn-default">
+              <button type="submit" class="btn btn-default" disabled>
                 <span class="glyphicon glyphicon-search"></span>
               </button>
             </span>
           </div>
         </form>
-        <ul class="sidebar-nav">
-          <li><a href="#">Art&iacute;culo 1</a></li>
+        <ul class="sidebar-nav articles-list">
         </ul>
         <div class="share">
           <h4>Comparte</h4>
@@ -135,6 +134,7 @@
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/article-annotator.js"></script>
+    <script src="/js/filter-articles.js"></script>
     <script src="/js/vendor/annotator-full.min.js"></script>
     <!--SCRIPTS END-->
   </body>
