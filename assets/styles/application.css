@@ -2,12 +2,14 @@ html {
   height: 100%;
 }
 body {
+  font-family: "Open Sans", "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 20px;
   height: 100%;
   color: #333;
 }
 h1 {
   color: #A52A2A;
+  font-weight: 800;
 }
 .article {
   padding: 10px 50px 350px 50px;
