@@ -22,5 +22,9 @@ module.exports = {
       return res.view('article/find', {article: article});
     });
   },
+
+  newArticle: function(req, res) {
+    return res.view('article/new');
+  }
 	
 };

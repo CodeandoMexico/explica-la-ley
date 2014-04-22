@@ -41,6 +41,11 @@ module.exports.routes = {
 
   // Custom routes here...
 
+  'get /ley/article/new': {
+    controller: 'article',
+    action: 'newArticle'
+  },
+
   '/storage': {
     controller: 'storage',
     action: 'index'
