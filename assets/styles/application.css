@@ -5,6 +5,7 @@ body {
 }
 h1 {
   color: #A52A2A;
+  font-weight: 800;
 }
 .article {
   padding: 10px 50px;
