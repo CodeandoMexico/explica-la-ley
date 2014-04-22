@@ -4,6 +4,7 @@ html {
 body {
   font-size: 20px;
   height: 100%;
+  color: #333;
 }
 
 .article {
@@ -23,7 +24,7 @@ body {
   padding: 10px 20px;
   left: 250px;
   width: 250px;
-  background: #000;
+  background: #333;
   position: fixed;
   height: 100%;
   z-index: 1000;
