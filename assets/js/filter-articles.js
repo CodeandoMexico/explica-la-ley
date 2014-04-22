@@ -27,11 +27,11 @@ $(function() {
   },
 
   loadArticles = function(callback) {
-    $.get('/article', function(articles) {
+    $.get('/ley/article', function(articles) {
       console.dir(articles);
       var listElements = '';
       articles.forEach(function(article) {
-        listElements += '<li><a href="/article/' + article.id + '">Art&iacute;culo ' + article.number + '</a></li>';
+        listElements += '<li><a href="/ley/article/' + article.id + '">Art&iacute;culo ' + article.number + '</a></li>';
       });
       $('.articles-list').append(listElements);
       callback();
