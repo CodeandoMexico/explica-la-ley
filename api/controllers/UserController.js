@@ -20,7 +20,7 @@ module.exports = {
           if (match) {
             // password match
             req.session.user = user.id;
-            res.redirect('/article');
+            res.redirect('/');
           } else {
             // invalid password
             if (req.session.user) req.session.user = null;
