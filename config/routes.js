@@ -26,6 +26,11 @@ module.exports.routes = {
   // default view engine) your home page.
   // 
   // (Alternatively, remove this and add an `index.html` file in your `assets` directory)
+  '/': {
+    controller: 'page',
+    action: 'redirect'
+  },
+
   '/ley': {
     view: 'homepage'
   },
