@@ -6,7 +6,9 @@ body {
   height: 100%;
   color: #333;
 }
-
+h1 {
+  color: #A52A2A;
+}
 .article {
   padding: 10px 50px 350px 50px;
 }
