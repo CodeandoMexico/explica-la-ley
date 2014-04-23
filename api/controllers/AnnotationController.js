@@ -8,7 +8,7 @@
 module.exports = {
 
   index: function(req, res) {
-    Annotation.find({article: req.param('article')}).exec(function(err, annotations) {
+    Annotation.find({article: req.param('article')}).populate('user').exec(function(err, annotations) {
       if (err) {
         return res.send(500);
       }
@@ -26,7 +26,8 @@ module.exports = {
       text: req.param('text'),
       quote: req.param('quote'),
       ranges: req.param('ranges'),
-      article: req.param('article')
+      article: req.param('article'),
+      user: req.session.user
     })
     .exec(function(err, annotation) {
       if (err) {

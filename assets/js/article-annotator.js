@@ -20,4 +20,6 @@ jQuery(function($) {
     }
   });
 
+  article.annotator('addPlugin', 'Author');
+
 });

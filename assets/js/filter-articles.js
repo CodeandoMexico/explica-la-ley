@@ -28,7 +28,6 @@ $(function() {
 
   loadArticles = function(callback) {
     $.get('/ley/article', function(articles) {
-      console.dir(articles);
       var listElements = '';
       articles.forEach(function(article) {
         listElements += '<li><a href="/ley/article/' + article.id + '">Art&iacute;culo ' + article.number + '</a></li>';
