@@ -117,4 +117,8 @@ h1 {
   .navbar-toggle {
     display: block;
   }
+
+  .article {
+    padding: 10px 10px 350px 10px;
+  }
 }
