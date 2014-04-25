@@ -25,6 +25,15 @@ module.exports = {
 
   newArticle: function(req, res) {
     return res.view('article/new');
-  }
+  },
+
+  edit: function(req, res) {
+    Article.findOne(req.param('id')).exec(function (err, article) {
+      if (err) {
+        return res.send(500);
+      }
+      return res.view('article/edit', {article: article});
+    });
+  },
 	
 };
