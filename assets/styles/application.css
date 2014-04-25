@@ -68,7 +68,11 @@ h1 {
 }
 
 .share {
-  margin: 20px 0px;
+  margin: 20px 41px;
+}
+
+.share.sharer-0 .social.active.center {
+  margin-left: -23px !important;
 }
 
 .contribute a {
