@@ -17,9 +17,11 @@ h1 {
 
 #wrapper {
   padding-left: 250px;
-  transition: all 0.4s ease 0s;
   overflow-x: hidden;
   height: 100%;
+  position: relative;
+  left: 0px;
+  transition: all 0.4s ease 0s;
 }
 
 #sidebar-wrapper {
@@ -85,6 +87,16 @@ h1 {
   text-align: center;
 }
 
+.navbar-toggle {
+  float: none;
+  border-color: #333;
+  display: none;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #333;
+}
+
 @media (max-width:767px) {
 
   #wrapper {
@@ -96,13 +108,17 @@ h1 {
   }
 
   #wrapper.active {
-    position: relative;
     left: 250px;
+    transition: all 0.4s ease 0s;
   }
 
   #wrapper.active #sidebar-wrapper {
     left: 250px;
     width: 250px;
     transition: all 0.4s ease 0s;
+  }
+
+  .navbar-toggle {
+    display: block;
   }
 }
