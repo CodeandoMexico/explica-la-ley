@@ -5,8 +5,9 @@
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-
+    <meta property="og:description" content="Traducir la ley para ciudadanos no familiarizados con la jerga legislativa.
+Resumir a las secciones más comentadas de una ley.
+Ver el texto original de la ley, para que puedas sacar tus propias conclusiones." />
     <!--
         Stylesheets and Preprocessors
         ==============================
@@ -55,9 +56,6 @@
         <ul class="sidebar-nav articles-list">
         </ul>
         <div class="share">
-          <h4>Comparte</h4>
-          <a href="https://twitter.com/share" class="twitter-share-button" data-text="Entiende los puntos más importantes de la #LeyTelecom. Hoy se está discutiendo en el Senado." data-via="CodeandoMexico" data-size="large" data-count="none">Tweet</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </div>
         <div class="contribute">
           <a href="mailto:equipo@codeandomexico.org">equipo@codeandomexico.org</a>
@@ -140,6 +138,7 @@
     <!--SCRIPTS-->
     <script src="/js/dependencies/annotator-full.min.js"></script>
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/share.min.js"></script>
     <script src="/js/article-annotator.js"></script>
     <script src="/js/author-annotator-plugin.js"></script>
     <script src="/js/filter-articles.js"></script>
@@ -154,6 +153,27 @@
       ga('create', 'UA-46973214-4', 'explica.la');
       ga('send', 'pageview');
 
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+      config = {
+        text: "Entiende los puntos más importantes de la #LeyTelecom. Hoy se está discutiendo en el Senado. http://www.explica.la/ley via @CodeandoMexico",
+        url: "http://explica.la/ley",
+        ui:{
+          flyout: "top center",
+          button_text: "Compartir",
+          button_background: "#B7B7B7"
+        },
+        networks: {
+          twitter: {
+            url:""
+          },
+          facebook: {
+            app_id: "662343820468434"
+          }
+        }
+      };
+      new Share('.share', config);
     </script>
   </body>
 </html>
