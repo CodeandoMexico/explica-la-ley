@@ -12,4 +12,3 @@
 - Braulio Chávez
 - Eduardo Salinas
 - Adrián Rangel
-- Juan Pablo Escobar
