@@ -17,7 +17,13 @@ Install the rest of the packages running `npm install -d` on the
 project directory.
 
 ##Installation / Setup
-This section is a step by step guide to install the project. An ordered list is recommended.
+1. Install node.js ([Instructions](http://howtonode.org/how-to-install-nodejs))
+2. Install sails `sudo npm -g install sails`
+3. Install sails-disk `npm install sails-disk@0.9.x`
+4. Install grunt `npm install grunt` and `npm install grunt-core`
+
+Once you have installed the dependencies lift the server using `sails lift` and
+verify the installation by visiting http://localhost:1337/ley
 
 ##Screenshots
 ![alt text](http://i.imgur.com/EufAhHT.png "Explica.la/ley")

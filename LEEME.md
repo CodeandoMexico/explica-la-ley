@@ -16,8 +16,14 @@ Cambia la Ley ([english](/README.md))
 Instala el resto de los paquetes ejecutando `npm install -d` en el
 directorio del proyecto.
 
-##Instalación / Configuración 
-Esta sección es una guía paso a paso para instalar el proyecto. Se recomienda una lista ordenada.
+##Instalación / Configuración
+1. Instalar node.js ([Instrucciones](http://howtonode.org/how-to-install-nodejs))
+2. Instalar sails `sudo npm -g install sails`
+3. Instalar sails-disk `npm install sails-disk@0.9.x`
+4. Instalar grunt `npm install grunt` y `npm install grunt-core`
+
+Una vez instaladas las dependencias verifica la instalación corriendo Sails
+`sails lift` y visitando el sitio http://localhost:1337/ley
 
 ##Screenshots
 ![alt text](http://i.imgur.com/EufAhHT.png "Explica.la/ley")
@@ -25,7 +31,7 @@ Esta sección es una guía paso a paso para instalar el proyecto. Se recomienda 
 ##Demo
 [Explica.la/ley](http://explica.la/ley)
 
-##¿Preguntas o problemas? 
+##¿Preguntas o problemas?
 Mantenemos la conversación del proyecto en nuestra página de problemas [issues] (https://github.com/CodeandoMexico/cambia-la-ley/issues). Si usted tiene cualquier otra pregunta, nos puede contactar por correo <equipo@codeandomexico.org>.
 
 ##Contribuye
