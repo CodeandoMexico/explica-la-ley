@@ -1,4 +1,4 @@
-# Contribuye a repo-guidelines ([english](/CONTRIBUTE.md))
+# Contribuye a "Cambia la Ley" ([english](/CONTRIBUTE.md))
 
 1. [Involucrarse](#involucrarse)
 2. [Discusión](#discusión)
@@ -9,21 +9,40 @@
 
 
 ## Involucrarse
-_Introducción a las diferentes formas de involucrarse con el proyecto. Reportando bugs, sugeriendo features o cambios o contribuyendo directamente con el código. Asegurate de definir los pasos para las diferentes maneras de contribuir._
+Puedes involucrate por:
+  - Reportar bugs
+
+    Puedes reportar bugs in nuestra página de [issues](https://github.com/CodeandoMexico/cambia-la-ley/issues). Asegurate te utilizar la etiqueta "bug". Por favor se tan específico como sea posible. Alentamos el uso de logs y capturas de pantalla. Si puedes arreglar el bug tú mismo envia un pull-request.
+
+- Sugiriendo funcionalidad
+
+  Similar a reportar bugs, puedes sugerir funcionalidad en nuestra
+página de [issues](https://github.com/CodeandoMexico/cambia-la-ley/issues). Por favor se tan específico como sea posible en la descripción. Nos encantan las sugerencias de funcionalidad acompañadas de un pull-request.
+
+- Contribuyendo al código
+
+  En caso de que no lo hayamos enfatizado lo suficiente: *¡Nos encantan
+los pull-request!*. Por el momento estamos agregando mas pruebas a
+nuestro proyecto. Siempre preferimos pull-requests que tengan pruebas.
+El equipo base responderá con al menos un comentario a cada pull-request
+dentro de 3 días hábiles.
 
 ## Discusión
-_Sección para definir dónde discutir acerca del proyecto. Es común tener
-un foro o usar los issues de github._
+Por favor usa nuestra página de [issues](https://github.com/CodeandoMexico/cambia-la-ley/issues) para la discusión.
 
 ## Acerca de los pull requests
-_Pasos específicos que los contribuidores deben de tomar antes de hacer
-un pull request. Es tu elección el incluir una guía de cómo probar
-cambios del código, estilo del código y demás información relevante para
-tu proyecto. No olvides mencionar cómo el equipo del proyecto procesa
-los pull request y el tiempo que les toma resolverlos._
+  Estamos en proceso de mejora, estamos agregando pruebas con Mocha y Should.js. Aunque todavía no tenemos un proceso de pruebas bien definido alentamos que cada pull-request tenga tests. Cada pull-request debe:
+  - Referenciar el issue en el mensaje del commit y debe de ser en
+    inglés. Ejemplo de un mensaje
+    de commit: [#23] Improves performance of database
+  - Dar una explicación clara de por qué existe ese pull-request. La
+    explicación debe de hacerce en la página de comentarios de ese
+pull-request.
+
+  El equipo base se compromete a responder cada pull-request dentro de 3
+días hábiles con al menos un comentario.
 
 ## Acerca de los autores y contribuidores
-_Sección para hablar acerca de la diferencia entre autores y contribuidores._ Ejemplo (debe de ser incluido en todos los repositorios de Codeando México):
 
 ### Autores
 Autores son contribuidores que tuvieron la idea original y en general

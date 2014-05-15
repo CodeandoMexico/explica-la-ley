@@ -1,4 +1,4 @@
-# Contributing to repo-guidelines ([español](/CONTRIBUYE.md))
+# Contributing to "Cambia la Ley" ([español](/CONTRIBUYE.md))
 
 1. [Getting involved](#getting-involved)
 2. [Discussion](#discussion)
@@ -8,16 +8,30 @@
 
 
 ## Getting involved
-_Introduction to the different ways to get involved with the project. Reporting bugs, suggesting features or changes or by contributing directly with the code. Be sure to define the steps for each different way of contributing._
+You can get involved by:
+- Reporting bugs
+
+  You can report bugs in our [issues](https://github.com/CodeandoMexico/cambia-la-ley/issues) page. Make sure to use the "bug" tag. Please be as specific as possible. The use of logs and screenshots is encouraged. If you can fix the bug yourself send a pull-request.
+
+- Suggesting features
+
+  Similar to bugs, you can suggest features in our [issues](https://github.com/CodeandoMexico/cambia-la-ley/issues) page. Please be as specific as possible in the description. We love feature suggestions accompanied by a pull-request.
+
+- Contributing with code
+
+  In case we haven't emphasized it enough: *We love pull-requests!*. At the moment we are adding more testing to our project. We always prefer pull-requests with tests. The core-team will reply at least with a comment to every pull-request within 3 business days.
 
 ## Discussion
-_Section to define where to discuss about the project. It is common to have a forum or using github issues._
+Please use our [issues](https://github.com/CodeandoMexico/cambia-la-ley/issues) page for discussion.
 
 ## About pull requests
-_Specific steps that contributors should take care before submitting a pull request. It is your choice to include a guide to how to test code changes, code style and other relevant information to your project. Also mention how the team behind the project takes care of the pull requests and the timeframe regarding the pull request._
+  We are in a process of improvement, we are adding tests with Mocha and Should.js. Although we still don't have a well defined test framework we encourage every pull-request to have tests. Every pull-request must:
+  - Reference an issue in the commit message. Example of a commit message: [#23] Improves performance of database.
+  - Give a clear explanation of why that pull-request exist. The explanation must take place in the github pull-request's comment section.
+
+  The core-team is committed to answer every pull-request within 3 business days with at least a follow-up comment.
 
 ## About authors and contributors
-_Section to talk about the difference between authors and contributors._ Example (must be included verbatim in all Codeando México repositories):
 
 ### Authors
 Authors are contributors that had the original idea and usually responsible for the initial bulk commits.
@@ -26,4 +40,4 @@ Authors are contributors that had the original idea and usually responsible for 
 People who have contributed with code changes, documentation or bug fixes to the project, only by submitting a pull request. They should be ordered by initial contribution date in the [CONTRIBUTORS.md](/CONTRIBUTORS.md) file.
 
 ### Core Team
-Responsible for development and maintenance of the project. In charge of responding to pull requests and leading discussion about the project. In our case, they are usually members of Codeando México.
+Responsible for development and maintenance of the project. In charge of responding to pull requests and leading discussion about the project. In our case, they usually are members of Codeando México.
