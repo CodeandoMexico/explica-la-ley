@@ -46,6 +46,11 @@ module.exports.routes = {
     action: 'newArticle'
   },
 
+  'get /ley/article/edit/:id': {
+    controller: 'article',
+    action: 'edit'
+  },
+
   '/storage': {
     controller: 'storage',
     action: 'index'

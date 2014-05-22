@@ -17,12 +17,15 @@ h1 {
 
 #wrapper {
   padding-left: 250px;
-  transition: all 0.4s ease 0s;
   overflow-x: hidden;
   height: 100%;
+  position: relative;
+  left: 0px;
+  transition: all 0.4s ease 0s;
 }
 
 #sidebar-wrapper {
+  overflow-y: auto;
   color: #FFFFFF;
   margin-left: -250px;
   padding: 10px 20px;
@@ -68,7 +71,11 @@ h1 {
 }
 
 .share {
-  margin: 20px 0px;
+  margin: 20px 41px;
+}
+
+.share.sharer-0 .social.active.center {
+  margin-left: -23px !important;
 }
 
 .contribute a {
@@ -76,13 +83,18 @@ h1 {
   font-size: 16px;
 }
 
-.attribution {
-  position: absolute;
-  bottom: 10px;
-}
-
 .law-title {
   text-align: center;
+}
+
+.navbar-toggle {
+  float: none;
+  border-color: #333;
+  display: none;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #333;
 }
 
 @media (max-width:767px) {
@@ -96,13 +108,21 @@ h1 {
   }
 
   #wrapper.active {
-    position: relative;
     left: 250px;
+    transition: all 0.4s ease 0s;
   }
 
   #wrapper.active #sidebar-wrapper {
     left: 250px;
     width: 250px;
     transition: all 0.4s ease 0s;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .article {
+    padding: 10px 10px 350px 10px;
   }
 }
