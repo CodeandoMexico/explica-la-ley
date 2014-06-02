@@ -24,15 +24,19 @@ module.exports = {
   },
 
   newArticle: function(req, res) {
-    return res.view('article/new');
+    Law.find({}).exec(function(err, laws) {
+      if (err) return res.send(500, err);
+      return res.view('article/new', {laws: laws});
+    });
   },
 
   edit: function(req, res) {
     Article.findOne(req.param('id')).exec(function (err, article) {
-      if (err) {
-        return res.send(500);
-      }
-      return res.view('article/edit', {article: article});
+      if (err) return res.send(500, err);
+      Law.find({}).exec(function(err, laws) {
+        if (err) return res.send(500, err);
+        return res.view('article/edit', {article: article, laws: laws});
+      });
     });
   },
 	
