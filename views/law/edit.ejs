@@ -1,0 +1,9 @@
+<h2 class="col-md-offset-2">Actualizar Ley</h2>
+<form method="POST" action="/ley/law/update/<%= law.id %>" class="col-md-4 col-md-offset-2" role="form">
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input type="text" class="form-control" id="name" name="name"
+      value="<%= law.name %>" placeholder="Nombre de la Ley" />
+  </div>
+  <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
