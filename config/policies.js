@@ -52,7 +52,11 @@ module.exports.policies = {
   },
 
   LawController: {
-    '*': false
+    'index': true,
+    'find': true,
+    'create': 'currentUser',
+    'update': 'currentUser',
+    'destroy': 'currentUser'
   },
 
   UserController: {

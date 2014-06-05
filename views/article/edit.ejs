@@ -9,5 +9,13 @@
     <label for="body">Cuerpo</label>
     <textarea class="form-control" id="body" name="body" placeholder="Texto de artículo" rows="10"></textarea>
   </div>
+  <div class="form-group">
+    <label for="law">Ley a la que pertenece:</label>
+    <select name="law">
+      <% for(var i = 0; i < laws.length; i++) {%>
+        <option value="<%= laws[i].id %>"><%= laws[i].name %></option>
+      <% } %>
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary">Actualizar</button>
 </form>
