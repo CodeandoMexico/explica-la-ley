@@ -1,18 +1,101 @@
 html {
   height: 100%;
 }
+
 body {
-  font-family: "Open Sans", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue", "Open Sans" ,Helvetica,Arial,sans-serif;
   font-size: 20px;
   height: 100%;
   color: #333;
 }
-h1 {
-  color: #A52A2A;
-  font-weight: 800;
+
+h1, h2 {
+  color: #631878;
+  font-weight: 400;
 }
+
+h3 {
+  font-weight: 400;
+}
+
 .article {
   padding: 10px 50px 350px 50px;
+}
+
+ul {
+  list-style-type: square;
+}
+
+.masthead {
+  text-align: center;
+  background-color: #631878;
+  color: #FFFFFF;
+  padding: 80px 50px;
+  letter-spacing: 1px;
+}
+
+.masthead h1 {
+  color: #FFFFFF;
+}
+
+.masthead h3 {
+  margin: 0;
+}
+
+.masthead-description {
+  text-align: left;
+  padding: 50px 0px;
+}
+
+.masthead-description h3 {
+  margin: 10px;
+  font-weight: 200;
+}
+
+.masthead ul li {
+  line-height: 25px;
+  font-weight: 200;
+}
+
+.masthead-title {
+  font-size: 60px;
+  font-weight: 300;
+  margin-top: 50px;
+  letter-spacing: 2px;
+}
+
+.masthead-subtitle {
+  font-weight: 100;
+  font-size: 30px;
+}
+
+.content .row h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 40px;
+}
+
+.btn-purple {
+  color: #FFFFFF;
+  background-color: #631878;
+  border-color: #631878;
+}
+
+.btn-purple:hover {
+  color: #631878;
+  background-color: transparent;
+  border-color: #631878;
+}
+
+div.section {
+  padding: 50px 0px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+div.section div.section-description {
+  text-align: center;
+  font-size: 30px;
+  padding: 20px;
 }
 
 #wrapper {
@@ -95,6 +178,40 @@ h1 {
 
 .navbar-toggle .icon-bar {
   background-color: #333;
+}
+
+ul.list-boxes {
+  list-style-type: none;
+}
+
+ul.list-boxes li div {
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 300px;
+  height: 330px;
+  padding: 5px 15px;
+  text-align: center;
+  float: left;
+  margin: 10px;
+}
+
+ul.list-boxes li hr {
+  border: 1px solid black;
+}
+
+ul.list-boxes li p {
+  text-align: left;
+}
+
+ul.list-boxes.collaborators li div {
+  width: 350px;
+  margin: 20px 60px;
+}
+
+#github-fork {
+  font-size: 30px;
+  margin: 30px 0px;
 }
 
 @media (max-width:767px) {

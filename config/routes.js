@@ -32,7 +32,8 @@ module.exports.routes = {
   },
 
   '/ley': {
-    view: 'homepage'
+    controller: 'page',
+    action: 'homepage'
   },
 
   '/ley/login': {
