@@ -218,6 +218,46 @@ ul.list-boxes.collaborators li div {
 
 @media (max-width:767px) {
 
+  h3 {
+    font-size: 20px;
+  }
+
+  .masthead-description {
+    font-size: 15px;
+  }
+
+  .masthead ul li {
+    line-height: 20px;
+  }
+
+  .masthead-title {
+    font-size: 40px;
+    margin-top: 20px;
+  }
+
+  .masthead-subtitle {
+    font-size: 20px;
+  }
+
+  div.section div.section-description {
+    font-size: 18px;
+  }
+
+  ul.list-boxes li div {
+    width: 250px;
+    height: 270px;
+  }
+
+  ul.list-boxes li p {
+    font-size: 16px;
+  }
+
+  ul.list-boxes.collaborators li div {
+    width: 240px;
+    height: 310px;
+    margin: 10px;
+  }
+
   #wrapper {
     padding-left: 0;
   }
