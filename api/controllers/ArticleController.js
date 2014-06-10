@@ -15,7 +15,7 @@ module.exports = {
   },
 
   find: function(req, res) {
-    Article.findOne(req.param('id')).exec(function (err, article) {
+    Article.findOne(req.param('id')).populate('law').exec(function (err, article) {
       if (err) {
         return res.send(500);
       }

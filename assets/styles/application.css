@@ -114,7 +114,7 @@ div.section div.section-description {
   padding: 10px 20px;
   left: 250px;
   width: 250px;
-  background: #333;
+  background: #3F1A49;
   position: fixed;
   height: 100%;
   z-index: 1000;
@@ -178,6 +178,26 @@ div.section div.section-description {
 
 .navbar-toggle .icon-bar {
   background-color: #333;
+}
+
+ul.nav-law {
+  list-style-type: none;
+  margin: 20px;
+}
+
+
+ul.nav-law li {
+  float: left;
+  margin: 0px 10px;
+}
+
+ul.nav-law li a {
+  color: #555555;
+}
+
+li.divider {
+  border: 1px solid #c3c3c3;
+  height: 30px;
 }
 
 ul.list-boxes {
