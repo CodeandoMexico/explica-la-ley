@@ -30,7 +30,7 @@ ul {
   text-align: center;
   background-color: #631878;
   color: #FFFFFF;
-  padding: 80px 50px;
+  padding: 40px 50px;
   letter-spacing: 1px;
 }
 
@@ -42,16 +42,6 @@ ul {
   margin: 0;
 }
 
-.masthead-description {
-  text-align: left;
-  padding: 30px 0px;
-}
-
-.masthead-description h3 {
-  margin: 10px;
-  font-weight: 200;
-}
-
 .masthead ul li {
   line-height: 25px;
   font-weight: 200;
@@ -60,7 +50,6 @@ ul {
 .masthead-title {
   font-size: 60px;
   font-weight: 300;
-  margin-top: 50px;
   letter-spacing: 2px;
 }
 
@@ -88,13 +77,13 @@ ul {
 }
 
 div.section {
-  padding: 30px 0px;
+  padding: 10px 0px;
   border-bottom: 1px solid #e5e5e5;
 }
 
 div.section div.section-description {
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
   padding: 20px;
 }
 
@@ -253,17 +242,12 @@ div.law h1 {
     font-size: 20px;
   }
 
-  .masthead-description {
-    font-size: 15px;
-  }
-
   .masthead ul li {
     line-height: 20px;
   }
 
   .masthead-title {
     font-size: 40px;
-    margin-top: 20px;
   }
 
   .masthead-subtitle {
