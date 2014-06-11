@@ -16,6 +16,13 @@ var descCompareArticles = function(a, b) {
 
 module.exports = {
 
+  index: function(req, res) {
+    Law.find().exec(function(err, laws) {
+      if (err) return res.send(err, 500);
+      res.view('law/index', {laws: laws});
+    });
+  },
+
   find: function(req, res) {
     var lawId = req.param("id");
     Law.findOne(lawId).exec(function(err, law) {
