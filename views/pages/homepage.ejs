@@ -19,30 +19,9 @@
   <div class="section text-center">
     <h2>Leyes m&aacute;s discutidas</h2>
     <ul class="list-boxes">
-      <li>
-        <div>
-          <h3>Telecomunicaciones</h3>
-          <hr />
-          <p>Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley.</p>
-          <a href="#" class="btn btn-purple btn-lg" role="button">Ver más</a>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3>Telecomunicaciones</h3>
-          <hr />
-          <p>Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley.</p>
-          <a href="#" class="btn btn-purple btn-lg" role="button">Ver más</a>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3>Telecomunicaciones</h3>
-          <hr />
-          <p>Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley. Mini resumen de la ley.</p>
-          <a href="#" class="btn btn-purple btn-lg" role="button">Ver más</a>
-        </div>
-      </li>
+      <% _.each(laws, function(law) { %>
+        <li><%- partial('../law/partials/law', law) %></li>
+      <% })%>
     </ul>
   </div>
 
