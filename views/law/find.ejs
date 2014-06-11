@@ -1,0 +1,24 @@
+<div class="law col-md-12">
+  <h1><%= law.name %></h1>
+  <p>
+    Resumen de lo que trata la ley. Alrededor de 5 lineas máximo. Resumen de lo que trata la ley. Alrededor de 5 lineas máximo. Resumen de lo que trata la ley. Alrededor de 5 lineas máximo. Resumen de lo que trata la ley. Alrededor de 5 lineas máximo. Resumen de lo que trata la ley. Alrededor de 5 lineas máximo. Resumen de lo que trata la ley. Alrededor de 5 lineas máximo. Resumen de lo que trata la ley. Alrededor de 5 lineas máximo. 
+  </p>
+  <h2>Artículos más discutidos</h2>
+  <ul class="list-boxes">
+    <% _.each( law.articles, function(article) { %>
+      <li>
+        <div>
+          <h3>Artículo <%= article.number %></h3>
+          <hr />
+          <p>Mini resumen de artículo. Mini resumen de artículo. Mini resumen de artículo. Mini resumen de artículo. </p>
+          <% if (article.annotations.length == 1) { %>
+            <p><b><%= article.annotations.length %> comentario</b></p>
+          <% } else {%>
+            <p><b><%= article.annotations.length %> comentarios</b></p>
+          <% } %>
+          <a href="/ley/article/<%= article.id %>" class="btn btn-purple btn-lg">Ver más</a>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</div>
