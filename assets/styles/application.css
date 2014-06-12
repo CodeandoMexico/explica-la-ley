@@ -236,6 +236,11 @@ div.law h1 {
   margin: 30px;
 }
 
+.annotator-viewer div:first-of-type, .annotator-editor .annotator-item:first-child textarea {
+  font-size: 16px;
+  font-style: normal;
+}
+
 @media (max-width:767px) {
 
   h3 {
