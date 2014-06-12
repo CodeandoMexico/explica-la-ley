@@ -32,11 +32,17 @@ module.exports.routes = {
   },
 
   '/ley': {
-    view: 'homepage'
+    controller: 'page',
+    action: 'homepage'
   },
 
   '/ley/login': {
     view: 'login'
+  },
+
+  'get /ley/logout': {
+    controller: 'user',
+    action: 'logout'
   },
 
   // Custom routes here...

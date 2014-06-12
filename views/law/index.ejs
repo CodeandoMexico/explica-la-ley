@@ -1,0 +1,8 @@
+<div class="law">
+  <h1 class="text-centered">Leyes</h1>
+  <ul class="list-boxes">
+    <% _.each(laws, function(law) {%>
+      <li><%- partial('partials/law', law) %> </li>
+    <% })%>
+  </ul>
+</div>

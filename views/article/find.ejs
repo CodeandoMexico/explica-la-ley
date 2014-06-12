@@ -1,3 +1,11 @@
+<div>
+  <ul class="nav-law pull-right">
+    <li><a href="/ley/law/<%= article.law.id %>"><%= article.law.name %></a></li>
+    <li class="divider"></li>
+    <li><a href="/ley/law">Más Leyes</a></li>
+  </ul>
+</div>
+<div class="clearfix"></div>
 <div class="article">
   <h1 class="article-title">Art&iacute;culo <%= article.number %></h1>
   <p class="article-body"><%- article.body %></p>

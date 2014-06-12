@@ -61,7 +61,8 @@ module.exports.policies = {
 
   UserController: {
     '*': false,
-    'login': true
+    'login': true,
+    'logout': true
   }
 };
 
