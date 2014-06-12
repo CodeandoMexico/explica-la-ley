@@ -1,4 +1,11 @@
 <div class="content">
+  <div class="user-actions">
+    <% if (req.session.user) {%>
+      <a href="/ley/logout" class="pull-right">Logout</a>
+    <% } else { %>
+      <a href="/ley/login" class="pull-right">Login</a>
+    <% } %>
+  </div>
   <div class="masthead">
     <h1 class="masthead-title">Explica.la/ley</h1>
     <h3 class="masthead-subtitle">Entiende las implicaciones de las leyes.</h3>
@@ -23,6 +30,7 @@
         <li><%- partial('../law/partials/law', law) %></li>
       <% })%>
     </ul>
+    <a href="/ley/law">Ver todas las leyes</a>
   </div>
 
   <div class="section text-center">

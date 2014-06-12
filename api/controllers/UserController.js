@@ -31,6 +31,11 @@ module.exports = {
         res.json({ error: 'User not found' }, 404);
       }
     });
-  }	
+  },
+
+  logout: function(req, res) {
+    req.session.user = null;
+    return res.redirect('/ley');
+  }
 
 };

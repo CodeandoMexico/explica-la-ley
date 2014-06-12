@@ -40,6 +40,11 @@ module.exports.routes = {
     view: 'login'
   },
 
+  'get /ley/logout': {
+    controller: 'user',
+    action: 'logout'
+  },
+
   // Custom routes here...
 
   'get /ley/article/new': {

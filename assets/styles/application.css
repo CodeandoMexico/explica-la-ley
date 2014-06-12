@@ -58,6 +58,17 @@ ul {
   font-size: 30px;
 }
 
+.user-actions {
+  padding: 10px 20px;
+  background: #631878;
+}
+
+.user-actions a {
+  color: white;
+  font-weight: 200;
+  font-size: 16px;
+}
+
 .content .row h2 {
   text-align: center;
   margin-bottom: 50px;
