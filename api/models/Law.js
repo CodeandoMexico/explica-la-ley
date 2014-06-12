@@ -9,6 +9,7 @@ module.exports = {
 
 	attributes: {
     name: 'STRING',
+    summary: 'STRING',
     articles: {
       collection: 'article',
       via: 'law'

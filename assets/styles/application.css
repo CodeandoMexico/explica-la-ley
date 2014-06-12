@@ -207,6 +207,7 @@ ul.list-boxes {
 
 ul.list-boxes li {
   display: inline-block;
+  vertical-align: top;
 }
 
 ul.list-boxes li div {
