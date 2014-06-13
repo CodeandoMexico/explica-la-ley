@@ -8,7 +8,7 @@
 module.exports = {
 
   index: function(req, res) {
-    Article.find({sort: 'number ASC'}).exec(function(err, articles) {
+    Article.find({sort: 'number ASC', law: req.param('law')}).exec(function(err, articles) {
       if (err) return res.send(500);
       return res.json(articles);
     });

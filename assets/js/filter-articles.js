@@ -27,7 +27,9 @@ $(function() {
   },
 
   loadArticles = function(callback) {
-    $.get('/ley/article', function(articles) {
+    // HACK!!!!!
+    var law = $('#retrieveLawData').data('law');
+    $.get('/ley/article', {law: law}, function(articles) {
       var listElements = '';
       articles.forEach(function(article) {
         listElements += '<li><a href="/ley/article/' + article.id + '">Art&iacute;culo ' + article.number + '</a></li>';
@@ -37,8 +39,15 @@ $(function() {
     });
   },
 
+  // Load the name of the law
+  loadLawName = function() {
+    var lawName = $('#retrieveLawData').data('lawname');
+    $('.law-title').html(lawName);
+  },
+
   init = function() {
     loadArticles(filter);
+    loadLawName();
   };
 
   init();
