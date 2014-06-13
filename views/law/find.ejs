@@ -10,7 +10,7 @@
         <div>
           <h3>Artículo <%= article.number %></h3>
           <hr />
-          <p>Mini resumen de artículo. Mini resumen de artículo. Mini resumen de artículo. Mini resumen de artículo. </p>
+          <%-: article.body | truncate:100 | append:'...'%>
           <% if (article.annotations.length == 1) { %>
             <p><b><%= article.annotations.length %> comentario</b></p>
           <% } else {%>
