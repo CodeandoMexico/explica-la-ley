@@ -10,12 +10,22 @@ module.exports = {
   attributes: {
     name: {
       type: 'STRING',
-      required: true
+      required: true,
+      unique: true
     },
+    slug: 'STRING',
     laws: {
       collection: 'law',
       via: 'tag'
     }
+  },
+
+  // Generate a slug derived from the tag's name
+  beforeCreate: function(attrs, next) {
+    var slug = require('slug');
+
+    attrs.slug = slug(attrs.name).toLowerCase();
+    next();
   }
 };
 
