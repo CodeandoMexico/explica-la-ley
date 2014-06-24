@@ -19,23 +19,15 @@ module.exports = {
   index: function(req, res) {
     var slug = req.param("tag");
     // Filter laws by tag
-    if (typeof slug !== 'undefined') {
-      Tag.findOneBySlug(slug).exec(function(err, tag) {
-        // if tag found use it as filter
-        var filterCriteria = tag ? {tag: tag.id} : {};
-        if (err) return res.send((err, 500));
-        Law.find(filterCriteria).exec(function(err, laws) {
-          if (err) return res.send(err, 500);
-          res.view('law/index', {laws: laws});
-        });
-      });
-    } else {
-      // No tag provided
-      Law.find().exec(function(err, laws) {
+    Tag.findOne({slug: slug}).exec(function(err, tag) {
+      // if tag found use it as filter
+      var filterCriteria = tag ? {tag: tag.id} : {};
+      if (err) return res.send((err, 500));
+      Law.find(filterCriteria).exec(function(err, laws) {
         if (err) return res.send(err, 500);
         res.view('law/index', {laws: laws});
       });
-    }
+    });
   },
 
   find: function(req, res) {
