@@ -13,7 +13,10 @@ module.exports = {
       required: true,
       unique: true
     },
-    slug: 'STRING',
+    slug: {
+      type: 'STRING',
+      unique: true
+    },
     laws: {
       collection: 'law',
       via: 'tag'

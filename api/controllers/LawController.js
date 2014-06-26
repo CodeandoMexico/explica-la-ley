@@ -25,7 +25,10 @@ module.exports = {
       if (err) return res.send((err, 500));
       Law.find(filterCriteria).exec(function(err, laws) {
         if (err) return res.send(err, 500);
-        res.view('law/index', {laws: laws});
+        Tag.find().exec(function(err, tags) {
+          if (err) return res.send(err, 500);
+          res.view('law/index', {laws: laws, tags: tags});
+        });
       });
     });
   },
