@@ -8,5 +8,13 @@
     <label for="summary">Resumen</label>
     <textarea class="form-control" id="summary" name="summary" placeholder="Resumen de la ley, una pequeña descripción" rows="10"></textarea>
   </div>
+  <div class="form-group">
+    <label for="tag">Reforma a la que pertenece:</label>
+    <select name="tag">
+      <% _.each(tags, function(tag) {%>
+        <option value="<%= tag.id %>"><%= tag.name %></option>
+      <% }) %>
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary">Crear</button>
 </form>

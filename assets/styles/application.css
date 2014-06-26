@@ -253,6 +253,14 @@ div.law h1 {
   font-style: normal;
 }
 
+.tags {
+  margin: 20px;
+}
+
+.tags span {
+  margin: 10px;
+}
+
 @media (max-width:767px) {
 
   h3 {

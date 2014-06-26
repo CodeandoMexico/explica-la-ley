@@ -1,5 +1,15 @@
 <div class="law">
   <h1 class="text-centered">Leyes</h1>
+  <div class="tags">
+    <h3>Reformas: </h3>
+    <% _.each(tags, function(tag) {%>
+        <a href="/ley/law?tag=<%= tag.slug %>">
+          <span class="label label-primary">
+              <%= tag.name %>
+          </span>
+        </a>
+    <% }) %>
+  </div>
   <ul class="list-boxes">
     <% _.each(laws, function(law) {%>
       <li><%- partial('partials/law', law) %> </li>

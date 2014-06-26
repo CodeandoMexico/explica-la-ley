@@ -13,6 +13,9 @@ module.exports = {
     articles: {
       collection: 'article',
       via: 'law'
+    },
+    tag: {
+      model: 'tag'
     }
 	}
 

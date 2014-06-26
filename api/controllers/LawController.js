@@ -17,9 +17,19 @@ var descCompareArticles = function(a, b) {
 module.exports = {
 
   index: function(req, res) {
-    Law.find().exec(function(err, laws) {
-      if (err) return res.send(err, 500);
-      res.view('law/index', {laws: laws});
+    var slug = req.param("tag");
+    // Filter laws by tag
+    Tag.findOne({slug: slug}).exec(function(err, tag) {
+      // if tag found use it as filter
+      var filterCriteria = tag ? {tag: tag.id} : {};
+      if (err) return res.send((err, 500));
+      Law.find(filterCriteria).exec(function(err, laws) {
+        if (err) return res.send(err, 500);
+        Tag.find().exec(function(err, tags) {
+          if (err) return res.send(err, 500);
+          res.view('law/index', {laws: laws, tags: tags});
+        });
+      });
     });
   },
 
@@ -38,13 +48,19 @@ module.exports = {
   },
 
   newLaw: function(req, res) {
-    return res.view('law/new');
+    Tag.find({}).exec(function(err, laws) {
+      if (err) return res.send(500, err);
+      return res.view('law/new', {tags: tags});
+    });
   },
 
   edit: function(req, res) {
     Law.findOne(req.param('id')).exec(function(err, law) {
       if (err) return res.send(500, err);
-      return res.view('law/edit', {law: law});
+      Tag.find({}).exec(function(err, tags) {
+        if (err) return res.send(500, err);
+        return res.view('law/edit', {law: law, tags: tags});
+      });
     });
   }
 	
