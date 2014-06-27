@@ -48,7 +48,7 @@ module.exports = {
   },
 
   newLaw: function(req, res) {
-    Tag.find({}).exec(function(err, laws) {
+    Tag.find({}).exec(function(err, tags) {
       if (err) return res.send(500, err);
       return res.view('law/new', {tags: tags});
     });
