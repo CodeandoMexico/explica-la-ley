@@ -1,0 +1,15 @@
+<h3 class="card-title"><%= law.name%></h3>
+<p class='card-description'>
+  <%=: law.summary | truncate:100, ' ...' %>
+</p>
+<div class='card-bottom'>
+  <div class='l-spacer-b'>
+    <span class='card-meta l-spacer-r'>
+      <i class='i-el i-el-message vertical-middle l-icon-spacer-r'></i>27
+    </span>
+    <span class='card-meta'>
+      <i class='i-el i-el-article vertical-middle l-icon-spacer-r'></i>15
+    </span>
+  </div>
+  <a href='/ley/law/<%= law.id %>' class='pure-button el-button el-button-primary'>Ver más</a>
+</div>

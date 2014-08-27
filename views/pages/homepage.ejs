@@ -1,100 +1,51 @@
-<div class="content">
-  <div class="user-actions">
-    <% if (req.session.user) {%>
-      <a href="/ley/logout" class="pull-right">Logout</a>
-    <% } else { %>
-      <a href="/ley/login" class="pull-right">Login</a>
-    <% } %>
-  </div>
-  <div class="masthead">
-    <h1 class="masthead-title">Explica.la/ley</h1>
-    <h3 class="masthead-subtitle">Entiende las implicaciones de las leyes.</h3>
-  </div>
+<div class='home-well text-center l-box'>
+  <h1 class='home-well-title l-no-margin'>
+    <span>Traducimos la ley</span>
+    <span class='home-well-text'>
+      para ciudadanos no familiarizados con la jerga legislativa
+    </span>
+  </h1>
+</div>
 
-  <div class="section text-center">
-    <h2>Explica.la/ley es una propuesta para:</h2>
-    <div class="section-description">
-      <ul class="text-left">
-        <li>Traducir la ley para ciudadanos no familiarizados con la jerga legislativa.</li>
-        <li>Resumir a las secciones más comentadas de una ley.</li>
-        <li>Ver el texto original de la ley, para que puedas sacar tus propias conclusiones.</li>
-      </ul>
-    </div>
-  </div>
-
-
-  <div class="section text-center">
-    <h2>Leyes m&aacute;s discutidas</h2>
-    <ul class="list-boxes">
+<div class='highlight-container l-container'>
+  <section class='highlight-section'>
+    <h2 class="highlight-section-title text-center l-no-margin-t">Leyes más discutidas</h2>
+    <div class="pure-g">
       <% _.each(laws, function(law) { %>
-        <li><%- partial('../law/partials/law', law) %></li>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 card card-w-meta text-center l-box">
+          <%- partial('../modules/_law_card', {law: law}) %>
+        </div>
       <% })%>
-    </ul>
-    <a href="/ley/law">Ver todas las leyes</a>
-  </div>
-
-  <div class="section text-center">
-    <h2>Colaboradores que explican la ley</h2>
-    <ul class="list-boxes collaborators">
-      <li>
-        <div>
-          <h3>Israel Rosas</h3>
-          <hr />
-          <p>Integrante de <a href="https://twitter.com/internetsociety" target="_blank">@internetsociety</a> M&eacute;xico y <a href="https://twitter.com/wikimedia_mx" target="_blank">@Wikimedia_mx</a>. Internet y telecomunicaciones (a t&iacute;tulo personal) en <a href="https://twitter.com/poblanerias" target="_blank">@Poblanerias</a>, <a href="https://twitter.com/fayerwayer" target="_blank">@FayerWayer</a>, <a href="https://twitter.com/ladobemx" target="_blank">@ladobemx</a> y <a href="http://irosasr.mx" target="_blank">irosasr.mx</a></p>
-          <a href="https://twitter.com/irosasr" class="btn btn-purple btn-lg" target="_blank">@irosasr</a>
+    </div>
+  </section>
+  <hr class='highlight-container-separator'>
+  <section class='highlight-section'>
+    <h2 class="highlight-section-title text-center">Colaboradores que explican la ley</h2>
+    <div class="pure-g">
+      <% _.each(members, function(member) { %>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-2 card card-w-image text-center l-box">
+          <%- partial('../modules/_member_card', {member: member}) %>
         </div>
-      </li>
-      <li>
-        <div>
-          <h3>Jes&uacute;s Romo</h3>
-          <hr />
-          <p>Analista independiente de telecomunicaciones, medios y TICs con experiencia en periodismo. Exatec. ITESM (LMI) y EGAP (Maestría en Análisis político y Medios).</p>
-          <a href="https://twitter.com/dackjaniel" class="btn btn-purple btn-lg" target="_blank">@Dackjaniel</a>
-        </div>
-      </li>
-    </ul>
-    <div class="clearfix"></div>
-    <div class="section-description">
-      <p>Si deseas contribuir en las explicaciones de la ley, contáctanos en
-      <a href="mailto:equipo@codeandomexico.org">equipo@codeandomexico.org</a>
+      <% })%>
     </div>
-  </div>
+  </section>
+  <p class='text-center'>
+    Si deseas contribuir en las explicaciones de la ley, contáctanos en:
+    <a href='mailto:equipo@codeandomexico.org'>equipo@codeandomexico.org</a>
+  </p>
+</div>
 
-  <div class="section text-center">
-    <h2>Suscríbete para obtener actualizaciones</h2>
-    <!-- Begin MailChimp Signup Form -->
-    <form action="http://explica.us4.list-manage.com/subscribe/post?u=9999e133ff73ed69bbddc6af9&amp;id=5653afd8c1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-      <div style="position: absolute; left: -5000px;"><input type="text" name="b_9999e133ff73ed69bbddc6af9_5653afd8c1" tabindex="-1" value=""></div>
-      <div class="input-group col-md-6 col-md-offset-3">
-        <input type="email" value="" name="EMAIL" class="form-control input-lg" id="mce-EMAIL" placeholder="Correo Electrónico" required>
-        <span class="input-group-btn">
-          <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-purple btn-lg">
-            <span class="glyphicon glyphicon-envelope"></span>
-          </button>
-        </span>
-      </div>
-    </form>
-    <!--End mc_embed_signup-->
-    <div class="section-description">
-      <p>No te enviaremos spam ni compartiremos tu email con terceros.</p>
+<div class='text-center l-container'>
+  <h2 class='l-no-margin-b'>Suscríbete a nuestras actualizaciones:</h2>
+  <p>(No te enviaremos spam, ni lo compartiremos con terceros</p>
+  <form action="http://explica.us4.list-manage.com/subscribe/post?u=9999e133ff73ed69bbddc6af9&amp;id=5653afd8c1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate pure-form" target="_blank" novalidate>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;">
+      <input type="text" name="b_9999e133ff73ed69bbddc6af9_5653afd8c1" tabindex="-1" value="" aria-hidden='true'>
     </div>
-  </div>
-
-  <div class="section text-center">
-    <h2>Colabora con el Open Source</h2>
-    <div class="section-description">
-      <p>En Codeando México creemos firmemente en el gran valor que provee el Open Source,
-      el código de esta aplicaci&oacute;n est&aacute; disponible para que colabores</p>
-      <a href="https://github.com/CodeandoMexico/cambia-la-ley" id="github-fork" class="btn btn-purple btn-lg" target="_blank">
-        <i class="fa fa-github fa-2x pull-left"></i> Fork us
-      </a>
+    <div class="pure-u-2-3 pure-u-md-1-4">
+      <input type="email" value="" name="EMAIL" class="pure-input-1" id="mce-EMAIL" placeholder="Correo Electrónico" aria-label="Ingresa tu correo electrónico" required >
     </div>
-  </div>
-  <div class="masthead">
-    <h4 class="masthead-subtitle">Creado por:</h4>
-    <a href="http://codeandomexico.org" target="_blank">
-      <img src="/images/cmx-logo-white.png" />
-    </a>
-  </div>
+    <button style='margin-top:0px;' type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"class="pure-button el-button el-button-primary l-no-margin-t" aria-label='Suscribirme'><i class="fa fa-check fa-lg"></i></button>
+  </form>
 </div>
