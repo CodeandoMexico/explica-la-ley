@@ -1,9 +1,23 @@
+.l-main-wrapper {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.l-content-wrapper {
+  margin-bottom: 3.75em;
+}
+
 .l-box {
   padding: 1em;
 }
 
 .l-spacer-b {
   margin-bottom: 1em;
+}
+
+.l-spacer-b-md {
+  margin-bottom: 1.875em;
 }
 
 .l-spacer-r {

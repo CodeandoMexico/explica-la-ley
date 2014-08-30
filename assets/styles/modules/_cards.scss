@@ -44,6 +44,37 @@
     }
   }
 
+  &.card-on-light {
+    color: $text-color-dark;
+
+  }
+
 }
 
+.card-listing {
+
+  .card {
+
+    &:before {
+      border: 2px solid $brand-primary;
+      border-radius: 5px;
+      bottom: 1em;
+      content: '';
+      left: 1em;
+      position: absolute;
+      right: 1em;
+      top: 1em;
+    }
+
+    .card-title {
+      margin-top: 0;
+    }
+
+    .card-bottom {
+      bottom: 2em;
+      position: absolute;
+    }
+  }
+
+}
 

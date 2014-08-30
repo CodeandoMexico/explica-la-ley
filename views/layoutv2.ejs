@@ -20,6 +20,7 @@
 
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/vendor/annotator.min.css">
+    <link rel="stylesheet" href="/styles/vendor/pure-extras.min.css">
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script>
@@ -27,13 +28,29 @@
 
   <body>
 
-    <%- partial('./modules/_navbar') %>
+    <div class='l-main-wrapper'>
 
-    <%- body %>
+      <%- partial('./modules/_navbar') %>
 
-    <%- partial('./modules/_footer') %>
+      <div class='l-content-wrapper'>
+        <%- body %>
+      </div>
+
+      <%- partial('./modules/_footer') %>
+    </div>
 
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/annotator-full.min.js"></script>
+    <script src="/js/dependencies/clamp.min.js"></script>
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/article-annotator.js"></script>
+    <script src="/js/author-annotator-plugin.js"></script>
+    <script src="/js/clamp-text.js"></script>
+    <script src="/js/filter-articles.js"></script>
+    <script src="/js/nav-sidebar.js"></script>
+    <script src="/js/share.min.js"></script>
+    <!--SCRIPTS END-->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

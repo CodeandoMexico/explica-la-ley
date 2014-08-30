@@ -40,6 +40,8 @@ h6 {
 }
 
 footer {
+  display: table-row;
+  height: 1px;
   background-color: $brand-primary;
   color: $footer-text-color;
   line-height: 2em;
