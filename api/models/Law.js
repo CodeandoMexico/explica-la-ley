@@ -8,8 +8,14 @@
 module.exports = {
 
 	attributes: {
-    name: 'STRING',
-    summary: 'STRING',
+    name: {
+      type: 'STRING',
+      required: true
+    },
+    summary: {
+      type: 'STRING',
+      required: true
+    },
     articles: {
       collection: 'article',
       via: 'law'

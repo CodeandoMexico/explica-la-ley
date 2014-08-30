@@ -1,0 +1,5 @@
+exclude: 'assets/styles/vendor/**'
+
+linters:
+  Comment:
+    enabled: false

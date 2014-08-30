@@ -1,0 +1,31 @@
+.el-button {
+  background: none;
+  border: 2px solid;
+  border-radius: 5px;
+
+  &:hover {
+    background-image: none;
+    opacity: .8;
+  }
+}
+
+.el-button-primary {
+  border-color: $brand-primary;
+  color: $brand-primary;
+}
+
+/* Button with an icon position in the bottom left
+ * just like the github button in the footer. */
+.el-button-ic {
+  border-color: $link-hover-color;
+  color: $link-hover-color;
+  padding: .5em 2.7em .5em 1em;
+  position: relative;
+
+  i {
+    bottom: -.15em;
+    position: absolute;
+    right: .2em;
+  }
+
+}
