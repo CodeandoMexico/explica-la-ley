@@ -1,27 +1,24 @@
 <div class="law">
-  <h1><%= law.name %></h1>
-  <p>
-    <%= law.summary %>
-  </p>
-  <h2>Artículos más discutidos</h2>
-  <ul class="list-boxes">
+  <header class='text-center header l-box'>
+    <h1 class="l-no-margin-b header-title"><%= law.name %></h1>
+    <h2 class='header-subtitle'><%= law.summary %></h2>
+  </header>
+
+  <form action="#" method="GET" class="pure-form pure-g l-box" role="form">
+    <div class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 center-block input-group'>
+      <input type="text" id="filter" class="pure-input-1 input-w-icon" placeholder="Buscar artículo" />
+      <i class='fa fa-search'></i>
+    </div>
+  </form>
+
+  <h3 class='text-center l-box l-no-margin'>Artículos más discutidos</h3>
+  <ul class="pure-g empty-ul card-listing">
     <% _.each( law.articles, function(article) { %>
-      <li>
-        <div>
-          <h3>Artículo <%= article.number %></h3>
-          <hr />
-          <%-: article.body | truncate:100 | append:'...'%>
-          <% if (article.annotations.length == 1) { %>
-            <p><b><%= article.annotations.length %> comentario</b></p>
-          <% } else {%>
-            <p><b><%= article.annotations.length %> comentarios</b></p>
-          <% } %>
-          <a href="/ley/article/<%= article.id %>" class="btn btn-purple btn-lg">Ver más</a>
-        </div>
+      <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
+        <article class='l-box'>
+          <%- partial('../modules/_article_card', { article: article }) %>
+        </article>
       </li>
-    <% }) %>
+    <% })%>
   </ul>
 </div>
-<!-- HACK: Use this div everytime we want our script to know which
-     articles to retrieve for the search function -->
-<div id="retrieveLawData" class="hidden" data-law="<%= law.id %>" data-lawname="<%= law.name %>"></div>

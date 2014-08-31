@@ -27,6 +27,7 @@ module.exports = {
         if (err) return res.send(err, 500);
         Tag.find().exec(function(err, tags) {
           if (err) return res.send(err, 500);
+          res.locals.layout = 'layoutv2';
           res.view('law/index', {laws: laws, tags: tags});
         });
       });
@@ -42,6 +43,7 @@ module.exports = {
         // Sort articles by ammount of annotations on DESC order
         // Use only the top six articles
         law.articles = articles.sort(descCompareArticles).slice(0, 6);
+        res.locals.layout = 'layoutv2';
         return res.view('law/find', {law: law});
       });
     });

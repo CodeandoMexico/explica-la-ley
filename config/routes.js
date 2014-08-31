@@ -67,6 +67,11 @@ module.exports.routes = {
     action: 'edit'
   },
 
+  'get /ley/law/:id': {
+    controller: 'law',
+    action: 'find'
+  },
+
   '/storage': {
     controller: 'storage',
     action: 'index'
