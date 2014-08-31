@@ -1,18 +1,24 @@
 <div class="law">
-  <h1 class="text-centered">Leyes</h1>
-  <div class="tags">
+  <header class='text-center header l-box'>
+    <h1 class="l-no-margin-b header-title">Leyes</h1>
+  </header>
+  <div class='l-box'>
     <h3>Reformas: </h3>
     <% _.each(tags, function(tag) {%>
         <a href="/ley/law?tag=<%= tag.slug %>">
-          <span class="label label-primary">
+          <span class="pure-badge">
               <%= tag.name %>
           </span>
         </a>
     <% }) %>
   </div>
-  <ul class="list-boxes">
+  <ul class="pure-g empty-ul card-listing">
     <% _.each(laws, function(law) {%>
-      <li><%- partial('partials/law', law) %> </li>
+      <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
+        <article class='l-box'>
+          <%- partial('../modules/_law_card', { law: law }) %>
+        </article>
+      </li>
     <% })%>
   </ul>
 </div>

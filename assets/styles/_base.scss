@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+button,
+input,
+select,
+textarea,
+.pure-g [class *= "pure-u"] {
+  font-family: $font-family-base;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+p {
+  color: $text-color-dark;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $brand-primary;
+}
+
+footer {
+  display: table-row;
+  height: 1px;
+  background-color: $brand-primary;
+  color: $footer-text-color;
+  line-height: 2em;
+  margin-top: 2em;
+  text-align: center;
+
+  .footer-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin: 0 .5em;
+    }
+  }
+
+  a {
+    color: $footer-link-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $footer-link-hover-color;
+    }
+
+    &.codeando-mexico {
+      img {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  @media screen and (min-width: $break-lg) {
+    line-height: 2.5em;
+
+    .first-col {
+      text-align: left;
+    }
+
+    .last-col {
+      text-align: right;
+    }
+
+    li:first-child {
+      margin-left: 0;
+    }
+  }
+
+  @media screen
+  and (min-device-width : $break-md)
+  and (max-device-width : $break-lg)
+  and (orientation : landscape) {
+
+    .first-col {
+      text-align: center;
+    }
+
+    .last-col {
+      text-align: center;
+    }
+
+  }
+
+}

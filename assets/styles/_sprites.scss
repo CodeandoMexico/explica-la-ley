@@ -1,0 +1,17 @@
+.i-el {
+  background: url('../../images/icons-sprite.png') no-repeat;
+  display: inline-block;
+
+  &.i-el-message {
+    background-position: 0 0;
+    height: 18px;
+    width: 21px;
+  }
+
+  &.i-el-article {
+    background-position: -57px 0;
+    height: 14px;
+    width: 27px;
+  }
+
+}

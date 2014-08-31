@@ -37,7 +37,8 @@ module.exports.routes = {
   },
 
   '/ley/login': {
-    view: 'login'
+    controller: 'session',
+    action: 'new'
   },
 
   'get /ley/logout': {
@@ -65,6 +66,11 @@ module.exports.routes = {
   'get /ley/law/edit/:id': {
     controller: 'law',
     action: 'edit'
+  },
+
+  'get /ley/law/:id': {
+    controller: 'law',
+    action: 'find'
   },
 
   '/storage': {

@@ -1,0 +1,17 @@
+.pure-form {
+  .input-group {
+    display: inline-block;
+    position: relative;
+
+    i {
+      color: $gray-light;
+      position: absolute;
+      right: .6em;
+      top: .6em;
+    }
+
+    .input-w-icon {
+      padding-right: 1.8em;
+    }
+  }
+}
