@@ -1,0 +1,65 @@
+.pure-menu {
+  @media screen and (min-width: 48em) {
+    &.pure-menu-horizontal > ul {
+      float: right;
+    }
+  }
+}
+
+.el-skin {
+  &.pure-menu {
+
+    border: 0;
+    padding: 1em;
+    width: auto;
+
+    .pure-menu-heading {
+      display: inline-block;
+      padding: 0;
+      width: 10em;
+
+      @media screen and (min-width: 35.5em) {
+        width: 13em;
+      }
+    }
+
+    &.pure-menu-open,
+    &.pure-menu-horizontal li,
+    .pure-menu-children {
+      background: $brand-secondary;
+      border-color: darken($brand-secondary, 15%);
+    }
+
+    li a {
+      border: 0;
+      color: $white;
+      font-size: .8em;
+
+      &:hover,
+      &:focus {
+        background: none;
+        color: $gray-lighter;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      @media screen and (min-width: 35.5em) {
+        font-size: .9em;
+      }
+    }
+
+    &.pure-menu-horizontal > ul {
+      float: right;
+      height: 1.6em;
+      line-height: 1.6em;
+
+      @media screen and (min-width: 35.5em) {
+        height: 2.5em;
+        line-height: 2.5em;
+      }
+    }
+  }
+}
+
