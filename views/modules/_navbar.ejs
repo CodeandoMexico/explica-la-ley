@@ -5,7 +5,7 @@
     </a>
     <ul>
       <% if (req.session.user) {%>
-        <li><a href="/ley/logout">Logout</a></li>
+        <li><a href="/ley/logout">Logout (<%= req.session.user.twitterScreenName %>)</a></li>
       <% } else { %>
         <li><a href="/ley/login">Iniciar Sesión</a></li>
       <% } %>

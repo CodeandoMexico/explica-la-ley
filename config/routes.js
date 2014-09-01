@@ -37,8 +37,8 @@ module.exports.routes = {
   },
 
   '/ley/login': {
-    controller: 'session',
-    action: 'new'
+    controller: 'user',
+    action: 'login'
   },
 
   'get /ley/logout': {
