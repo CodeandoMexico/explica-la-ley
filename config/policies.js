@@ -62,6 +62,7 @@ module.exports.policies = {
   UserController: {
     '*': false,
     'login': true,
+    'twitterAuthCallback': true,
     'logout': true
   }
 };
