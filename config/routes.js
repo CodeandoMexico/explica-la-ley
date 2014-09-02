@@ -48,6 +48,11 @@ module.exports.routes = {
 
   // Custom routes here...
 
+  '/ley/article/:id': {
+    controller: 'article',
+    action: 'find'
+  },
+
   'get /ley/article/new': {
     controller: 'article',
     action: 'newArticle'
