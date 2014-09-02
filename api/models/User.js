@@ -10,12 +10,18 @@ module.exports = {
   attributes: {
     twitterId: {
       type: 'STRING',
-      primaryKey: true,
       required: true
     },
     twitterScreenName: {
       type: 'STRING',
       required: true,
+    },
+    name: {
+      type: 'STRING',
+      required: true
+    },
+    email: {
+      type: 'EMAIL',
     },
     annotations: {
       collection: 'annotation',

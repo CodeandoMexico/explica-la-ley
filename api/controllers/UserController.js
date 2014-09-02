@@ -64,7 +64,8 @@ module.exports = {
                   // First time I see this twitter user.
                   User.create({
                     twitterId: data.id,
-                    twitterScreenName: data.screen_name
+                    twitterScreenName: data.screen_name,
+                    name: data.name
                   }).exec(function(err, user) {
                     if (err) {
                       console.log('Error creating user:', err);
