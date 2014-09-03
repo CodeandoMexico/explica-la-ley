@@ -65,16 +65,19 @@ module.exports = {
                   User.create({
                     twitterId: data.id,
                     twitterScreenName: data.screen_name,
-                    name: data.name
+                    twitterName: data.name
                   }).exec(function(err, user) {
                     if (err) {
                       console.log('Error creating user:', err);
                       req.session.user = null;
                       req.session.oauth = null;
                       return res.redirect('/');
+                    } else {
+                      req.session.user.id = user.id;
                     }
                   });
                 } else {
+                  req.session.user.id = user.id;
                   if (user.twitterScreenName != data.screen_name) {
                     // This user changed twitter screen name since the last visit.
                     // Update that info.
