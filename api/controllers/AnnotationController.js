@@ -25,7 +25,7 @@ module.exports = {
       var user_public_data = {
         id: user.id,
         twitterId: user.twitterId,
-        name: user.name,
+        twitterName: user.twitterName,
         twitterScreenName: user.twitterScreenName
       };
       Annotation.create({
