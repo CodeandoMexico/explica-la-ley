@@ -13,7 +13,7 @@ Annotator.Plugin.Author = function (element) {
     pluginInit = function() {
       this.annotator.subscribe('annotationViewerTextField', function(field, annotation) {
         if (typeof annotation.user !== 'undefined') {
-          $(field).html(twitterAnchorTag(annotation.user.twitterScreenName, annotation.user.twitterName) + ': ' + annotation.text);
+          $(field).html(twitterAnchorTag(annotation.user.twitterScreenName, annotation.user.name) + ': ' + annotation.text);
         }
       });
   };
