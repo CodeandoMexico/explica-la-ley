@@ -16,7 +16,7 @@ module.exports = {
       type: 'STRING',
       required: true,
     },
-    name: {
+    twitterName: {
       type: 'STRING',
       required: true
     },
