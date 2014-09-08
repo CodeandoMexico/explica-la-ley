@@ -101,8 +101,17 @@ module.exports.routes = {
   'delete /storage/annotation/:id': {
     controller: 'annotation',
     action: 'destroy'
-  }
+  },
 
+  'post /annotation/:id/voteup': {
+    controller: 'annotation',
+    action: 'voteup'
+  },
+
+  'post /annotation/:id/votedown': {
+    controller: 'annotation',
+    action: 'votedown'
+  },
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options
