@@ -52,6 +52,7 @@ module.exports = {
   newLaw: function(req, res) {
     Tag.find({}).exec(function(err, tags) {
       if (err) return res.send(500, err);
+      res.locals.layout = 'layoutv2';
       return res.view('law/new', {tags: tags});
     });
   },
@@ -61,6 +62,7 @@ module.exports = {
       if (err) return res.send(500, err);
       Tag.find({}).exec(function(err, tags) {
         if (err) return res.send(500, err);
+        res.locals.layout = 'layoutv2';
         return res.view('law/edit', {law: law, tags: tags});
       });
     });

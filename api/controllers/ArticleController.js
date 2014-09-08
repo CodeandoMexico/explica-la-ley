@@ -19,6 +19,7 @@ module.exports = {
       if (err) {
         return res.send(500);
       }
+      res.locals.layout = 'layoutv2';
       return res.view('article/find', {article: article});
     });
   },
@@ -26,6 +27,7 @@ module.exports = {
   newArticle: function(req, res) {
     Law.find({}).exec(function(err, laws) {
       if (err) return res.send(500, err);
+      res.locals.layout = 'layoutv2';
       return res.view('article/new', {laws: laws});
     });
   },
@@ -35,6 +37,7 @@ module.exports = {
       if (err) return res.send(500, err);
       Law.find({}).exec(function(err, laws) {
         if (err) return res.send(500, err);
+        res.locals.layout = 'layoutv2';
         return res.view('article/edit', {article: article, laws: laws});
       });
     });
