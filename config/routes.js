@@ -47,15 +47,16 @@ module.exports.routes = {
   },
 
   // Custom routes here...
-
-  '/ley/article/:id': {
-    controller: 'article',
-    action: 'find'
-  },
+  // XXX: Order matters!
 
   'get /ley/article/new': {
     controller: 'article',
     action: 'newArticle'
+  },
+
+  '/ley/article/:id': {
+    controller: 'article',
+    action: 'find'
   },
 
   'get /ley/article/edit/:id': {
