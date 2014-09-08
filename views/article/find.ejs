@@ -11,8 +11,8 @@
   <p class="article-body"><%- article.body %></p>
 </div>
 <div id="retrieveLawData" class="hidden" data-law="<%= article.law.id %>" data-lawname="<%= article.law.name %>"></div>
-
 <% // Since JS files cannot read server-side variables, use these DIVs as info containers to verify some user data for GUI-related stuff. %>
 <div id="sessionUserTwitterName" class="hidden"><%= req.session.user ? req.session.user.twitterName : ''  %></div>
 <div id="sessionUserTwitterScreenName" class="hidden"><%= req.session.user ? req.session.user.twitterScreenName : '' %></div>
 <div id="sessionUserId" class="hidden"><%= req.session.user ? req.session.user.id : '' %></div>
+<div class="hidden"><img src="/images/loader.gif" width="12" heihgt="12"/></div>

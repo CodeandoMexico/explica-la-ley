@@ -7,7 +7,7 @@
 
 module.exports = {
 
-	attributes: {
+  attributes: {
     number: 'INTEGER',
     body: 'STRING',
     law: {
@@ -17,7 +17,7 @@ module.exports = {
       collection: 'annotation',
       via: 'article'
     }
-	},
+  },
 
   beforeCreate: function(attrs, next) {
     var marked = require('marked');

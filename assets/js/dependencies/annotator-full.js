@@ -1038,6 +1038,15 @@
                 }
             }(this);
             clone = annotations.slice();
+
+            // Start hack.
+            // Hack used to display current (and after-ajax) vote scores.
+            localAnnotationStore = {};
+            for (i in annotations) {
+              localAnnotationStore[annotations[i].id] = annotations[i];
+            }
+            // End hack.
+
             loader(annotations);
             return this
         };
@@ -2043,6 +2052,12 @@
                 this.registerAnnotation(annotation);
                 return this._apiRequest("create", annotation, function(_this) {
                     return function(data) {
+                        // Start hack.
+                        // Hack that tells the GUI not to display the vote up/down buttons.
+                        data.user = {
+                          id: document.getElementById('sessionUserId').innerHTML,
+                        };
+                        // End hack.
                         if (data.id == null) {
                             console.warn(Annotator._t("Warning: No ID returned from server for annotation "), annotation)
                         }
@@ -2119,6 +2134,7 @@
             if (data == null) {
                 data = {}
             }
+            currentUserVotes = data.votes; // Hack, issue #78.
             return this._onLoadAnnotations(data.rows || [])
         };
         Store.prototype.dumpAnnotations = function() {

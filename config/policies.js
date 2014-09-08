@@ -40,7 +40,9 @@ module.exports.policies = {
     'index': true,
     'create': 'currentUser',
     'update': 'currentUser',
-    'destroy': 'currentUser'
+    'destroy': 'currentUser',
+    'votedown': 'currentUser',
+    'voteup': 'currentUser',
   },
 
   ArticleController: {
@@ -63,7 +65,7 @@ module.exports.policies = {
     '*': false,
     'login': true,
     'twitterAuthCallback': true,
-    'logout': true
+    'logout': true,
   }
 };
 
