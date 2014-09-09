@@ -78,6 +78,7 @@ module.exports = {
                   });
                 } else {
                   req.session.user.id = user.id;
+                  req.session.user.email = user.email;
                   if (user.twitterScreenName != data.screen_name) {
                     // This user changed twitter screen name since the last visit.
                     // Update that info.
@@ -110,5 +111,41 @@ module.exports = {
     req.session.user = null;
     return res.redirect('/ley');
   },
+
+  profile: function(req, res) {
+    res.locals.layout = 'layoutv2';
+    return res.view();
+  },
+
+  saveEmail: function(req, res) {
+    User.update({
+      id: req.session.user.id
+    }, {
+      email: req.param('email')
+    }).exec(function(err, user) {
+      if (err) {
+        console.log('Error saving email:', err);
+      } else {
+        req.session.user.email = req.param('email');
+      }
+      return res.redirect('/ley/user');
+    });
+  },
+
+  forgetEmail: function(req, res) {
+    User.update({
+      id: req.session.user.id
+    }, {
+      email: ''
+    }).exec(function(err, user) {
+      if (err) {
+        console.log('Error forgetting email:', err);
+      } else {
+        req.session.user.email = '';
+      }
+      return res.redirect('/ley/user');
+    });
+
+  }
 
 };

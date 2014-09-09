@@ -66,6 +66,9 @@ module.exports.policies = {
     'login': true,
     'twitterAuthCallback': true,
     'logout': true,
+    'profile': 'currentUser',
+    'saveEmail': 'currentUser',
+    'forgetEmail': 'currentUser',
   }
 };
 
