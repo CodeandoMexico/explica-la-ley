@@ -1,7 +1,7 @@
 var AjaxButtonManager = {
   html: {
     basic: {
-      loaderImg: '<img src="/images/loader.gif" width="12" heihgt="12"/>',
+      loaderImg: '<img src="/images/loader.gif" width="12" height="12"/>',
       edit: '<button title="Edit" class="annotator-edit">Edit</button>',
       del: '<button title="Delete" class="annotator-delete">Delete</button>',
       score: function(annotationId, score) {
@@ -12,13 +12,13 @@ var AjaxButtonManager = {
       unvoted: {
         voteup: function(annotationId) {
           var s  = '<span id="vote-up-btn-' + annotationId + '">';
-              s += '  <i title="+1" class="glyphicon glyphicon-chevron-up vote-btn-unvoted" onclick="showYouMustLoginFirst();"></i>';
+              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-unvoted" onclick="showYouMustLoginFirst();"></i>';
               s += '</span>';
           return s;
         },
         votedown: function(annotationId) {
           var s  = '<span id="vote-down-btn-' + annotationId + '">';
-              s += '  <i title="-1" class="glyphicon glyphicon-chevron-down vote-btn-unvoted" onclick="showYouMustLoginFirst();"></i>';
+              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-unvoted" onclick="showYouMustLoginFirst();"></i>';
               s += '</span>';
           return s;
         },
@@ -28,13 +28,13 @@ var AjaxButtonManager = {
       unvoted: {
         voteup: function(annotationId) {
           var s  = '<span id="vote-up-btn-' + annotationId + '">';
-              s += '  <i title="+1" class="glyphicon glyphicon-chevron-up vote-btn-unvoted" onclick="ajaxVote(' + annotationId + ', \'up\');"></i>';
+              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-unvoted" onclick="ajaxVote(' + annotationId + ', \'up\');"></i>';
               s += '</span>';
           return s;
         },
         votedown: function(annotationId) {
           var s  = '<span id="vote-down-btn-' + annotationId + '">';
-              s += '  <i title="-1" class="glyphicon glyphicon-chevron-down vote-btn-unvoted" onclick="ajaxVote(' + annotationId + ', \'down\');"></i>';
+              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-unvoted" onclick="ajaxVote(' + annotationId + ', \'down\');"></i>';
               s += '</span>';
           return s;
         },
@@ -42,13 +42,13 @@ var AjaxButtonManager = {
       voted: {
         voteup: function(annotationId) {
           var s  = '<span id="vote-up-btn-' + annotationId + '">';
-              s += '  <i title="+1" class="glyphicon glyphicon-chevron-up vote-btn-voted"></i>';
+              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-voted"></i>';
               s += '</span>';
           return s;
         },
         votedown: function(annotationId) {
           var s  = '<span id="vote-down-btn-' + annotationId + '">';
-              s += '  <i title="-1" class="glyphicon glyphicon-chevron-down vote-btn-voted"></i>';
+              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-voted"></i>';
               s += '</span>';
           return s;
         }

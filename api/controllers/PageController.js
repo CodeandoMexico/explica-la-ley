@@ -19,7 +19,7 @@ module.exports = {
       .populate('articles')
       .exec(function(err, laws) {
         Law.getAnnotationCount(laws, function(annotationCounters) {
-          res.locals.layout = 'layoutv2';
+          res.locals.layout = 'layoutv2-full-width';
           res.view('pages/homepage', {
             laws: laws,
             members: members,
