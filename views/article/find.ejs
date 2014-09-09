@@ -1,18 +1,28 @@
-<div>
-  <ul class="nav-law pull-right">
-    <li><a href="/ley/law/<%= article.law.id %>"><%= article.law.name %></a></li>
-    <li class="divider"></li>
-    <li><a href="/ley/law">Más Leyes</a></li>
+<div class="l-box article l-spacer-b">
+  <h1 class="article-title">Art&iacute;culo <%= article.number %></h1>
+
+  <p class='article-body'>
+    <%- article.body %>
+  </p>
+
+</div>
+
+<div class='pure-g l-box'>
+  <ul class="empty-ul footer-nav pure-u-1 text-center">
+    <li>
+      <a href="/ley/law/<%= article.law.id %>">Volver a <%= article.law.name %></a>
+      </li><li>
+      <a href="/ley/law">Ver más leyes</a>
+    </li>
   </ul>
 </div>
-<div class="clearfix"></div>
-<div class="article">
-  <h1 class="article-title">Art&iacute;culo <%= article.number %></h1>
-  <p class="article-body"><%- article.body %></p>
+
+
+<div hidden="hidden">
+  <div id="retrieveLawData" data-law="<%= article.law.id %>" data-lawname="<%= article.law.name %>"></div>
+  <% // Since JS files cannot read server-side variables, use these DIVs as info containers to verify some user data for GUI-related stuff. %>
+  <div id="sessionUserTwitterName"><%= req.session.user ? req.session.user.twitterName : ''  %></div>
+  <div id="sessionUserTwitterScreenName"><%= req.session.user ? req.session.user.twitterScreenName : '' %></div>
+  <div id="sessionUserId"><%= req.session.user ? req.session.user.id : '' %></div>
+  <div><img src="/images/loader.gif" width="12" height="12" alt="Loader"/></div>
 </div>
-<div id="retrieveLawData" class="hidden" data-law="<%= article.law.id %>" data-lawname="<%= article.law.name %>"></div>
-<% // Since JS files cannot read server-side variables, use these DIVs as info containers to verify some user data for GUI-related stuff. %>
-<div id="sessionUserTwitterName" class="hidden"><%= req.session.user ? req.session.user.twitterName : ''  %></div>
-<div id="sessionUserTwitterScreenName" class="hidden"><%= req.session.user ? req.session.user.twitterScreenName : '' %></div>
-<div id="sessionUserId" class="hidden"><%= req.session.user ? req.session.user.id : '' %></div>
-<div class="hidden"><img src="/images/loader.gif" width="12" heihgt="12"/></div>

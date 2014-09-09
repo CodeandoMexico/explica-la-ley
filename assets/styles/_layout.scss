@@ -5,7 +5,21 @@
 }
 
 .l-content-wrapper {
-  margin-bottom: 3.75em;
+  margin: 0 auto 3.75em;
+}
+
+.l-content-wrapper-constrained {
+  @media screen and (min-width: 48em) {
+    width: 48em;
+  }
+
+  @media screen and (min-width: 64em) {
+    width: 64em;
+  }
+
+  @media screen and (min-width: 80em) {
+    width: 80em;
+  }
 }
 
 .l-box {
