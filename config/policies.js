@@ -50,7 +50,7 @@ module.exports.policies = {
     'find': true,
     'create': 'currentUser',
     'update': 'currentUser',
-    'destroy': 'currentUser'
+    'destroy': 'currentUser',
   },
 
   LawController: {
