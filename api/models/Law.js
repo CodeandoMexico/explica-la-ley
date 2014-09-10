@@ -33,7 +33,7 @@ module.exports = {
   * each law has. The law's ID is the key, the annotation count is the value.
   */
   getAnnotationCount: function(laws, next) {
-    if (laws.length == 0) next({});
+    if (typeof laws === 'undefined' || laws == null || !laws || laws.length == 0) next({});
     var annotationCounters = {};
     var l = 0; // Holds the number of processed laws.
     for (i in laws) {
