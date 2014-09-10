@@ -74,6 +74,7 @@ module.exports = {
                       return res.redirect('/');
                     } else {
                       req.session.user.id = user.id;
+                      return res.redirect('/');
                     }
                   });
                 } else {
