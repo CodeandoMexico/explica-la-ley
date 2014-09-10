@@ -15,7 +15,7 @@ module.exports = {
     // TODO: sort the laws by more annotations
     User.showcaseMembers(function(members) {
       Law.find()
-      .limit(4)
+      .limit(2)
       .populate('articles')
       .exec(function(err, laws) {
         Law.getAnnotationCount(laws, function(annotationCounters) {
