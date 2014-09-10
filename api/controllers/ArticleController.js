@@ -66,4 +66,34 @@ module.exports = {
     });
   },
 
+  search: function(req, res) {
+    Law.findOne({id: req.param('law')})
+    .exec(function(err, law) {
+      if (err) {
+        console.log('Error al buscar ley:', err);
+        res.send(500);
+      }
+      if (typeof law === 'undefined') {
+        return res.redirect('/');
+      }
+      Article.find({
+        sort: 'number ASC',
+        law: req.param('law')
+      })
+      .where({
+        'body': {contains: req.param('text')},
+      })
+      .populate('annotations')
+      .exec(function(err, articles) {
+        if (err) {
+          console.log('Error al buscar articulos:', err);
+          res.send(500);
+        }
+        law.articles = articles;
+        res.locals.layout = 'layoutv2';
+        return res.view('law/find', {law: law, searchTerm: req.param('text')})
+      });
+    });
+  },
+
 };

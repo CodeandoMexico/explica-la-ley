@@ -59,6 +59,11 @@ module.exports.routes = {
     action: 'create'
   },
 
+  'post /ley/article/search': {
+    controller: 'article',
+    action: 'search'
+  },
+
   '/ley/article/:id': {
     controller: 'article',
     action: 'find'
