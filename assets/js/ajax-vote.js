@@ -12,13 +12,13 @@ var AjaxButtonManager = {
       unvoted: {
         voteup: function(annotationId) {
           var s  = '<span id="vote-up-btn-' + annotationId + '">';
-              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-unvoted" onclick="showYouMustLoginFirst();"></i>';
+              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-unvoted" onclick="Annotator.showNotification(\'Inicia sesión antes de votar\', Annotator.Notification.ERROR);"></i>';
               s += '</span>';
           return s;
         },
         votedown: function(annotationId) {
           var s  = '<span id="vote-down-btn-' + annotationId + '">';
-              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-unvoted" onclick="showYouMustLoginFirst();"></i>';
+              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-unvoted" onclick="Annotator.showNotification(\'Inicia sesión antes de votar\', Annotator.Notification.ERROR);"></i>';
               s += '</span>';
           return s;
         },

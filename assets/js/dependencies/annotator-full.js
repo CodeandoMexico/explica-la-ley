@@ -853,7 +853,7 @@
             this.editor = new Annotator.Editor;
             this.editor.hide().on("hide", this.onEditorHide).on("save", this.onEditorSubmit).addField({
                 type: "textarea",
-                label: _t("Comments") + "â€¦",
+                label: _t("Comentarios") + "...",
                 load: function(field, annotation) {
                     return $(field).find("textarea").val(annotation.text || "")
                 },
@@ -1381,7 +1381,7 @@
             hide: "annotator-hide",
             focus: "annotator-focus"
         };
-        Editor.prototype.html = '<div class="annotator-outer annotator-editor">\n  <form class="annotator-widget">\n    <ul class="annotator-listing"></ul>\n    <div class="annotator-controls">\n      <a href="#cancel" class="annotator-cancel">' + _t("Cancel") + '</a>\n<a href="#save" class="annotator-save annotator-focus">' + _t("Save") + "</a>\n    </div>\n  </form>\n</div>";
+        Editor.prototype.html = '<div class="annotator-outer annotator-editor">\n  <form class="annotator-widget">\n    <ul class="annotator-listing"></ul>\n    <div class="annotator-controls">\n      <a href="#cancel" class="annotator-cancel">' + _t("Cancelar") + '</a>\n<a href="#save" class="annotator-save annotator-focus">' + _t("Guardar") + "</a>\n    </div>\n  </form>\n</div>";
         Editor.prototype.options = {};
 
         function Editor(options) {
@@ -1784,7 +1784,7 @@
             return Unsupported.__super__.constructor.apply(this, arguments)
         }
         Unsupported.prototype.options = {
-            message: Annotator._t("Sorry your current browser does not support the Annotator")
+            message: Annotator._t("Lo sentimos, no podemos guardar tus comentarios ya que tu navegador web no es compatible.")
         };
         Unsupported.prototype.pluginInit = function() {
             if (!Annotator.supported()) {
@@ -2228,21 +2228,25 @@
         Store.prototype._onError = function(xhr) {
             var action, message;
             action = xhr._action;
-            message = Annotator._t("Sorry we could not ") + action + Annotator._t(" this annotation");
+            if (action === 'create') {
+              message = Annotator._t("Lo sentimos, no pudimos crear este comentario. ¿Ya iniciaste sesión?");
+            } else {
+              message = Annotator._t("Lo sentimos, no pudimos hacer '") + action + Annotator._t("' sobre este comentario");
+            }
             if (xhr._action === "search") {
-                message = Annotator._t("Sorry we could not search the store for annotations")
+                message = Annotator._t("Lo sentimos, no pudimos encontrar los otros comentarios en la base de datos")
             } else if (xhr._action === "read" && !xhr._id) {
-                message = Annotator._t("Sorry we could not ") + action + Annotator._t(" the annotations from the store")
+                message = Annotator._t("Lo sentimos, no pudimos hacer '") + action + Annotator._t("' sobre las anotaciones en la base de datos")
             }
             switch (xhr.status) {
                 case 401:
-                    message = Annotator._t("Sorry you are not allowed to ") + action + Annotator._t(" this annotation");
+                    message = Annotator._t("Lo sentimos, no tienes derecho de hacer '") + action + Annotator._t("' sobre este comentario");
                     break;
                 case 404:
-                    message = Annotator._t("Sorry we could not connect to the annotations store");
+                    message = Annotator._t("Lo sentimos, no pudimos conectarnos al repositorio de comentarios");
                     break;
                 case 500:
-                    message = Annotator._t("Sorry something went wrong with the annotation store")
+                    message = Annotator._t("Lo sentimos, algo malo sucede con el repositorio de comentarios")
             }
             Annotator.showNotification(message, Annotator.Notification.ERROR);
             return console.error(Annotator._t("API request failed:") + (" '" + xhr.status + "'"))
