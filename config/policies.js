@@ -48,7 +48,7 @@ module.exports.policies = {
   ArticleController: {
     'index': true,
     'find': true,
-    'create': 'currentUser',
+    'create': true,
     'update': 'currentUser',
     'destroy': 'currentUser',
   },
