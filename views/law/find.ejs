@@ -2,6 +2,9 @@
   <header class='text-center header l-box'>
     <h1 class="l-no-margin-b header-title"><%= law.name %></h1>
     <h2 class='header-subtitle'><%= law.summary %></h2>
+    <% if (law.id == 1 || law.id == 2) { %>
+      <h3 class='header-subtitle'><a href="https://docs.google.com/document/d/1rqW6xcs0sSp5zXjIDapK2Cbhjjjysk5qV_0n5fLKynQ/edit?usp=sharing">Antecedentes de Ley</a></h3>
+    <% } %>
   </header>
 
   <form action="/ley/article/search" method="POST" class="pure-form pure-g l-box" role="form">
