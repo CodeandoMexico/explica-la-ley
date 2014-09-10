@@ -43,4 +43,27 @@ module.exports = {
     });
   },
 	
+  create: function(req, res) {
+    Law.findOne({id: req.param('law')})
+    .populate('articles')
+    .exec(function(err, law) {
+      if (err) {
+        console.log('Error al encontar ley:', err);
+        return res.send(500, err);
+      }
+      if (!law) return res.send(500, 'Error: Ley escogida no existe');
+      Article.create({
+        law: req.param('law'),
+        number: req.param('number'),
+        body: req.param('body')
+      }).exec(function(err, article) {
+        if (err) {
+          console.log('Error al crear articulo:', err);
+          return res.send(500, err);
+        }
+        return res.redirect('/ley/article/new');
+      });
+    });
+  },
+
 };

@@ -38,11 +38,13 @@ module.exports = {
     var lawId = req.param("id");
     Law.findOne(lawId).exec(function(err, law) {
       if (err) return res.send(err, 500);
-      Article.find({law: lawId}).populate('annotations').exec(function(err, articles) {
+      Article.find({sort: 'number ASC', law: lawId}).populate('annotations').exec(function(err, articles) {
         if (err) return res.send(err, 500);
         // Sort articles by ammount of annotations on DESC order
         // Use only the top six articles
-        law.articles = articles.sort(descCompareArticles).slice(0, 6);
+        // law.articles = articles.sort(descCompareArticles).slice(0, 6);
+        // law.articles = articles.sort(descCompareArticles);
+        law.articles = articles;
         res.locals.layout = 'layoutv2';
         return res.view('law/find', {law: law});
       });
@@ -66,6 +68,20 @@ module.exports = {
         return res.view('law/edit', {law: law, tags: tags});
       });
     });
-  }
+  },
+
+  create: function(req, res) {
+    Law.create({
+      name: req.param('name'),
+      summary: req.param('summary'),
+      tag: req.param('tag')
+    }).exec(function(err, law) {
+      if (err) {
+        console.log('Error al crear ley:', err);
+        return res.send(500);
+      }
+      return res.redirect('/ley/law/new');
+    });
+  },
 	
 };
