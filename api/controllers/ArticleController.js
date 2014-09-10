@@ -73,6 +73,9 @@ module.exports = {
         console.log('Error al buscar ley:', err);
         res.send(500);
       }
+      if (typeof law === 'undefined') {
+        return res.redirect('/');
+      }
       Article.find({
         sort: 'number ASC',
         law: req.param('law')
