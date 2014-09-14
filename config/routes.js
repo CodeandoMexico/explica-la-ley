@@ -49,12 +49,7 @@ module.exports.routes = {
   // Custom routes here...
   // XXX: Order matters!
 
-  'get /ley/article/new': {
-    controller: 'article',
-    action: 'newArticle'
-  },
-
-  'post /ley/article/create': {
+  '/ley/article/create': {
     controller: 'article',
     action: 'create'
   },
@@ -69,7 +64,7 @@ module.exports.routes = {
     action: 'find'
   },
 
-  'get /ley/article/edit/:id': {
+  '/ley/article/:id/edit': {
     controller: 'article',
     action: 'edit'
   },

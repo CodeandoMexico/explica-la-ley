@@ -19,14 +19,18 @@
     </div>
   </form>
 
-  <h3 class='text-center l-box l-no-margin'>Artículos dentro de esta ley</h3>
-  <ul class="pure-g empty-ul card-listing">
-    <% _.each( law.articles, function(article) { %>
-      <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
-        <article class='l-box'>
-          <%- partial('../modules/_article_card', { article: article }) %>
-        </article>
-      </li>
-    <% })%>
-  </ul>
+  <% if (law.articles.length == 0) { %>
+    <h3 class='text-center l-box l-no-margin'>Tu b&uacute;squeda no arroj&oacute; resultados</h3>
+  <% } else { %>
+    <h3 class='text-center l-box l-no-margin'>Artículos dentro de esta ley</h3>
+    <ul class="pure-g empty-ul card-listing">
+      <% _.each( law.articles, function(article) { %>
+        <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
+          <article class='l-box'>
+            <%- partial('../modules/_article_card', { article: article }) %>
+          </article>
+        </li>
+      <% })%>
+    </ul>
+  <% } %>
 </div>
