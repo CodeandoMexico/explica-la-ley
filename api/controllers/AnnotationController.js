@@ -60,10 +60,11 @@ module.exports = {
         console.log('Could not update annotation:', err);
         res.send(500);
       }
-      if (annotations == []) {
+      if (annotations.length == 0) {
         // No combination of owner ID and annotation ID.
         // This means that a user is trying to update an
         // annotation that was written by someone else.
+        res.send(403);
       } else {
         res.json(annotations);
       }
@@ -71,14 +72,22 @@ module.exports = {
   },
 
   destroy: function(req, res) {
-    var id = req.param('id');
     Annotation.destroy({
-      id: id
-    }).exec(function(err) {
+      id: req.param('id'),
+      user: req.session.user.id
+    }).exec(function(err, annotations) {
       if (err) {
+        console.log('Could not delete annotation:', err);
         res.send(500);
       }
-      res.json(200);
+      if (annotations.length == 0) {
+        // No combination of owner ID and annotation ID.
+        // This means that a user is trying to delete an
+        // annotation that was written by someone else.
+        res.send(403);
+      } else {
+        res.json(annotations);
+      }
     });
   },
 
