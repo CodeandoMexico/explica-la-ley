@@ -1,66 +1,10 @@
-var AjaxButtonManager = {
-  html: {
-    basic: {
-      loaderImg: '<img src="/images/loader.gif" width="12" height="12"/>',
-      edit: '<button title="Edit" class="annotator-edit">Edit</button>',
-      del: '<button title="Delete" class="annotator-delete">Delete</button>',
-      score: function(annotationId, score) {
-        return '&nbsp;[<span id="vote-count-number-' + annotationId + '">' + (score || 0) + '</span>]&nbsp;';
-      },
-    },
-    loggedout: {
-      unvoted: {
-        voteup: function(annotationId) {
-          var s  = '<span id="vote-up-btn-' + annotationId + '">';
-              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-unvoted" onclick="Annotator.showNotification(\'Inicia sesión antes de votar\', Annotator.Notification.ERROR);"></i>';
-              s += '</span>';
-          return s;
-        },
-        votedown: function(annotationId) {
-          var s  = '<span id="vote-down-btn-' + annotationId + '">';
-              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-unvoted" onclick="Annotator.showNotification(\'Inicia sesión antes de votar\', Annotator.Notification.ERROR);"></i>';
-              s += '</span>';
-          return s;
-        },
-      },
-    },
-    loggedin: {
-      unvoted: {
-        voteup: function(annotationId) {
-          var s  = '<span id="vote-up-btn-' + annotationId + '">';
-              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-unvoted" onclick="ajaxVote(' + annotationId + ', \'up\');"></i>';
-              s += '</span>';
-          return s;
-        },
-        votedown: function(annotationId) {
-          var s  = '<span id="vote-down-btn-' + annotationId + '">';
-              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-unvoted" onclick="ajaxVote(' + annotationId + ', \'down\');"></i>';
-              s += '</span>';
-          return s;
-        },
-      },
-      voted: {
-        voteup: function(annotationId) {
-          var s  = '<span id="vote-up-btn-' + annotationId + '">';
-              s += '  <i title="+1" class="fa fa-chevron-up vote-btn-voted"></i>';
-              s += '</span>';
-          return s;
-        },
-        votedown: function(annotationId) {
-          var s  = '<span id="vote-down-btn-' + annotationId + '">';
-              s += '  <i title="-1" class="fa fa-chevron-down vote-btn-voted"></i>';
-              s += '</span>';
-          return s;
-        }
-      },
-    },
-  },
-}
-
-function showYouMustLoginFirst() {
-  alert('Inicia sesión primero');
-}
-
+/*
+ * Makes the appropriate calls to the back-end whenever a user has decided to
+ * vote for an annotation via Annotator.js' popup.
+ * @param {int} annotationId: The ID of the annotation that's being voted.
+ * @param {String} voteType: It can either be 'up' or 'down' according to the
+ *  vote arrow clicked by the user. 
+ */
 function ajaxVote(annotationId, voteType) {
   var vote_count_number = document.getElementById('vote-count-number-' + annotationId);
 
@@ -89,13 +33,13 @@ function ajaxVote(annotationId, voteType) {
     success: function() {
       var n = parseInt(vote_count_number.innerHTML, 10)
       if (voteType == 'up') {
-        vote_count_number.innerHTML = n == -1 ? 1 : n+1;
+        vote_count_number.innerHTML = n == -1 ? (1) : (n + 1);
         vote_up_btn.innerHTML = AjaxButtonManager.html.loggedin.voted.voteup(annotationId);
         vote_down_btn.innerHTML = AjaxButtonManager.html.loggedin.unvoted.votedown(annotationId);
-        GuiVoteManager.currentUserVotes[annotationId] = +1;
+        GuiVoteManager.currentUserVotes[annotationId] = 1;
         GuiVoteManager.annotationVoteScore[annotationId] = GuiVoteManager.annotationVoteScore[annotationId] == -1 ? (1) : (n + 1);
       } else if (voteType == 'down') {
-        vote_count_number.innerHTML = n == 1 ? -1 : n-1;
+        vote_count_number.innerHTML = n == 1 ? (-1) : (n - 1);
         vote_down_btn.innerHTML = AjaxButtonManager.html.loggedin.voted.votedown(annotationId);
         vote_up_btn.innerHTML = AjaxButtonManager.html.loggedin.unvoted.voteup(annotationId);
         GuiVoteManager.currentUserVotes[annotationId] = -1;
