@@ -5,6 +5,12 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+function _error(msg, req, res) {
+  console.log('(!!) ERROR @: ' + req.options.controller + '/' + req.options.action);
+  console.log(msg);
+  return res.redirect('/');
+}
+
 // Compare function to use with Array.sort()
 // compares articles by the amount of annotations
 // DESC order
@@ -18,15 +24,15 @@ module.exports = {
 
   index: function(req, res) {
     var slug = req.param("tag");
-    // Filter laws by tag
+    // Filter laws by tag.
     Tag.findOne({slug: slug}).exec(function(err, tag) {
-      // if tag found use it as filter
+      // If tag found, use it as filter.
       var filterCriteria = tag ? {tag: tag.id} : {};
-      if (err) return res.send((err, 500));
+      if (err) return _error(err, req, res);
       Law.find(filterCriteria).exec(function(err, laws) {
-        if (err) return res.send(err, 500);
+        if (err) return _error(err, req, res);
         Tag.find().exec(function(err, tags) {
-          if (err) return res.send(err, 500);
+          if (err) return _error(err, req, res);
           res.locals.layout = 'layoutv2';
           res.view('law/index', {laws: laws, tags: tags});
         });
@@ -37,10 +43,12 @@ module.exports = {
   find: function(req, res) {
     var lawId = req.param("id");
     Law.findOne(lawId).exec(function(err, law) {
-      if (err) { console.log('Error al buscar leyes:', err); return res.redirect('/') }
-      if (!law) { console.log('Ley no encontrada'); return res.redirect('/'); }
-      Article.find({sort: 'number ASC', law: lawId}).populate('annotations').exec(function(err, articles) {
-        if (err) return res.send(err, 500);
+      if (err) return _error(err, req, res);
+      if (!law) return _error('Ley no encontrada', req, res);
+      Article.find({sort: 'number ASC', law: lawId})
+      .populate('annotations')
+      .exec(function(err, articles) {
+        if (err) return _error(err, req, res);
         law.articles = articles;
         res.locals.layout = 'layoutv2';
         return res.view('law/find', {law: law});
@@ -50,7 +58,7 @@ module.exports = {
 
   newLaw: function(req, res) {
     Tag.find({}).exec(function(err, tags) {
-      if (err) return res.send(500, err);
+      if (err) return _error(err, req, res);
       res.locals.layout = 'layoutv2';
       return res.view('law/new', {tags: tags});
     });
@@ -58,9 +66,10 @@ module.exports = {
 
   edit: function(req, res) {
     Law.findOne(req.param('id')).exec(function(err, law) {
-      if (err) return res.send(500, err);
+      if (err) return _error(err, req, res);
+      if (!law) return _error('Ley no encontrada', req, res);
       Tag.find({}).exec(function(err, tags) {
-        if (err) return res.send(500, err);
+        if (err) return _error(err, req, res);
         res.locals.layout = 'layoutv2';
         return res.view('law/edit', {law: law, tags: tags});
       });
@@ -73,10 +82,7 @@ module.exports = {
       summary: req.param('summary'),
       tag: req.param('tag')
     }).exec(function(err, law) {
-      if (err) {
-        console.log('Error al crear ley:', err);
-        return res.send(500);
-      }
+      if (err) return _error(err, req, res);
       return res.redirect('/ley/law/new');
     });
   },

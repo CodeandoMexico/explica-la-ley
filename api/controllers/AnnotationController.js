@@ -5,6 +5,12 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+function _error(msg, req, res) {
+  console.log('(!!) ERROR @: ' + req.options.controller + '/' + req.options.action);
+  console.log(msg);
+  return res.send(500);
+}
+
 module.exports = {
 
   index: function(req, res) {
@@ -12,10 +18,7 @@ module.exports = {
     .populate('user')
     .populate('voted_by')
     .exec(function(err, annotations) {
-      if (err) {
-        console.log('Error retreiving annotations:', err);
-        return res.send(500);
-      }
+      if (err) return _error(err, req, res);
       // Annotator.js needs this variable to be called 'rows'.
       return res.json({rows: annotations});
     });
@@ -25,6 +28,7 @@ module.exports = {
   create: function(req, res) {
     User.findOne({id: req.session.user.id})
     .exec(function(err, user) {
+      if (err) return _error(err, req, res);
       Annotation.create({
         text: req.param('text'),
         quote: req.param('quote'),
@@ -33,10 +37,7 @@ module.exports = {
         user: user
       })
       .exec(function(err, annotation) {
-        if (err) {
-          res.send(500);
-          console.log('Could not create annotation:',err);
-        }
+        if (err) return _error(err, req, res);
         res.json(annotation);
       });
     });
@@ -50,10 +51,7 @@ module.exports = {
       text: req.param('text'),
       quote: req.param('quote')
     }).exec(function(err, annotations) {
-      if (err) {
-        console.log('Could not update annotation:', err);
-        res.send(500);
-      }
+      if (err) return _error(err, req, res);
       if (annotations.length == 0) {
         // No combination of owner ID and annotation ID.
         // This means that a user is trying to update an
@@ -70,10 +68,7 @@ module.exports = {
       id: req.param('id'),
       user: req.session.user.id
     }).exec(function(err, annotations) {
-      if (err) {
-        console.log('Could not delete annotation:', err);
-        res.send(500);
-      }
+      if (err) return _error(err, req, res);
       if (annotations.length == 0) {
         // No combination of owner ID and annotation ID.
         // This means that a user is trying to delete an
@@ -88,18 +83,19 @@ module.exports = {
   voteup: function(req, res) {
     Annotation.findOne({id: req.param('id')})
     .exec(function(err, annotation) {
-      if (typeof annotation === 'undefined') res.send(500);
+      if (err) return _error(err, req, res);
+      if (!annotation) return _error('Anotacion no encontrada', req, res);
       Vote.findOne({
         user: req.session.user.id,
         annotation: annotation.id,
       }).exec(function(err, vote) {
+        if (err) return _error(err, req, res);
         if (vote) {
           // This user has already voted for this annotation.
           // Check what kind of vote that was.
           if (parseInt(vote.value, 10) > 0) {
             // Trying to vote up again.
-            console.log('Error voting up: you cannot vote up more than once');
-            return res.send(500);
+            return _error('Error voting up: you cannot vote up more than once', req, res);
           } else {
             // Changing vote from negative to positive.
             vote.value = 1;
@@ -113,10 +109,7 @@ module.exports = {
             annotation: annotation.id,
             value: 1
           }).exec(function(err, vote) {
-            if (err) {
-              console.log('Error voting up:', err);
-              return res.send(500);
-            }
+            if (err) return _error(err, req, res);
             return res.send(200);
           });
         }
@@ -127,18 +120,19 @@ module.exports = {
   votedown: function(req, res) {
     Annotation.findOne({id: req.param('id')})
     .exec(function(err, annotation) {
-      if (typeof annotation === 'undefined') res.send(500);
+      if (err) return _error(err, req, res);
+      if (!annotation) return _error('Anotacion no encontrada', req, res);
       Vote.findOne({
         user: req.session.user.id,
         annotation: annotation.id,
       }).exec(function(err, vote) {
+        if (err) return _error(err, req, res);
         if (vote) {
           // This user has already voted for this annotation.
           // Check what kind of vote that was.
           if (parseInt(vote.value, 10) < 0) {
             // Trying to vote down again.
-            console.log('Error voting down: you cannot vote down more than once');
-            return res.send(500);
+            return _error('Error voting down: you cannot vote down more than once', req, res);
           } else {
             // Changing vote from positive to negative.
             vote.value = -1;
@@ -152,10 +146,7 @@ module.exports = {
             annotation: annotation.id,
             value: -1
           }).exec(function(err, vote) {
-            if (err) {
-              console.log('Error voting down:', err);
-              return res.send(500);
-            }
+            if (err) return _error(err, req, res);
             return res.send(200);
           });
         }

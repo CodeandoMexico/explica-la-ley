@@ -6,7 +6,7 @@
  */
 
 function _error(msg, req, res) {
-  console.log('(!!) ERROR EN: ' + req.options.controller + '/' + req.options.action);
+  console.log('(!!) ERROR @: ' + req.options.controller + '/' + req.options.action);
   console.log(msg);
   return res.redirect('/');
 }
