@@ -25,11 +25,12 @@ module.exports = {
     },
     annotations: {
       collection: 'annotation',
-      via: 'article'
+      via: 'user'
     },
     voted_for: {
-      collection: 'annotation',
-      via: 'voted_by'
+      collection: 'vote',
+      via: 'annotation',
+      dominant: true,
     },
 
     toJSON: function() {
@@ -39,32 +40,6 @@ module.exports = {
       return obj;
     }
 	},
-
- /*
-  * Returns an object with the logged-in user's votes per annotation.
-  * @param {int} id: ID of the logged-in user.
-  * @param {Function} next: Callback that runs when the user's votes have been computed.
-  * @return {Object} votes: Contains the users' votes. Key: annotation ID. Value: vote value (-1 or +1).
-  */
-  getVotes: function(id, next) {
-    User.query({
-      text: 'SELECT "annotationId", "voteValue" FROM hack WHERE "userId" = $1',
-      values: [id],
-    }, function(err, result) {
-      if (err) console.log(err);
-      var votes = {};
-      if (result.rows.length == 0) {
-        next(votes);
-      } else {
-        for (var i = 0; i < result.rows.length; i++) {
-          votes[result.rows[i].annotationId] = result.rows[i].voteValue;
-          if ((i+1) == result.rows.length) {
-            next(votes);
-          }
-        }
-      }
-    });
-  },
 
   showcaseMembers: function(cb) {
     // TODO: Define criteria for the members to be showcased in the homepage

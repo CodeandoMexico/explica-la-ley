@@ -1038,15 +1038,6 @@
                 }
             }(this);
             clone = annotations.slice();
-
-            // Start hack.
-            // Hack used to display current (and after-ajax) vote scores.
-            localAnnotationStore = {};
-            for (i in annotations) {
-              localAnnotationStore[annotations[i].id] = annotations[i];
-            }
-            // End hack.
-
             loader(annotations);
             return this
         };
@@ -2134,7 +2125,7 @@
             if (data == null) {
                 data = {}
             }
-            currentUserVotes = data.votes; // Hack, issue #78.
+            GuiVoteManager.processVotes(data); // Hack.
             return this._onLoadAnnotations(data.rows || [])
         };
         Store.prototype.dumpAnnotations = function() {

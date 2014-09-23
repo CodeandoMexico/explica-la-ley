@@ -28,24 +28,24 @@ Annotator.Plugin.Author = function (element) {
             btnsHtml += AjaxButtonManager.html.basic.del;
           } else {
             // The logged-in user is not the author of this annotation.
-            if (currentUserVotes[annotation.id] > 0) {
+            if (GuiVoteManager.currentUserVotes[annotation.id] > 0) {
               // The user has already voted this annotation up and can only vote it down.
               btnsHtml += AjaxButtonManager.html.loggedin.unvoted.votedown(annotation.id);
               btnsHtml += AjaxButtonManager.html.loggedin.voted.voteup(annotation.id);
             }
-            if (currentUserVotes[annotation.id] < 0) {
+            if (GuiVoteManager.currentUserVotes[annotation.id] < 0) {
               // The user has already voted this annotation down and can only vote it up.
               btnsHtml += AjaxButtonManager.html.loggedin.voted.votedown(annotation.id);
               btnsHtml += AjaxButtonManager.html.loggedin.unvoted.voteup(annotation.id);
             }
-            if (typeof currentUserVotes[annotation.id] === 'undefined') {
+            if (typeof GuiVoteManager.currentUserVotes[annotation.id] === 'undefined') {
               // The user has not voted for this annotation.
               btnsHtml += AjaxButtonManager.html.loggedin.unvoted.votedown(annotation.id);
               btnsHtml += AjaxButtonManager.html.loggedin.unvoted.voteup(annotation.id);
             }
           }
         }
-        btnsHtml += AjaxButtonManager.html.basic.score(annotation.id, annotation.score);
+        btnsHtml += AjaxButtonManager.html.basic.score(annotation.id, GuiVoteManager.annotationVoteScore[annotation.id]);
         btnsHtml += '</span>';
 
         // This element holds the actual action buttons, which need to be

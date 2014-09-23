@@ -15,7 +15,8 @@ module.exports = {
     },
     annotations: {
       collection: 'annotation',
-      via: 'article'
+      via: 'article',
+      dominant: true
     }
   },
 

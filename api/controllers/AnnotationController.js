@@ -10,20 +10,14 @@ module.exports = {
   index: function(req, res) {
     Annotation.find({article: req.param('article')})
     .populate('user')
+    .populate('voted_by')
     .exec(function(err, annotations) {
       if (err) {
         console.log('Error retreiving annotations:', err);
         return res.send(500);
       }
-      Annotation.getVoteScores(annotations, function(rows) {
-        if (req.session.user) {
-          User.getVotes(req.session.user.id, function(votes) {
-            return res.json({rows: rows, votes: votes});
-          });
-        } else {
-          return res.json({rows: rows, votes: {}});
-        }
-      });
+      // Annotator.js needs this variable to be called 'rows'.
+      return res.json({rows: annotations});
     });
   },
 
@@ -91,37 +85,34 @@ module.exports = {
     });
   },
 
- /*
-  *	Wait for issue #78 to be solved before replacing this code.
-  */
   voteup: function(req, res) {
     Annotation.findOne({id: req.param('id')})
     .exec(function(err, annotation) {
       if (typeof annotation === 'undefined') res.send(500);
-      Hack.findOne({
-        userId: req.session.user.id,
-        annotationId: annotation.id,
-      }).exec(function(err, hack) {
-        if (hack) {
+      Vote.findOne({
+        user: req.session.user.id,
+        annotation: annotation.id,
+      }).exec(function(err, vote) {
+        if (vote) {
           // This user has already voted for this annotation.
           // Check what kind of vote that was.
-          if (parseInt(hack.voteValue, 10) > 0) {
+          if (parseInt(vote.value, 10) > 0) {
             // Trying to vote up again.
             console.log('Error voting up: you cannot vote up more than once');
             return res.send(500);
           } else {
             // Changing vote from negative to positive.
-            hack.voteValue = +1;
-            hack.save();
+            vote.value = 1;
+            vote.save();
             return res.send(200);
           }
         } else {
           // This user has not voted for this annotation before.
-          Hack.create({
-            userId: req.session.user.id,
-            annotationId: annotation.id,
-            voteValue: +1
-          }).exec(function(err, hack) {
+          Vote.create({
+            user: req.session.user.id,
+            annotation: annotation.id,
+            value: 1
+          }).exec(function(err, vote) {
             if (err) {
               console.log('Error voting up:', err);
               return res.send(500);
@@ -133,37 +124,34 @@ module.exports = {
     });
   },
 
- /*
-  *	Wait for issue #78 to be solved before replacing this code.
-  */
   votedown: function(req, res) {
     Annotation.findOne({id: req.param('id')})
     .exec(function(err, annotation) {
       if (typeof annotation === 'undefined') res.send(500);
-      Hack.findOne({
-        userId: req.session.user.id,
-        annotationId: annotation.id,
-      }).exec(function(err, hack) {
-        if (hack) {
+      Vote.findOne({
+        user: req.session.user.id,
+        annotation: annotation.id,
+      }).exec(function(err, vote) {
+        if (vote) {
           // This user has already voted for this annotation.
           // Check what kind of vote that was.
-          if (parseInt(hack.voteValue, 10) < 0) {
+          if (parseInt(vote.value, 10) < 0) {
             // Trying to vote down again.
             console.log('Error voting down: you cannot vote down more than once');
             return res.send(500);
           } else {
             // Changing vote from positive to negative.
-            hack.voteValue = -1;
-            hack.save();
+            vote.value = -1;
+            vote.save();
             return res.send(200);
           }
         } else {
           // This user has not voted for this annotation before.
-          Hack.create({
-            userId: req.session.user.id,
-            annotationId: annotation.id,
-            voteValue: -1
-          }).exec(function(err, hack) {
+          Vote.create({
+            user: req.session.user.id,
+            annotation: annotation.id,
+            value: -1
+          }).exec(function(err, vote) {
             if (err) {
               console.log('Error voting down:', err);
               return res.send(500);

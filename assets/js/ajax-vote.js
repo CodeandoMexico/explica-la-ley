@@ -92,14 +92,14 @@ function ajaxVote(annotationId, voteType) {
         vote_count_number.innerHTML = n == -1 ? 1 : n+1;
         vote_up_btn.innerHTML = AjaxButtonManager.html.loggedin.voted.voteup(annotationId);
         vote_down_btn.innerHTML = AjaxButtonManager.html.loggedin.unvoted.votedown(annotationId);
-        currentUserVotes[annotationId] = +1;
-        localAnnotationStore[annotationId].score = localAnnotationStore[annotationId].score == -1 ? 1 : n+1;
+        GuiVoteManager.currentUserVotes[annotationId] = +1;
+        GuiVoteManager.annotationVoteScore[annotationId] = GuiVoteManager.annotationVoteScore[annotationId] == -1 ? (1) : (n + 1);
       } else if (voteType == 'down') {
         vote_count_number.innerHTML = n == 1 ? -1 : n-1;
         vote_down_btn.innerHTML = AjaxButtonManager.html.loggedin.voted.votedown(annotationId);
         vote_up_btn.innerHTML = AjaxButtonManager.html.loggedin.unvoted.voteup(annotationId);
-        currentUserVotes[annotationId] = -1;
-        localAnnotationStore[annotationId].score = localAnnotationStore[annotationId].score == 1 ? -1 : n-1;
+        GuiVoteManager.currentUserVotes[annotationId] = -1;
+        GuiVoteManager.annotationVoteScore[annotationId] = GuiVoteManager.annotationVoteScore[annotationId] == 1 ? (-1) : (n - 1);
       }
     },
     failure: function(msg) {
