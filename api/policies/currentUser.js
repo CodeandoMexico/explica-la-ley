@@ -4,8 +4,7 @@
 module.exports = function(req, res, next) {
 
   // User is allowed, proceed to controller
-  if (req.session.user) {
-    req.body.userId = req.session.user;
+  if (req.session.user && req.session.user.id) {
     return next();
   }
   // User is not allowed

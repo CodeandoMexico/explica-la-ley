@@ -853,7 +853,7 @@
             this.editor = new Annotator.Editor;
             this.editor.hide().on("hide", this.onEditorHide).on("save", this.onEditorSubmit).addField({
                 type: "textarea",
-                label: _t("Comments") + "â€¦",
+                label: _t("Comentarios") + "...",
                 load: function(field, annotation) {
                     return $(field).find("textarea").val(annotation.text || "")
                 },
@@ -1372,7 +1372,7 @@
             hide: "annotator-hide",
             focus: "annotator-focus"
         };
-        Editor.prototype.html = '<div class="annotator-outer annotator-editor">\n  <form class="annotator-widget">\n    <ul class="annotator-listing"></ul>\n    <div class="annotator-controls">\n      <a href="#cancel" class="annotator-cancel">' + _t("Cancel") + '</a>\n<a href="#save" class="annotator-save annotator-focus">' + _t("Save") + "</a>\n    </div>\n  </form>\n</div>";
+        Editor.prototype.html = '<div class="annotator-outer annotator-editor">\n  <form class="annotator-widget">\n    <ul class="annotator-listing"></ul>\n    <div class="annotator-controls">\n      <a href="#cancel" class="annotator-cancel">' + _t("Cancelar") + '</a>\n<a href="#save" class="annotator-save annotator-focus">' + _t("Guardar") + "</a>\n    </div>\n  </form>\n</div>";
         Editor.prototype.options = {};
 
         function Editor(options) {
@@ -1573,7 +1573,7 @@
         };
         Viewer.prototype.html = {
             element: '<div class="annotator-outer annotator-viewer">\n  <ul class="annotator-widget annotator-listing"></ul>\n</div>',
-            item: '<li class="annotator-annotation annotator-item">\n  <span id="annotator-action-btns" class="annotator-controls">\n    <a href="#" title="View as webpage" class="annotator-link">View as webpage</a>\n    <button title="Edit" class="annotator-edit">Edit</button>\n    <button title="Delete" class="annotator-delete">Delete</button>\n  </span>\n</li>'
+            item: '<li class="annotator-annotation annotator-item">\n  <span class="annotator-controls">\n    <button title="Edit" class="annotator-edit">Edit</button>\n    <button title="Delete" class="annotator-delete">Delete</button>\n  </span>\n</li>'
         };
         Viewer.prototype.options = {
             readOnly: false
@@ -1775,7 +1775,7 @@
             return Unsupported.__super__.constructor.apply(this, arguments)
         }
         Unsupported.prototype.options = {
-            message: Annotator._t("Sorry your current browser does not support the Annotator")
+            message: Annotator._t("Lo sentimos, no podemos guardar tus comentarios ya que tu navegador web no es compatible.")
         };
         Unsupported.prototype.pluginInit = function() {
             if (!Annotator.supported()) {
@@ -2043,6 +2043,12 @@
                 this.registerAnnotation(annotation);
                 return this._apiRequest("create", annotation, function(_this) {
                     return function(data) {
+                        // Start hack.
+                        // Hack that tells the GUI not to display the vote up/down buttons.
+                        data.user = {
+                          id: document.getElementById('sessionUserId').innerHTML,
+                        };
+                        // End hack.
                         if (data.id == null) {
                             console.warn(Annotator._t("Warning: No ID returned from server for annotation "), annotation)
                         }
@@ -2119,6 +2125,7 @@
             if (data == null) {
                 data = {}
             }
+            GuiVoteManager.processVotes(data); // Hack.
             return this._onLoadAnnotations(data.rows || [])
         };
         Store.prototype.dumpAnnotations = function() {
@@ -2212,21 +2219,25 @@
         Store.prototype._onError = function(xhr) {
             var action, message;
             action = xhr._action;
-            message = Annotator._t("Sorry we could not ") + action + Annotator._t(" this annotation");
+            if (action === 'create') {
+              message = Annotator._t("Lo sentimos, no pudimos crear este comentario. ¿Ya iniciaste sesión?");
+            } else {
+              message = Annotator._t("Lo sentimos, no pudimos hacer '") + action + Annotator._t("' sobre este comentario");
+            }
             if (xhr._action === "search") {
-                message = Annotator._t("Sorry we could not search the store for annotations")
+                message = Annotator._t("Lo sentimos, no pudimos encontrar los otros comentarios en la base de datos")
             } else if (xhr._action === "read" && !xhr._id) {
-                message = Annotator._t("Sorry we could not ") + action + Annotator._t(" the annotations from the store")
+                message = Annotator._t("Lo sentimos, no pudimos hacer '") + action + Annotator._t("' sobre las anotaciones en la base de datos")
             }
             switch (xhr.status) {
                 case 401:
-                    message = Annotator._t("Sorry you are not allowed to ") + action + Annotator._t(" this annotation");
+                    message = Annotator._t("Lo sentimos, no tienes derecho de hacer '") + action + Annotator._t("' sobre este comentario");
                     break;
                 case 404:
-                    message = Annotator._t("Sorry we could not connect to the annotations store");
+                    message = Annotator._t("Lo sentimos, no pudimos conectarnos al repositorio de comentarios");
                     break;
                 case 500:
-                    message = Annotator._t("Sorry something went wrong with the annotation store")
+                    message = Annotator._t("Lo sentimos, algo malo sucede con el repositorio de comentarios")
             }
             Annotator.showNotification(message, Annotator.Notification.ERROR);
             return console.error(Annotator._t("API request failed:") + (" '" + xhr.status + "'"))

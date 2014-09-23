@@ -7,7 +7,7 @@
 
 module.exports = {
 
-	attributes: {
+  attributes: {
     text: 'STRING',
     quote: 'STRING',
     ranges: 'ARRAY',
@@ -16,7 +16,12 @@ module.exports = {
     },
     user: {
       model: 'user'
-    }
-	}
+    },
+    voted_by: {
+      collection: 'vote',
+      via: 'user',
+      dominant: true
+    },
+  },
 
 };

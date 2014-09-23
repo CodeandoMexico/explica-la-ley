@@ -40,15 +40,17 @@ module.exports.policies = {
     'index': true,
     'create': 'currentUser',
     'update': 'currentUser',
-    'destroy': 'currentUser'
+    'destroy': 'currentUser',
+    'votedown': 'currentUser',
+    'voteup': 'currentUser',
   },
 
   ArticleController: {
     'index': true,
     'find': true,
-    'create': 'currentUser',
+    'create': true,
     'update': 'currentUser',
-    'destroy': 'currentUser'
+    'destroy': 'currentUser',
   },
 
   LawController: {
@@ -63,7 +65,10 @@ module.exports.policies = {
     '*': false,
     'login': true,
     'twitterAuthCallback': true,
-    'logout': true
+    'logout': true,
+    'profile': 'currentUser',
+    'saveEmail': 'currentUser',
+    'forgetEmail': 'currentUser',
   }
 };
 

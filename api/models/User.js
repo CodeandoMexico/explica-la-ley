@@ -25,7 +25,19 @@ module.exports = {
     },
     annotations: {
       collection: 'annotation',
-      via: 'article'
+      via: 'user'
+    },
+    voted_for: {
+      collection: 'vote',
+      via: 'annotation',
+      dominant: true,
+    },
+
+    toJSON: function() {
+      var obj = this.toObject();
+      // Delete private attributes here from outgoing objects.
+      delete obj.email;
+      return obj;
     }
 	},
 

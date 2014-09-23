@@ -1,3 +1,6 @@
+// Google Font
+@import url(http://fonts.googleapis.com/css?family=Montserrat:700,400);
+
 // Sass Variables **/
 @import 'settings.scss';
 
@@ -14,6 +17,7 @@
 @import 'helpers.scss';
 
 // Modules
+@import 'modules/annotator.scss';
 @import 'modules/buttons.scss';
 @import 'modules/cards.scss';
 @import 'modules/containers.scss';

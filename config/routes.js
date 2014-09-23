@@ -47,18 +47,24 @@ module.exports.routes = {
   },
 
   // Custom routes here...
+  // XXX: Order matters!
+
+  '/ley/article/create': {
+    controller: 'article',
+    action: 'create'
+  },
+
+  'post /ley/article/search': {
+    controller: 'article',
+    action: 'search'
+  },
 
   '/ley/article/:id': {
     controller: 'article',
     action: 'find'
   },
 
-  'get /ley/article/new': {
-    controller: 'article',
-    action: 'newArticle'
-  },
-
-  'get /ley/article/edit/:id': {
+  '/ley/article/:id/edit': {
     controller: 'article',
     action: 'edit'
   },
@@ -101,8 +107,32 @@ module.exports.routes = {
   'delete /storage/annotation/:id': {
     controller: 'annotation',
     action: 'destroy'
-  }
+  },
 
+  'post /annotation/:id/voteup': {
+    controller: 'annotation',
+    action: 'voteup'
+  },
+
+  'post /annotation/:id/votedown': {
+    controller: 'annotation',
+    action: 'votedown'
+  },
+
+  'get /ley/user': {
+    controller: 'user',
+    action: 'profile'
+  },
+
+  'post /ley/user/saveEmail': {
+    controller: 'user',
+    action: 'saveEmail'
+  },
+
+  'post /ley/user/forgetEmail': {
+    controller: 'user',
+    action: 'forgetEmail'
+  },
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options
