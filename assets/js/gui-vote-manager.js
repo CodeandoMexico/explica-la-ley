@@ -1,8 +1,16 @@
+/*
+ * Class in charge of processing the votes via front-end.
+ * After receiving annotation data from the server, Annotator.js calls this
+ * class so information about the current user's votes and annotations' scores
+ * are processed and easily accessible by Annotator.js GUI triggers (such as
+ * the popup window shoing the annotations' text).
+ */
 GuiVoteManager = {
   /*
    * Auxiliary variable that holds the current logged-in user's ID.
    */
-  currentUserId: document.getElementById('sessionUserId').innerHTML,
+  currentUserId: document.getElementById('sessionUserId') == null ? 
+                   ('') : (document.getElementById('sessionUserId').innerHTML),
 
   /*
    * Holds the logged-in user's votes on a certain article's annotations.
