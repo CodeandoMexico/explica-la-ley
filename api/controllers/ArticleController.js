@@ -68,7 +68,7 @@ module.exports = {
           body: req.param('body')
         }).exec(function(err, article) {
           if (err) _error(err, req, res);
-          return res.redirect('/');
+          return res.redirect('/ley/law/' + req.param('law'));
         });
       });
     } else if (req.method == 'get' || req.method == 'GET') {

@@ -69,19 +69,19 @@ module.exports.routes = {
     action: 'edit'
   },
 
-  'get /ley/law/new': {
+  '/ley/law/create': {
     controller: 'law',
-    action: 'newLaw'
-  },
-
-  'get /ley/law/edit/:id': {
-    controller: 'law',
-    action: 'edit'
+    action: 'create'
   },
 
   'get /ley/law/:id': {
     controller: 'law',
     action: 'find'
+  },
+
+  '/ley/law/:id/edit': {
+    controller: 'law',
+    action: 'edit'
   },
 
   '/storage': {

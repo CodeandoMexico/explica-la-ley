@@ -41,11 +41,10 @@ module.exports = {
   },
 
   find: function(req, res) {
-    var lawId = req.param("id");
-    Law.findOne(lawId).exec(function(err, law) {
+    Law.findOne({id: req.param('id')}).exec(function(err, law) {
       if (err) return _error(err, req, res);
       if (!law) return _error('Ley no encontrada', req, res);
-      Article.find({sort: 'number ASC', law: lawId})
+      Article.find({sort: 'number ASC', law: req.param('id')})
       .populate('annotations')
       .exec(function(err, articles) {
         if (err) return _error(err, req, res);
@@ -56,35 +55,48 @@ module.exports = {
     });
   },
 
-  newLaw: function(req, res) {
-    Tag.find({}).exec(function(err, tags) {
-      if (err) return _error(err, req, res);
-      res.locals.layout = 'layoutv2';
-      return res.view('law/new', {tags: tags});
-    });
-  },
-
   edit: function(req, res) {
-    Law.findOne(req.param('id')).exec(function(err, law) {
-      if (err) return _error(err, req, res);
-      if (!law) return _error('Ley no encontrada', req, res);
-      Tag.find({}).exec(function(err, tags) {
+    if (req.method == 'POST' || req.method == 'post') {
+      Law.update({
+        id: req.param('id')
+      }, {
+        name: req.param('name'),
+        summary: req.param('summary'),
+        tag: req.param('tag')
+      }).exec(function(err, laws) {
         if (err) return _error(err, req, res);
-        res.locals.layout = 'layoutv2';
-        return res.view('law/edit', {law: law, tags: tags});
+        return res.redirect('/ley/law/' + laws[0].id);
       });
-    });
+    } else if (req.method == 'GET' || req.method == 'get') {
+      Law.findOne(req.param('id')).exec(function(err, law) {
+        if (err) return _error(err, req, res);
+        if (!law) return _error('Ley no encontrada', req, res);
+        Tag.find({}).exec(function(err, tags) {
+          if (err) return _error(err, req, res);
+          res.locals.layout = 'layoutv2';
+          return res.view('law/edit', {law: law, tags: tags});
+        });
+      });
+    }
   },
 
   create: function(req, res) {
-    Law.create({
-      name: req.param('name'),
-      summary: req.param('summary'),
-      tag: req.param('tag')
-    }).exec(function(err, law) {
-      if (err) return _error(err, req, res);
-      return res.redirect('/ley/law/new');
-    });
+    if (req.method == 'POST' || req.method == 'post') {
+      Law.create({
+        name: req.param('name'),
+        summary: req.param('summary'),
+        tag: req.param('tag')
+      }).exec(function(err, law) {
+        if (err) return _error(err, req, res);
+        return res.redirect('/ley/law/' + law.id);
+      });
+    } else if (req.method == 'GET' || req.method == 'get') {
+      Tag.find({}).exec(function(err, tags) {
+        if (err) return _error(err, req, res);
+        res.locals.layout = 'layoutv2';
+        return res.view('law/create', {tags: tags});
+      });
+    }
   },
 	
 };
