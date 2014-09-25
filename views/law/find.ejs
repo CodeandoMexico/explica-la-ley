@@ -21,10 +21,10 @@
   <% } else { %>
     <h3 class='text-center l-box l-no-margin'>Artículos dentro de esta ley</h3>
     <ul class="pure-g empty-ul card-listing">
-      <% _.each( law.articles, function(article) { %>
+      <% _.each(law.articles, function(article) { %>
         <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
           <article class='l-box'>
-            <%- partial('../modules/_article_card', { tag_slug: tag_slug, law_slug: law.slug, article: article }) %>
+            <%- partial('../modules/_article_card', { tag_slug: law.tag.slug, law_slug: law.slug, article: article }) %>
           </article>
         </li>
       <% })%>

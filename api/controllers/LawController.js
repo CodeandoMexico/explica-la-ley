@@ -41,23 +41,23 @@ module.exports = {
   },
 
   find: function(req, res) {
-    Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
+    Law.findOne({slug: req.param('law_slug')})
+    .populate('tag')
+    .exec(function(err, law) {
       if (err) return _error(err, req, res);
       if (!law) return _error('Ley no encontrada', req, res);
-      Tag.findOne({slug: req.param('tag_slug')}).exec(function(err, tag) {
+      Tag.findOne({slug: req.param('tag_slug')})
+      .exec(function(err, tag) {
         if (err) return _error(err, req, res);
         if (!tag) return _error('Tag no encontrada', req, res);
-        if (law.tag != tag.id) return _error('Esta ley no esta dentro de este tag', req, res);
+        if (law.tag.id != tag.id) return _error('Esta ley no esta dentro de este tag', req, res);
         Article.find({sort: 'number ASC', law: law.id})
         .populate('annotations')
         .exec(function(err, articles) {
           if (err) return _error(err, req, res);
           law.articles = articles;
           res.locals.layout = 'layoutv2';
-          return res.view('law/find', {
-            tag_slug: req.param('tag_slug'),
-            law: law
-          });
+          return res.view('law/find', {law: law});
         });
       });
     });
