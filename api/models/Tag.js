@@ -37,6 +37,12 @@ module.exports = {
     var slug = require('slug');
     attrs.slug = slug(attrs.name).toLowerCase();
     next();
+  },
+
+  getFriendlyDate: function(date) {
+    var moment = require('moment');
+    moment.locale('es-MX');
+    return moment(date).fromNow();
   }
 
 };
