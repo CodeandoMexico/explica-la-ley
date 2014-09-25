@@ -1,0 +1,33 @@
+<!--
+Poner perfil de reforma/familia de leyes, con links a las paginas del senado (PDFs, excel, etc).
+<br />
+Poner listado de leyes contenidas en esta reforma/familia, con links a sus perfiles.
+
+<ul>
+<% _.each(tag.laws, function(law) { %>
+  <li>
+    <a href="/ley/<%= tag.slug %>/<%= law.slug %>"><%= law.name %></a>
+  </li>
+<% }); %>
+</ul>
+-->
+
+<div class="law">
+  <header class='text-center header l-box'>
+    <h1 class="l-no-margin-b header-title"><%= tag.name %></h1>
+    <h2 class='header-subtitle'><%= tag.summary %></h2>
+  </header>
+
+  <% if (tag.laws.length == 0) { %>
+    <h3 class='text-center l-box l-no-margin'>Por el momento no hay leyes registradas en esta reforma</h3>
+  <% } else { %>
+    <h3 class='text-center l-box l-no-margin'>Leyes dentro de esta reforma</h3>
+    <ul>
+      <% _.each(tag.laws, function(law) { %>
+        <li>
+          <a href="/ley/<%= tag.slug %>/<%= law.slug %>"><%= law.name %></a>
+        </li>
+      <% })%>
+    </ul>
+  <% } %>
+</div>

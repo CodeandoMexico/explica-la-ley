@@ -16,6 +16,10 @@ module.exports = {
       type: 'STRING',
       required: true
     },
+    slug: {
+      type: 'STRING',
+      unique: true
+    },
     articles: {
       collection: 'article',
       via: 'law'
@@ -25,6 +29,17 @@ module.exports = {
     }
   },
 
+  beforeCreate: function(attrs, next) {
+    var slug = require('slug');
+    attrs.slug = slug(attrs.name).toLowerCase();
+    next();
+  },
+
+  beforeUpdate: function(attrs, next) {
+    var slug = require('slug');
+    attrs.slug = slug(attrs.name).toLowerCase();
+    next();
+  },
 
  /* 
   * @param {Array} laws: Contains all the existing laws.

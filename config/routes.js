@@ -41,6 +41,11 @@ module.exports.routes = {
     action: 'login'
   },
 
+  '/ley/user/twitterAuthCallback': {
+    controller: 'user',
+    action: 'twitterAuthCallback'
+  },
+
   'get /ley/logout': {
     controller: 'user',
     action: 'logout'
@@ -81,6 +86,21 @@ module.exports.routes = {
 
   '/ley/law/:id/edit': {
     controller: 'law',
+    action: 'edit'
+  },
+
+  '/ley/tag/create': {
+    controller: 'tag',
+    action: 'create'
+  },
+
+  'get /ley/tag/:id': {
+    controller: 'tag',
+    action: 'find'
+  },
+
+  '/ley/tag/:id/edit': {
+    controller: 'tag',
     action: 'edit'
   },
 
@@ -137,5 +157,20 @@ module.exports.routes = {
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options
   // and examples.
+
+  '/ley/:tag_slug': {
+    controller: 'tag',
+    action: 'find'
+  },
+
+  '/ley/:tag_slug/:law_slug': {
+    controller: 'law',
+    action: 'find'
+  },
+
+  '/ley/:tag_slug/:law_slug/:article_number': {
+    controller: 'article',
+    action: 'find'
+  },
 
 };

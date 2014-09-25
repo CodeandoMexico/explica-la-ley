@@ -17,18 +17,27 @@ module.exports = {
       type: 'STRING',
       unique: true
     },
+    summary: {
+      type: 'STRING',
+      required: true
+    },
     laws: {
       collection: 'law',
       via: 'tag'
     }
   },
 
-  // Generate a slug derived from the tag's name
   beforeCreate: function(attrs, next) {
     var slug = require('slug');
+    attrs.slug = slug(attrs.name).toLowerCase();
+    next();
+  },
 
+  beforeUpdate: function(attrs, next) {
+    var slug = require('slug');
     attrs.slug = slug(attrs.name).toLowerCase();
     next();
   }
+
 };
 

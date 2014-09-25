@@ -41,16 +41,24 @@ module.exports = {
   },
 
   find: function(req, res) {
-    Law.findOne({id: req.param('id')}).exec(function(err, law) {
+    Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
       if (err) return _error(err, req, res);
       if (!law) return _error('Ley no encontrada', req, res);
-      Article.find({sort: 'number ASC', law: req.param('id')})
-      .populate('annotations')
-      .exec(function(err, articles) {
+      Tag.findOne({slug: req.param('tag_slug')}).exec(function(err, tag) {
         if (err) return _error(err, req, res);
-        law.articles = articles;
-        res.locals.layout = 'layoutv2';
-        return res.view('law/find', {law: law});
+        if (!tag) return _error('Tag no encontrada', req, res);
+        if (law.tag != tag.id) return _error('Esta ley no esta dentro de este tag', req, res);
+        Article.find({sort: 'number ASC', law: law.id})
+        .populate('annotations')
+        .exec(function(err, articles) {
+          if (err) return _error(err, req, res);
+          law.articles = articles;
+          res.locals.layout = 'layoutv2';
+          return res.view('law/find', {
+            tag_slug: req.param('tag_slug'),
+            law: law
+          });
+        });
       });
     });
   },
@@ -88,7 +96,12 @@ module.exports = {
         tag: req.param('tag')
       }).exec(function(err, law) {
         if (err) return _error(err, req, res);
-        return res.redirect('/ley/law/' + law.id);
+        Law.findOne({id: law.id})
+        .populate('tag') // The reason for this DB query.
+        .exec(function(err, law) {
+          if (err) return _error(err, req, res);
+          return res.redirect('/ley/' + law.tag.slug + '/' + law.slug);
+        });
       });
     } else if (req.method == 'GET' || req.method == 'get') {
       Tag.find({}).exec(function(err, tags) {

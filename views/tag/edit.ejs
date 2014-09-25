@@ -1,0 +1,9 @@
+<h2 class="col-md-offset-2">Actualizar Tag</h2>
+<form method="POST" action="/ley/tag/<%= tag.id %>/edit" class="col-md-4 col-md-offset-2" role="form">
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input type="text" class="form-control" id="name" name="name" value="<%= tag.name %>" placeholder="Nombre de la Ley" />
+  </div>
+  <input type="hidden" id="id" name="id" value="<%= tag.id %>" />
+  <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>

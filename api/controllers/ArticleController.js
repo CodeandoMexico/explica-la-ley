@@ -21,11 +21,18 @@ module.exports = {
   },
 
   find: function(req, res) {
-    Article.findOne(req.param('id')).populate('law').exec(function (err, article) {
-      if (err) return _error(err, req, res)
-      if (!article) return _error('Articulo no encontrado', req, res);
-      res.locals.layout = 'layoutv2';
-      return res.view('article/find', {article: article});
+    Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
+      if (err) return _error(err, req, res);
+      if (!law) return _error('Ley no encontrada', req, res);
+      Article.findOne({
+        number: req.param('article_number'),
+        law: law.id
+      }).exec(function(err, article) {
+        if (err) return _error(err, req, res)
+        if (!article) return _error('Articulo no encontrado', req, res);
+        res.locals.layout = 'layoutv2';
+        return res.view('article/find', {article: article});
+      });
     });
   },
 
@@ -59,7 +66,10 @@ module.exports = {
 	
   create: function(req, res) {
     if (req.method == 'post' || req.method == 'POST') {
-      Law.findOne({id: req.param('law')}).populate('articles').exec(function(err, law) {
+      Law.findOne({id: req.param('law')})
+      .populate('articles')
+      .populate('tag')
+      .exec(function(err, law) {
         if (err) return _error(err, req, res);
         if (!law) return _error('Ley no encontrada', req, res);
         Article.create({
@@ -67,8 +77,8 @@ module.exports = {
           number: req.param('number'),
           body: req.param('body')
         }).exec(function(err, article) {
-          if (err) _error(err, req, res);
-          return res.redirect('/ley/law/' + req.param('law'));
+          if (err) return _error(err, req, res);
+          return res.redirect('/ley/' + law.tag.slug + '/' + law.slug + '/' + req.param('number'));
         });
       });
     } else if (req.method == 'get' || req.method == 'GET') {
