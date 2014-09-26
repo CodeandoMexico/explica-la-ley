@@ -1,6 +1,7 @@
 <div class="law">
   <header class='text-center header l-box'>
     <h1 class="l-no-margin-b header-title"><%= law.name %></h1>
+    <h3>Como parte de la <u><a href="/ley/<%= law.tag.slug %>"><%= law.tag.name %></a></u><h3>
     <h2 class='header-subtitle'><%= law.summary %></h2>
   </header>
 
@@ -19,7 +20,7 @@
   <% if (law.articles.length == 0) { %>
     <h3 class='text-center l-box l-no-margin'>Tu b&uacute;squeda no arroj&oacute; resultados</h3>
   <% } else { %>
-    <h3 class='text-center l-box l-no-margin'>Artículos dentro de esta ley</h3>
+    <h3 class='text-center l-box l-no-margin'>Artículos dentro de esta ley:</h3>
     <ul class="pure-g empty-ul card-listing">
       <% _.each(law.articles, function(article) { %>
         <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>

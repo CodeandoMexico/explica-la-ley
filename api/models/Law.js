@@ -42,7 +42,9 @@ module.exports = {
   },
 
  /* 
-  * @param {Array} laws: Contains all the existing laws.
+  * @param {Array} laws: Array of Law objects. This array must be the one
+  *  returned by Law.find(). The ones returned by .populate() will make this
+  *  this code fail.
   * @param {Function} next: Callback that runs when all laws are processed.
   * @return {Object} annotationCounters: Contains the number of annotations
   * each law has. The law's ID is the key, the annotation count is the value.

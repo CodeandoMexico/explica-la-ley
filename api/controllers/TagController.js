@@ -22,13 +22,22 @@ module.exports = {
   },
 
   find: function(req, res) {
-    Tag.findOne({slug: req.param('tag_slug')})
-    .populate('laws')
-    .exec(function (err, tag) {
+    Tag.findOne({slug: req.param('tag_slug')}).exec(function (err, tag) {
       if (err) return _error(err, req, res)
       if (!tag) return _error('Tag no encontrado', req, res);
-      res.locals.layout = 'layoutv2';
-      return res.view('tag/find', {tag: tag});
+      // Get the laws this way (not by using populate()), so we get the right
+      // "laws" array for getAnnotationCount() to work properly.
+      Law.find({tag: tag.id}).populate('articles').exec(function(err, laws) {
+        if (err) return _error(err, req, res)
+        Law.getAnnotationCount(laws, function(result) {
+          res.locals.layout = 'layoutv2';
+          return res.view('tag/find', {
+            tag: tag,
+            laws: laws,
+            annotationCounters: result
+          });
+        });
+      });
     });
   },
 
