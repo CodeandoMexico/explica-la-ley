@@ -1,9 +1,8 @@
 <h2 class="col-md-offset-2">Actualizar Ley</h2>
-<form method="POST" action="/ley/law/update/<%= law.id %>" class="col-md-4 col-md-offset-2" role="form">
+<form method="POST" action="/ley/law/<%= law.id %>/edit" class="col-md-4 col-md-offset-2" role="form">
   <div class="form-group">
     <label for="name">Nombre</label>
-    <input type="text" class="form-control" id="name" name="name"
-      value="<%= law.name %>" placeholder="Nombre de la Ley" />
+    <input type="text" class="form-control" id="name" name="name" value="<%= law.name %>" placeholder="Nombre de la Ley" />
   </div>
   <div class="form-group">
     <label for="summary">Resumen</label>
@@ -13,9 +12,14 @@
     <label for="tag">Reforma a la que pertenece:</label>
     <select name="tag">
       <% _.each(tags, function(tag) {%>
+        <% if (law.tag == tag.id) { %>
+        <option selected value="<%= tag.id %>"><%= tag.name %></option>
+        <% } else { %>
         <option value="<%= tag.id %>"><%= tag.name %></option>
+        <% } %>
       <% }) %>
     </select>
   </div>
+  <input type="hidden" id="id" name="id" value="<%= law.id %>" />
   <button type="submit" class="btn btn-primary">Actualizar</button>
 </form>

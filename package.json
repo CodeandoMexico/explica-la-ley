@@ -30,7 +30,8 @@
     "sails-disk": "~0.10.0",
     "sails-postgresql": "~0.10.8",
     "slug": "^0.5.0",
-    "node-twitter-api": "1.2.3"
+    "node-twitter-api": "1.2.3",
+    "moment": "2.8.3"
   },
   "scripts": {
     "start": "node app.js",

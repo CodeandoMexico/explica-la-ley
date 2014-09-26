@@ -5,18 +5,22 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+function _error(msg, req, res) {
+  console.log('(!!) ERROR @: ' + req.options.controller + '/' + req.options.action);
+  console.log(msg);
+  return res.redirect('/');
+}
+
 module.exports = {
 
   login: function(req, res) {
     if (req.session.user) {
-      // Already logged in.
-      return res.redirect('/');
+      return _error('Trying to login while logged-in', req, res);
     } else {
       sails.config.globals.twitterApi.getRequestToken(
         function(error, requestToken, requestTokenSecret, results) {
         if (error) {
-          console.log('Error getting OAuth request token', error);
-          return res.redirect('/');
+          return _error('Error getting OAuth request token: ' + error, req, res);
         } else {
           req.session.oauth = {
             requestToken: requestToken,
@@ -41,16 +45,14 @@ module.exports = {
         req.param('oauth_verifier'),
         function(error, accessToken, accessTokenSecret, results) {
         if (error) {
-          console.log('Error getting access token:', error);
-          return res.redirect('/');
+          return _error('Error getting access token: ' + error, req, res);
         } else {
           sails.config.globals.twitterApi.verifyCredentials(
             accessToken, 
             accessTokenSecret, 
             function(error, data, response) {
             if (error) {
-              console.log('Error verifying credentials:', error);
-              return res.redirect('/');
+              return _error('Error verifying credentials: ' + error, req, res);
             } else {
               req.session.user = {
                 twitterScreenName: data.screen_name,
@@ -60,6 +62,7 @@ module.exports = {
               }
               User.findOne({twitterId: data.id})
               .exec(function(err, user) {
+                if (err) return _error(err, req, res);
                 if (!user) {
                   // First time I see this twitter user.
                   User.create({
@@ -68,10 +71,9 @@ module.exports = {
                     twitterName: data.name
                   }).exec(function(err, user) {
                     if (err) {
-                      console.log('Error creating user:', err);
                       req.session.user = null;
                       req.session.oauth = null;
-                      return res.redirect('/');
+                      return _error('Error creating user: ' + err, req, res);
                     } else {
                       req.session.user.id = user.id;
                       return res.redirect('/');
@@ -88,6 +90,7 @@ module.exports = {
                     }, {
                       twitterScreenName: data.screen_name
                     }).exec(function(err, users) {
+                      if (err) return _error(err, req, res);
                       return res.redirect('/');
                     });
                   } else {
@@ -104,7 +107,7 @@ module.exports = {
       // incomplete twitter oauth URL.
       req.session.user = null;
       req.session.oauth = null;
-      return res.redirect('/');
+      return _error('Invalid OAuth URL', req, res);
     }
   },
 
@@ -124,11 +127,8 @@ module.exports = {
     }, {
       email: req.param('email')
     }).exec(function(err, user) {
-      if (err) {
-        console.log('Error saving email:', err);
-      } else {
-        req.session.user.email = req.param('email');
-      }
+      if (err) return _error(err, req, res);
+      req.session.user.email = req.param('email');
       return res.redirect('/ley/user');
     });
   },
@@ -139,14 +139,10 @@ module.exports = {
     }, {
       email: ''
     }).exec(function(err, user) {
-      if (err) {
-        console.log('Error forgetting email:', err);
-      } else {
-        req.session.user.email = '';
-      }
+      if (err) return _error(err, req, res);
+      req.session.user.email = '';
       return res.redirect('/ley/user');
     });
-
   }
 
 };
