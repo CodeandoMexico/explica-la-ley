@@ -21,7 +21,9 @@ module.exports = {
   },
 
   find: function(req, res) {
-    Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
+    Law.findOne({slug: req.param('law_slug')})
+    .populate('tag')
+    .exec(function(err, law) {
       if (err) return _error(err, req, res);
       if (!law) return _error('Ley no encontrada', req, res);
       Article.findOne({
@@ -31,7 +33,7 @@ module.exports = {
         if (err) return _error(err, req, res)
         if (!article) return _error('Articulo no encontrado', req, res);
         res.locals.layout = 'layoutv2';
-        return res.view('article/find', {article: article});
+        return res.view('article/find', {article: article, law: law});
       });
     });
   },

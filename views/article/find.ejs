@@ -10,9 +10,9 @@
 <div class='pure-g l-box'>
   <ul class="empty-ul footer-nav pure-u-1 text-center">
     <li>
-      <a href="/ley/law/<%= article.law.id %>">Volver a <%= article.law.name %></a>
+      <a href="/ley/<%= law.tag.slug %>/<%= law.slug %>">Volver a la <%= law.name %></a>
       </li><li>
-      <a href="/ley/law">Ver más leyes</a>
+      <a href="/ley/<%= law.tag.slug %>">Ver más leyes</a>
     </li>
   </ul>
 </div>
