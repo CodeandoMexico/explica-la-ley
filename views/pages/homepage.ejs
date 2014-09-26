@@ -9,6 +9,17 @@
 
 <div class='highlight-container l-container'>
   <section class='highlight-section'>
+    <h2 class="highlight-section-title text-center l-no-margin-t">Reformas recientes</h2>
+    <div class="pure-g">
+      <% _.each(tags, function(tag) { %>
+        <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1-3 card card-w-meta text-center l-box">
+          <%- partial('../modules/_tag_card', {tag: tag}) %>
+        </div>
+      <% })%>
+    </div>
+  </section>
+  <hr class='highlight-container-separator'>
+  <section class='highlight-section'>
     <h2 class="highlight-section-title text-center l-no-margin-t">Leyes más discutidas</h2>
     <div class="pure-g">
       <% _.each(laws, function(law) { %>

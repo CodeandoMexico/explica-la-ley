@@ -16,6 +16,10 @@ module.exports = {
       type: 'STRING',
       required: true
     },
+    slug: {
+      type: 'STRING',
+      unique: true
+    },
     articles: {
       collection: 'article',
       via: 'law'
@@ -25,9 +29,22 @@ module.exports = {
     }
   },
 
+  beforeCreate: function(attrs, next) {
+    var slug = require('slug');
+    attrs.slug = slug(attrs.name).toLowerCase();
+    next();
+  },
+
+  beforeUpdate: function(attrs, next) {
+    var slug = require('slug');
+    attrs.slug = slug(attrs.name).toLowerCase();
+    next();
+  },
 
  /* 
-  * @param {Array} laws: Contains all the existing laws.
+  * @param {Array} laws: Array of Law objects. This array must be the one
+  *  returned by Law.find(). The ones returned by .populate() will make this
+  *  this code fail.
   * @param {Function} next: Callback that runs when all laws are processed.
   * @return {Object} annotationCounters: Contains the number of annotations
   * each law has. The law's ID is the key, the annotation count is the value.
