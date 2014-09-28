@@ -64,6 +64,13 @@ module.exports.policies = {
     'destroy' : 'adminRole'
   },
 
+  TagController: {
+    '*'       : false,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole'
+  },
+
   UserController: {
     '*'                   : false,
     'login'               : true,
