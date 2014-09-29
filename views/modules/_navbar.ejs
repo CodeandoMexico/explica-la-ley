@@ -6,13 +6,13 @@
     <ul>
       <% if (req.session.user) {%>
         <li>
-          <a href="/ley/logout">Logout</a>
+          <a href="/logout">Logout</a>
         </li>
         <li>
-          <a href="/ley/user">Mi Perfil (<%= req.session.user.twitterScreenName %>)</a>
+          <a href="/user">Mi Perfil (<%= req.session.user.twitterScreenName %>)</a>
         </li>
       <% } else { %>
-        <li><a href="/ley/login">Iniciar Sesión</a></li>
+        <li><a href="/login">Iniciar Sesión</a></li>
       <% } %>
     </ul>
   </nav>

@@ -27,18 +27,6 @@ module.exports = {
     }
   },
 
-  beforeCreate: function(attrs, next) {
-    var slug = require('slug');
-    attrs.slug = slug(attrs.name).toLowerCase();
-    next();
-  },
-
-  beforeUpdate: function(attrs, next) {
-    var slug = require('slug');
-    attrs.slug = slug(attrs.name).toLowerCase();
-    next();
-  },
-
   getFriendlyDate: function(date) {
     var moment = require('moment');
     moment.locale('es-MX');

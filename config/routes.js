@@ -36,17 +36,17 @@ module.exports.routes = {
     action: 'homepage'
   },
 
-  '/ley/login': {
+  '/login': {
     controller: 'user',
     action: 'login'
   },
 
-  '/ley/user/twitterAuthCallback': {
+  '/user/twitterAuthCallback': {
     controller: 'user',
     action: 'twitterAuthCallback'
   },
 
-  'get /ley/logout': {
+  'get /logout': {
     controller: 'user',
     action: 'logout'
   },
@@ -54,52 +54,37 @@ module.exports.routes = {
   // Custom routes here...
   // XXX: Order matters!
 
-  '/ley/article/create': {
+  '/article/create': {
     controller: 'article',
     action: 'create'
   },
 
-  'post /ley/article/search': {
+  'post /article/search': {
     controller: 'article',
     action: 'search'
   },
 
-  '/ley/article/:id': {
+  '/article/:id': {
     controller: 'article',
     action: 'find'
   },
 
-  '/ley/article/:id/edit': {
-    controller: 'article',
-    action: 'edit'
-  },
-
-  '/ley/law/create': {
+  '/law/create': {
     controller: 'law',
     action: 'create'
   },
 
-  'get /ley/law/:id': {
+  'get /law/:id': {
     controller: 'law',
     action: 'find'
   },
 
-  '/ley/law/:id/edit': {
-    controller: 'law',
-    action: 'edit'
-  },
-
-  '/ley/tag/create': {
+  '/tag/create': {
     controller: 'tag',
     action: 'create'
   },
 
-  'get /ley/tag/:id': {
-    controller: 'tag',
-    action: 'find'
-  },
-
-  '/ley/tag/:id/edit': {
+  '/reforma/:tag_slug/edit': {
     controller: 'tag',
     action: 'edit'
   },
@@ -139,17 +124,17 @@ module.exports.routes = {
     action: 'votedown'
   },
 
-  'get /ley/user': {
+  'get /user': {
     controller: 'user',
     action: 'profile'
   },
 
-  'post /ley/user/saveEmail': {
+  'post /user/saveEmail': {
     controller: 'user',
     action: 'saveEmail'
   },
 
-  'post /ley/user/forgetEmail': {
+  'post /user/forgetEmail': {
     controller: 'user',
     action: 'forgetEmail'
   },
@@ -158,19 +143,30 @@ module.exports.routes = {
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options
   // and examples.
 
-  '/ley/:tag_slug': {
+
+  '/reforma/:tag_slug': {
     controller: 'tag',
     action: 'find'
   },
 
-  '/ley/:tag_slug/:law_slug': {
+  '/reforma/:tag_slug/ley/:law_slug': {
     controller: 'law',
     action: 'find'
   },
 
-  '/ley/:tag_slug/:law_slug/:article_number': {
+  '/reforma/:tag_slug/ley/:law_slug/edit': {
+    controller: 'law',
+    action: 'edit'
+  },
+
+  '/reforma/:tag_slug/ley/:law_slug/articulo/:article_number': {
     controller: 'article',
     action: 'find'
+  },
+
+  '/reforma/:tag_slug/ley/:law_slug/articulo/:article_number/edit': {
+    controller: 'article',
+    action: 'edit'
   },
 
 };

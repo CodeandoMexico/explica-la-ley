@@ -1,40 +1,17 @@
-<!--
-Poner perfil de reforma/familia de leyes, con links a las paginas del senado (PDFs, excel, etc).
-<br />
-Poner listado de leyes contenidas en esta reforma/familia, con links a sus perfiles.
-
-<ul>
-<% _.each(tag.laws, function(law) { %>
-  <li>
-    <a href="/ley/<%= tag.slug %>/<%= law.slug %>"><%= law.name %></a>
-  </li>
-<% }); %>
-</ul>
--->
-
 <div class="law">
   <header class='text-center header l-box'>
     <h1 class="l-no-margin-b header-title"><%= tag.name %></h1>
     <h2 class='header-subtitle'><%= tag.summary %></h2>
   </header>
 
-  <% if (laws.length == 0) { %>
-    <h3 class='text-center l-box l-no-margin'>Por el momento no hay leyes registradas en esta reforma</h3>
-  <% } else { %>
-    <h3 class='text-center l-box l-no-margin'>Leyes dentro de esta reforma:</h3>
-      <div class='highlight-container l-container'>
-        <section class='highlight-section'>
-          <div class="pure-g">
-            <% _.each(laws, function(law) { %>
-              <div class="pure-u-1 pure-u-md-1-1 pure-u-lg-1-1 card card-w-meta text-center l-box">
-                <% law.tag = {slug: tag.slug} %>
-                <%- partial('../modules/_law_card', {law: law}) %>
-              </div>
-              <hr class='highlight-container-separator'>
-            <% })%>
-          </div>
-        </section>
-      </div>
-    </ul>
-  <% } %>
+  <h3 class='text-center l-box l-no-margin'>Leyes dentro de esta reforma:</h3>
+  <ul class="pure-g empty-ul card-listing">
+   <% _.each(laws, function(law) { %>
+      <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
+        <article class='l-box'>
+          <%- partial('../modules/_law_card_v2', {tag: tag, law: law, annotationCounter: annotationCounters[law.id]}) %>
+        </article>
+      </li>
+    <% })%>
+  </ul>
 </div>
