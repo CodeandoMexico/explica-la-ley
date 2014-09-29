@@ -50,8 +50,8 @@ module.exports.policies = {
     '*'       : false,
     'index'   : true,
     'find'    : true,
-    'create'  : true,
-    'update'  : 'adminRole',
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
     'destroy' : 'adminRole',
   },
 
@@ -60,7 +60,7 @@ module.exports.policies = {
     'index'   : true,
     'find'    : true,
     'create'  : 'adminRole',
-    'update'  : 'adminRole',
+    'edit'    : 'adminRole',
     'destroy' : 'adminRole'
   },
 
