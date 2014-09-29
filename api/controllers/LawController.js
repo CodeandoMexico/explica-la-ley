@@ -73,10 +73,10 @@ module.exports = {
         tag: req.param('tag')
       }).exec(function(err, laws) {
         if (err) return _error(err, req, res);
-        return res.redirect('/ley/law/' + laws[0].id);
+        return res.redirect('/reforma/' + req.param('tag_slug') + '/ley/' + req.param('law_slug'));
       });
     } else if (req.method == 'GET' || req.method == 'get') {
-      Law.findOne(req.param('id')).exec(function(err, law) {
+      Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
         if (err) return _error(err, req, res);
         if (!law) return _error('Ley no encontrada', req, res);
         Tag.find({}).exec(function(err, tags) {
@@ -93,14 +93,15 @@ module.exports = {
       Law.create({
         name: req.param('name'),
         summary: req.param('summary'),
-        tag: req.param('tag')
+        tag: req.param('tag'),
+        slug: req.param('slug')
       }).exec(function(err, law) {
         if (err) return _error(err, req, res);
         Law.findOne({id: law.id})
         .populate('tag') // The reason for this DB query.
         .exec(function(err, law) {
           if (err) return _error(err, req, res);
-          return res.redirect('/ley/' + law.tag.slug + '/' + law.slug);
+          return res.redirect('/reforma/' + law.tag.slug + '/ley/' + law.slug);
         });
       });
     } else if (req.method == 'GET' || req.method == 'get') {

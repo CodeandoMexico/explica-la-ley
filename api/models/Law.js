@@ -29,18 +29,6 @@ module.exports = {
     }
   },
 
-  beforeCreate: function(attrs, next) {
-    var slug = require('slug');
-    attrs.slug = slug(attrs.name).toLowerCase();
-    next();
-  },
-
-  beforeUpdate: function(attrs, next) {
-    var slug = require('slug');
-    attrs.slug = slug(attrs.name).toLowerCase();
-    next();
-  },
-
  /* 
   * @param {Array} laws: Array of Law objects. This array must be the one
   *  returned by Law.find(). The ones returned by .populate() will make this

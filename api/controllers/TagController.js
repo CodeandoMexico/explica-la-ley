@@ -47,13 +47,15 @@ module.exports = {
         id: req.param('id')
       }, {
         name: req.param('name'),
+        slug: req.param('slug'),
+        summary: req.param('summary')
       }).exec(function(err, tag) {
         if (err) _error(err, req, res);
         if (!tag) _error('Tag a editar no encontrado', req, res);
-        return res.redirect('/ley/' + tag.slug);
+        return res.redirect('/reforma/' + tag.slug);
       });
     } else if (req.method == 'get' || req.method == 'GET') {
-      Tag.findOne(req.param('id')).exec(function (err, tag) {
+      Tag.findOne({slug: req.param('tag_slug')}).exec(function (err, tag) {
         if (err) return _error(err, req, res);
         if (!tag) return _error('Tag no encontrado', req, res);
         res.locals.layout = 'layoutv2';
@@ -66,10 +68,11 @@ module.exports = {
     if (req.method == 'post' || req.method == 'POST') {
       Tag.create({
         name: req.param('name'),
-        summary: req.param('summary')
+        summary: req.param('summary'),
+        slug: req.param('slug')
       }).exec(function(err, tag) {
         if (err) return _error(err, req, res);
-        return res.redirect('/ley/' + tag.slug);
+        return res.redirect('/reforma/' + tag.slug);
       });
     } else if (req.method == 'get' || req.method == 'GET') {
       res.locals.layout = 'layoutv2';

@@ -45,22 +45,25 @@ module.exports = {
         id: req.param('id')
       }, {
         number: parseInt(req.param('number'), 10),
-        body: body
+        body: req.param('body'),
       }).exec(function(err, article) {
         if (err) _error(err, req, res);
         if (!article) _error('Articulo a editar no encontrado', req, res);
-        return res.redirect('/ley/article/' + req.param('id'));
+        return res.redirect('/reforma/' + req.param('tag_slug') + '/ley/' + req.param('law_slug') + '/articulo/' + req.param('number'));
       });
     } else if (req.method == 'get' || req.method == 'GET') {
-      Article.findOne(req.param('id')).exec(function (err, article) {
-        if (err) return _error(err, req, res);
-        if (!article) return _error('Articulo no encontrado', req, res);
-        Law.find({}).exec(function(err, laws) {
-          if (err) return _error('Error al buscar leyes', req, res);
-          if (!laws) laws = [];
+      Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
+        if (err) return _error('Error al buscar leyes', req, res);
+        if (!law) _error('Ley no encontrada', req, res);
+        Article.findOne({
+          number: req.param('article_number'),
+          law: law.id
+        }).exec(function (err, article) {
+          if (err) return _error(err, req, res);
+          if (!article) return _error('Articulo no encontrado', req, res);
           article.body = typeof article.body === 'undefined' ? '' : article.body.trim();
           res.locals.layout = 'layoutv2';
-          return res.view('article/edit', {article: article, laws: laws});
+          return res.view('article/edit', {article: article});
         });
       });
     }
@@ -80,7 +83,7 @@ module.exports = {
           body: req.param('body')
         }).exec(function(err, article) {
           if (err) return _error(err, req, res);
-          return res.redirect('/ley/' + law.tag.slug + '/' + law.slug + '/' + req.param('number'));
+          return res.redirect('/reforma/' + law.tag.slug + '/ley/' + law.slug + '/articulo/' + req.param('number'));
         });
       });
     } else if (req.method == 'get' || req.method == 'GET') {

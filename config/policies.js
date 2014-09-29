@@ -66,6 +66,7 @@ module.exports.policies = {
 
   TagController: {
     '*'       : false,
+    'find'    : true,
     'create'  : 'adminRole',
     'edit'    : 'adminRole',
     'destroy' : 'adminRole'
