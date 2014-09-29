@@ -23,6 +23,10 @@ module.exports = {
     email: {
       type: 'EMAIL',
     },
+    role: {
+      type: 'STRING',
+      enum: ['user', 'expert', 'admin']
+    },
     annotations: {
       collection: 'annotation',
       via: 'user'

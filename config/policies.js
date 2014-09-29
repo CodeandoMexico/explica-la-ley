@@ -37,38 +37,48 @@ module.exports.policies = {
 	*/
 
   AnnotationController: {
-    'index': true,
-    'create': 'currentUser',
-    'update': 'currentUser',
-    'destroy': 'currentUser',
-    'votedown': 'currentUser',
-    'voteup': 'currentUser',
+    '*'       : false,
+    'index'   : true,
+    'create'  : 'userRole',
+    'update'  : 'userRole',
+    'destroy' : 'userRole',
+    'votedown': 'userRole',
+    'voteup'  : 'userRole',
   },
 
   ArticleController: {
-    'index': true,
-    'find': true,
-    'create': true,
-    'update': 'currentUser',
-    'destroy': 'currentUser',
+    '*'       : false,
+    'index'   : true,
+    'find'    : true,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole',
   },
 
   LawController: {
-    'index': true,
-    'find': true,
-    'create': 'currentUser',
-    'update': 'currentUser',
-    'destroy': 'currentUser'
+    '*'       : false,
+    'index'   : true,
+    'find'    : true,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole'
+  },
+
+  TagController: {
+    '*'       : false,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole'
   },
 
   UserController: {
-    '*': false,
-    'login': true,
-    'twitterAuthCallback': true,
-    'logout': true,
-    'profile': 'currentUser',
-    'saveEmail': 'currentUser',
-    'forgetEmail': 'currentUser',
+    '*'                   : false,
+    'login'               : true,
+    'twitterAuthCallback' : true,
+    'logout'              : true,
+    'profile'             : 'userRole',
+    'saveEmail'           : 'userRole',
+    'forgetEmail'         : 'userRole',
   }
 };
 

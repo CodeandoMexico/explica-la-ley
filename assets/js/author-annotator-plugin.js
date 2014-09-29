@@ -51,6 +51,9 @@ Annotator.Plugin.Author = function (element) {
         // This element holds the actual action buttons, which need to be
         // modified on-the-fly according to the user/annotation's state.
         twitterAnchor.parentNode.parentNode.children[0].innerHTML = btnsHtml;
+        if (annotation.user.role == 'expert') {
+          twitterAnchor.parentNode.style.backgroundColor = '#EDE0BC';
+        }
       }
     });
   };
