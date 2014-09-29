@@ -6,7 +6,7 @@ module.exports = function(req, res, next) {
     'juanpabloe': 1,
     'paulinabustosa': 1,
   }
-  if (codeandoMexico[req.session.user.twitterScreenName.toLowerCase()] == 1) {
+  if (req.session.user && codeandoMexico[req.session.user.twitterScreenName.toLowerCase()] == 1) {
     return next();
   }
 
