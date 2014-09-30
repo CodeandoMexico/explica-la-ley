@@ -131,7 +131,7 @@ module.exports = {
     }).exec(function(err, user) {
       if (err) return _error(err, req, res);
       req.session.user.email = req.param('email');
-      return res.redirect('/ley/user');
+      return res.redirect('/user');
     });
   },
 
@@ -143,7 +143,7 @@ module.exports = {
     }).exec(function(err, user) {
       if (err) return _error(err, req, res);
       req.session.user.email = '';
-      return res.redirect('/ley/user');
+      return res.redirect('/user');
     });
   }
 
