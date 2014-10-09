@@ -53,6 +53,7 @@ module.exports.policies = {
     'create'  : 'adminRole',
     'edit'    : 'adminRole',
     'destroy' : 'adminRole',
+    'search'  : true
   },
 
   LawController: {
