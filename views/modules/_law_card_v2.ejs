@@ -1,0 +1,15 @@
+<h3 class="card-title"><%= law.name %></h3>
+<p class='card-description'>
+  <%=: law.summary.replace(/(<([^>]+)>)/ig,"") | truncate:100, ' ...' %>
+</p>
+<div class='card-bottom'>
+  <div class='l-spacer-b'>
+    <span class='card-meta'>
+      <i class='i-el i-el-message vertical-middle l-icon-spacer-r'></i>
+      <%= annotationCounter %><%= annotationCounter == 1 ? ' comentario': ' comentarios'%>
+      <i class='i-el i-el-article vertical-middle l-icon-spacer-r'></i>
+      <%= law.articles.length %><%= law.articles.length == 1 ? ' artículo': ' artículos'%>
+    </span>
+  </div>
+  <a href='/reforma/<%= tag.slug %>/ley/<%= law.slug %>' class='pure-button el-button el-button-primary'>Ver más</a>
+</div>

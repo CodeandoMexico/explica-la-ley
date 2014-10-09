@@ -1,0 +1,80 @@
+/* A card is a block used to visualize small and stucture chunks of
+ * information as laws, articles, members.
+ *
+ * Currently it has two variations one for a card with an image as being
+ * used to display a contributior information. The other variation is a card
+ * with meta information as being used to display law and article
+ * information.
+ */
+
+.card {
+  color: $text-color-light;
+  position: relative;
+
+  .card-title {
+    color: $brand-primary;
+  }
+
+  .card-bottom {
+    bottom: 1em;
+    left: 1em;
+    position: absolute;
+    right: 1em;
+  }
+
+  &.card-w-image {
+    .card-main-img {
+      width: 88px;
+    }
+
+    .card-title {
+      color: $text-color-light;
+      font-weight: normal;
+      margin-top: 1.3em;
+    }
+
+    .card-subtitle {
+      color: $brand-primary;
+    }
+  }
+
+  &.card-w-meta {
+    .card-description {
+      margin-bottom: 6em;
+    }
+  }
+
+  &.card-on-light {
+    color: $text-color-dark;
+
+  }
+
+}
+
+.card-listing {
+
+  .card {
+
+    &:before {
+      border: 2px solid $brand-primary;
+      border-radius: 5px;
+      bottom: 1em;
+      content: '';
+      left: 1em;
+      position: absolute;
+      right: 1em;
+      top: 1em;
+    }
+
+    .card-title {
+      margin-top: 0;
+    }
+
+    .card-bottom {
+      bottom: 2em;
+      position: absolute;
+    }
+  }
+
+}
+

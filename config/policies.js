@@ -37,32 +37,49 @@ module.exports.policies = {
 	*/
 
   AnnotationController: {
-    'index': true,
-    'create': 'currentUser',
-    'update': 'currentUser',
-    'destroy': 'currentUser'
+    '*'       : false,
+    'index'   : true,
+    'create'  : 'userRole',
+    'update'  : 'userRole',
+    'destroy' : 'userRole',
+    'votedown': 'userRole',
+    'voteup'  : 'userRole',
   },
 
   ArticleController: {
-    'index': true,
-    'find': true,
-    'create': 'currentUser',
-    'update': 'currentUser',
-    'destroy': 'currentUser'
+    '*'       : false,
+    'index'   : true,
+    'find'    : true,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole',
   },
 
   LawController: {
-    'index': true,
-    'find': true,
-    'create': 'currentUser',
-    'update': 'currentUser',
-    'destroy': 'currentUser'
+    '*'       : false,
+    'index'   : true,
+    'find'    : true,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole'
+  },
+
+  TagController: {
+    '*'       : false,
+    'find'    : true,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole'
   },
 
   UserController: {
-    '*': false,
-    'login': true,
-    'logout': true
+    '*'                   : false,
+    'login'               : true,
+    'twitterAuthCallback' : true,
+    'logout'              : true,
+    'profile'             : 'userRole',
+    'saveEmail'           : 'userRole',
+    'forgetEmail'         : 'userRole',
   }
 };
 

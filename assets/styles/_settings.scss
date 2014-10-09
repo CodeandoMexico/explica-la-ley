@@ -1,0 +1,33 @@
+// COLORS
+$white: #fff;
+$brand-primary: #1bcc8c;
+$brand-secondary: #3f4854;
+$text-color-dark: #303949;
+$text-color-light: $white;
+$highlight-text-background: #bdf1e1;
+
+
+$gray-darker: lighten(#000, 13.5%);
+$gray-dark: lighten(#000, 20%);
+$gray: lighten(#000, 33.5%);
+$gray-light: lighten(#000, 46.7%);
+$gray-lighter: lighten(#000, 93.5%);
+
+// SCAFFOLD
+$body-bg: $white;
+$link-color: $brand-primary;
+$link-hover-color: darken($link-color, 15%);
+$footer-link-color: darken($brand-primary, 15%);
+$footer-link-hover-color: lighten($footer-link-color, 1%);
+$footer-text-color: $footer-link-color;
+
+
+// TYPOGRAPHY
+$font-family-base: "Montserrat", sans-serif;
+
+
+// BREAKPOINTS
+$break-sm: 35.5em; // >= 568px
+$break-md: 48em;   // >= 768px
+$break-lg: 64em;   // >= 1024px
+$break-xl: 80em;   // >= 1280px

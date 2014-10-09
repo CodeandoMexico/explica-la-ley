@@ -1,0 +1,12 @@
+<h3 class="card-title"><%= tag.name %></h3>
+<p class='card-description'>
+  <%= tag.summary %>
+</p>
+<div class='card-bottom'>
+  <div class='l-spacer-b'>
+    <span class='card-meta l-spacer-r'>
+      Agregada <%= Tag.getFriendlyDate(tag.createdAt) %>
+    </span>
+  </div>
+  <a href='/reforma/<%= tag.slug %>' class='pure-button el-button el-button-primary'>Ver más</a>
+</div>

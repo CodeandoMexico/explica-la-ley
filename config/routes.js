@@ -36,34 +36,56 @@ module.exports.routes = {
     action: 'homepage'
   },
 
-  '/ley/login': {
-    view: 'login'
+  '/login': {
+    controller: 'user',
+    action: 'login'
   },
 
-  'get /ley/logout': {
+  '/user/twitterAuthCallback': {
+    controller: 'user',
+    action: 'twitterAuthCallback'
+  },
+
+  'get /logout': {
     controller: 'user',
     action: 'logout'
   },
 
   // Custom routes here...
+  // XXX: Order matters!
 
-  'get /ley/article/new': {
+  '/article/create': {
     controller: 'article',
-    action: 'newArticle'
+    action: 'create'
   },
 
-  'get /ley/article/edit/:id': {
+  'post /article/search': {
     controller: 'article',
-    action: 'edit'
+    action: 'search'
   },
 
-  'get /ley/law/new': {
-    controller: 'law',
-    action: 'newLaw'
+  '/article/:id': {
+    controller: 'article',
+    action: 'find'
   },
 
-  'get /ley/law/edit/:id': {
+  '/law/create': {
     controller: 'law',
+    action: 'create'
+  },
+
+  'get /law/:id': {
+    controller: 'law',
+    action: 'find'
+  },
+
+  '/tag/create': {
+    controller: 'tag',
+    action: 'create'
+  },
+
+  '/reforma/:tag_slug/edit': {
+    controller: 'tag',
     action: 'edit'
   },
 
@@ -90,11 +112,61 @@ module.exports.routes = {
   'delete /storage/annotation/:id': {
     controller: 'annotation',
     action: 'destroy'
-  }
+  },
 
+  'post /annotation/:id/voteup': {
+    controller: 'annotation',
+    action: 'voteup'
+  },
+
+  'post /annotation/:id/votedown': {
+    controller: 'annotation',
+    action: 'votedown'
+  },
+
+  'get /user': {
+    controller: 'user',
+    action: 'profile'
+  },
+
+  'post /user/saveEmail': {
+    controller: 'user',
+    action: 'saveEmail'
+  },
+
+  'post /user/forgetEmail': {
+    controller: 'user',
+    action: 'forgetEmail'
+  },
 
   // If a request to a URL doesn't match any of the custom routes above, it is matched 
   // against Sails route blueprints.  See `config/blueprints.js` for configuration options
   // and examples.
+
+
+  '/reforma/:tag_slug': {
+    controller: 'tag',
+    action: 'find'
+  },
+
+  '/reforma/:tag_slug/ley/:law_slug': {
+    controller: 'law',
+    action: 'find'
+  },
+
+  '/reforma/:tag_slug/ley/:law_slug/edit': {
+    controller: 'law',
+    action: 'edit'
+  },
+
+  '/reforma/:tag_slug/ley/:law_slug/articulo/:article_number': {
+    controller: 'article',
+    action: 'find'
+  },
+
+  '/reforma/:tag_slug/ley/:law_slug/articulo/:article_number/edit': {
+    controller: 'article',
+    action: 'edit'
+  },
 
 };

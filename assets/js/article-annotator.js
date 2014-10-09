@@ -1,7 +1,8 @@
 jQuery(function($) {
   // Matches the url of a document, puts a match group at the :id
-  var regex = /.*\/(\d+)/,
-      article = $('.article').annotator();
+  var article = $('.article').annotator();
+  // Avoid this hackery by loading this script only when viewing articles.
+  var articleIdDomObj = document.getElementById('articleId') || {innerHTML: -1};
 
   article.annotator('addPlugin', 'Store', {
     prefix: '/storage',
@@ -12,11 +13,15 @@ jQuery(function($) {
       destroy:  '/annotation/:id',
       search:   '/annotation'
     },
+
+    // Sent to the backend when saving an annotation.
     annotationData: {
-      article: document.URL.replace(regex, "$1")
+      article: articleIdDomObj.innerHTML,
     },
+
+    // Used to load annotations within an article's view.
     loadFromSearch: {
-      article: document.URL.replace(regex, "$1")
+      article: articleIdDomObj.innerHTML,
     }
   });
 

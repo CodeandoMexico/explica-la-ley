@@ -1,21 +1,16 @@
 <h2 class="col-md-offset-2">Actualizar Art&iacute;culo</h2>
-<form method="POST" action="/ley/article/update/<%= article.id %>" class="col-md-4 col-md-offset-2" role="form">
+<form method="POST" action="edit" class="col-md-4 col-md-offset-2" role="form">
   <div class="form-group">
     <label for="number">N&uacute;mero</label>
-    <input type="text" class="form-control" id="number" name="number"
-    value="<%= article.number %>" placeholder="Número de Artículo" />
+    <input type="text" class="form-control" id="number" name="number" value="<%= article.number %>" placeholder="Número de Artículo" />
   </div>
   <div class="form-group">
+    <!-- TODO: set up a WYSIWYG editor -->
     <label for="body">Cuerpo</label>
-    <textarea class="form-control" id="body" name="body" placeholder="Texto de artículo" rows="10"></textarea>
+    <textarea class="form-control" id="body" name="body" placeholder="Texto de artículo" rows="10">
+      <%= article.body %>
+    </textarea>
   </div>
-  <div class="form-group">
-    <label for="law">Ley a la que pertenece:</label>
-    <select name="law">
-      <% for(var i = 0; i < laws.length; i++) {%>
-        <option value="<%= laws[i].id %>"><%= laws[i].name %></option>
-      <% } %>
-    </select>
-  </div>
+  <input type="hidden" name="id" id="id" value="<%= article.id %>" />
   <button type="submit" class="btn btn-primary">Actualizar</button>
 </form>

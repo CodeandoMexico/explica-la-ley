@@ -1,0 +1,13 @@
+<h3 class="card-title">Artículo No. <%= article.number %></h3>
+<p class='card-description'>
+  <%=: article.body.replace(/(<([^>]+)>)/ig,"") | truncate:100, ' ...' %>
+</p>
+<div class='card-bottom'>
+  <div class='l-spacer-b'>
+    <span class='card-meta'>
+      <i class='i-el i-el-message vertical-middle l-icon-spacer-r'></i>
+      <%= article.annotations.length %><%= article.annotations.length == 1 ? ' comentario': ' comentarios'%>
+    </span>
+  </div>
+  <a href='/reforma/<%= tag_slug %>/ley/<%= law_slug %>/articulo/<%= article.number %>' class='pure-button el-button el-button-primary'>Ver más</a>
+</div>

@@ -1,0 +1,10 @@
+<img alt="<%= member.name%>" title="<%= member.name%>" src="<%= member.avatarUrl %>" class='pure-img-eliptical card-main-img'>
+<h3 class="card-title l-no-margin-b"><%= member.name%></h3>
+<h4 class='card-subtitle l-no-margin-t'>
+  <a href='http://www.twitter.com/<%= member.twitterProfile %>'>
+    <%= member.twitterProfile %>
+  </a>
+</h4>
+<p class='card-description text-center'>
+  <%- member.bio %>
+</p>

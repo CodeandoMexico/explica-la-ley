@@ -1,0 +1,17 @@
+<div class="law">
+  <header class='text-center header l-box'>
+    <h1 class="l-no-margin-b header-title"><%= tag.name %></h1>
+    <h2 class='header-subtitle'><%= tag.summary %></h2>
+  </header>
+
+  <h3 class='text-center l-box l-no-margin'>Leyes dentro de esta reforma:</h3>
+  <ul class="pure-g empty-ul card-listing">
+   <% _.each(laws, function(law) { %>
+      <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-2 text-center card card-on-light card-w-meta l-box'>
+        <article class='l-box'>
+          <%- partial('../modules/_law_card_v2', {tag: tag, law: law, annotationCounter: annotationCounters[law.id]}) %>
+        </article>
+      </li>
+    <% })%>
+  </ul>
+</div>

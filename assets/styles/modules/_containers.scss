@@ -1,0 +1,53 @@
+.home-well {
+  position: relative;
+
+  @media screen and (min-width: 60em) {
+    min-height: 280px;
+    background: url('../images/book-illustration.png') no-repeat center bottom;
+  }
+
+  .home-well-text {
+    color: $text-color-dark;
+    font-size: .5em;
+    font-weight: normal;
+  }
+
+  .home-well-title {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 1em 0;
+
+    span {
+      display: block;
+    }
+
+    @media screen and (min-width: 60em) {
+      position: absolute;
+      text-align: center;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+    }
+  }
+}
+
+.highlight-container {
+  background: $brand-secondary;
+
+  .highlight-container-separator {
+    border: 1px solid darken($brand-secondary, 2%);
+    margin-top: 1em;
+    width: 95%;
+  }
+
+  p {
+    color: $text-color-light;
+  }
+}
+
+.highlight-section-title {
+  color: $white;
+  font-size: 1.9em;
+  margin-bottom: .4em;
+}
+

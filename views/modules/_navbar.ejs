@@ -1,0 +1,19 @@
+<header>
+  <nav class="el-skin pure-menu pure-menu-open pure-menu-horizontal">
+    <a href="/" title='Go to homepage' class="pure-menu-heading">
+      <img src="/images/explica-logo.png" alt="Explica la ley logo" class='pure-img' />
+    </a>
+    <ul>
+      <% if (req.session.user) {%>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+        <li>
+          <a href="/user">Mi Perfil (<%= req.session.user.twitterScreenName %>)</a>
+        </li>
+      <% } else { %>
+        <li><a href="/login">Iniciar Sesión</a></li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

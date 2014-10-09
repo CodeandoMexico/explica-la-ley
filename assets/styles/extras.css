@@ -1,0 +1,10 @@
+.vote-btn-unvoted:hover {
+  cursor: pointer;
+  color: #12858D !important;
+}
+.vote-btn-voted {
+  color: #12858D !important;
+}
+.vote-btn-voted:hover {
+  cursor: default;
+}
