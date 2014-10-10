@@ -96,7 +96,9 @@ module.exports = {
   },
 
   search: function(req, res) {
-    Law.findOne({id: req.param('law')}).exec(function(err, law) {
+    Law.findOne({id: req.param('law')})
+    .populate('tag')
+    .exec(function(err, law) {
       if (err) _error(err, req, res);
       if (!law) _error('Ley inexistente', req, res);
       Article.find({
