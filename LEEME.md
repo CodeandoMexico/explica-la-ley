@@ -108,9 +108,9 @@ Hay 3 roles de usuario:
 - ``admin``: puede hacer todo lo que un experto, y crear artículos, leyes y "tags".
 
 
-IMPORTANTE: por cuestiones de desarrollo, se "hardcodearon" varios integrantes del equipo de desarrolladores como ``admin`` en las políticas de privilegios del proyecto (``api/policies.js``). Asegúrese de borrar las líneas 3 a 11 de ``expertRole.js`` y ``adminRole.js`` si hizo fork antes del commit https://github.com/CodeandoMexico/cambia-la-ley/commit/e3641df6283b8291eb3b1ffb5eb4443e299e60b8.
+IMPORTANTE: por cuestiones de desarrollo, se "hardcodearon" varios integrantes del equipo de desarrolladores como ``admin`` en las políticas de privilegios del proyecto (``api/policies.js``). Asegúrese de borrar las líneas 3 a 11 de ``expertRole.js`` y ``adminRole.js`` si hizo fork antes de este [commit] (https://github.com/CodeandoMexico/cambia-la-ley/commit/e3641df6283b8291eb3b1ffb5eb4443e299e60b8).
 
-El rol por defecto para todos los usuarios es ``user``. El otorgamiento de roles se hace directamente en la base de datos.
+El rol por defecto para todos los usuarios es ``user``. El otorgamiento de roles se hace directamente en la base de datos (ej. ``UPDATE "user" set role = 'admin' where id = 1;``).
 
 IMPORTANTE: Si usa PostgreSQL, debido a que ``user`` es palabra reservada, y la tabla de usuarios se llama de esa manera, necesitará referirse a la tabla con comillas dobles en sus queries (ej: ``SELECT * FROM "user";``).
 
