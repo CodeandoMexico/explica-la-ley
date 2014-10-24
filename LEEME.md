@@ -68,7 +68,7 @@ var twitterApiInstance = new twitterApi({
 Esta instancia utiliza 4 variables de entorno:
 - ``TWITTER_KEY``: Consumer key / API key (https://apps.twitter.com).
 - ``TWITTER_SECRET``: Consumer secret / API secret (https://apps.twitter.com).
-- ``TWITTER_CALLBACK_HOSTNAME``: La URL de su servidor a donde Twitter llevará a su usuario después de haberse autenticado. Por ejemplo ``http://explica.la```.
+- ``TWITTER_CALLBACK_HOSTNAME``: La URL de su servidor a donde Twitter llevará a su usuario después de haberse autenticado. Por ejemplo ``http://explica.la``.
 - ``TWITTER_CALLBACK_FUNCTION``: La función en su proyecto que creará la sesión de usuario si éste se autenticó correctamente. Por defecto ésta función debe de ser ``/user/twitterAuthCallback``.
 
 ###El archivo config/local.js
@@ -115,13 +115,13 @@ El rol por defecto para todos los usuarios es ``user``. El otorgamiento de roles
 IMPORTANTE: Si usa PostgreSQL, debido a que ``user`` es palabra reservada, y la tabla de usuarios se llama de esa manera, necesitará referirse a la tabla con comillas dobles en sus queries (ej: ``SELECT * FROM "user";``).
 
 ###Tags, Leyes y Artículos
-- Un tag es una colección de leyes
+- Un tag (o reforma) es una colección de leyes
 - Una ley puede pertenecer únicamente a un tag
 - Una ley es una colección de artículos
 - Un artículo puede pertenecer únicamente a una ley
 
 Crear:
-- ``/tag/create``: Crea tags
+- ``/tag/create``: Crea tags/reformas
 - ``/law/create``: Crea leyes
 - ``/article/create``: Crea artículos
 
