@@ -72,7 +72,7 @@ Esta instancia utiliza 4 variables de entorno:
 - ``TWITTER_CALLBACK_FUNCTION``: La función en su proyecto que creará la sesión de usuario si éste se autenticó correctamente. Por defecto ésta función debe de ser ``/user/twitterAuthCallback``.
 
 ###El archivo config/local.js
-Sails.js le da mayor prioridad a ``config/local.js`` y sobreescribe lo que esté en otros archivos de configuración. Este archivo es útil si desea probar el proyecto en su máquina local. Por ejemplo, si desea que la configuración de la conexión ``postgresql`` creada anteriormente tenga otra configuración, usted tendría que tener esto en ``config/local.js``:
+Sails.js le da mayor prioridad a ``config/local.js`` y sobreescribe lo que esté en otros archivos de configuración con lo que aquí se especifique. Este archivo es útil si desea probar el proyecto en su máquina local. Por ejemplo, si quiere cambiar las variables de la conexión ``postgresql`` creada anteriormente, tendría que hacer algo como lo siguiente en ``config/local.js``:
 ```
 module.exports.connections = {
   postgresql: {
@@ -85,7 +85,7 @@ module.exports.connections = {
   }
 }
 ```
-Para utilizar la autenticación de Twitter mientras el proyecto corre localmente, deberá de poner lo siguiente:
+Para utilizar la autenticación de Twitter mientras el proyecto corre localmente, deberá de hacer algo como:
 ```
 var twitterApi = require('node-twitter-api');
 var mi_conf =  new twitterApi({
@@ -97,6 +97,39 @@ module.exports.globals = {
   twitterApi: mi_conf,
 }
 ```
+
+##Uso
+Después de haber configurado al proyecto, navegue al directorio raíz de éste y ejecute ``sails lift``.
+
+###Usuarios
+Hay 3 roles de usuario:
+- ``user``: puede crear, editar, destruir y votar por anotaciones.
+- ``expert``: puede hacer todo lo que un usuario, pero sus anotaciones son de otro color.
+- ``admin``: puede hacer todo lo que un experto, y crear artículos, leyes y "tags".
+IMPORTANTE: por cuestiones de desarrollo, se "hardcodearon" varios integrantes del equipo de desarrolladores como ``admin`` en las políticas de privilegios del proyecto (``api/policies.js``). Asegúrese de borrar las líneas 3 a 11 si hizo for antes del commit ().
+
+El rol por defecto para todos los usuarios es ``user``. El otorgamiento de roles se hace directamente en la base de datos.
+
+IMPORTANTE: Si usa PostgreSQL, debido a que ``user`` es palabra reservada, y la tabla de usuarios se llama de esa manera, necesitará referirse a la tabla con comillas dobles en sus queries (ej: ``SELECT * FROM "user";``).
+
+###Tags, Leyes y Artículos
+- Un tag es una colección de leyes
+- Una ley puede pertenecer únicamente a un tag
+- Una ley es una colección de artículos
+- Un artículo puede pertenecer únicamente a una ley
+
+Crear:
+- ``/tag/create``: Crea tags
+- ``/law/create``: Crea leyes
+- ``/article/create``: Crea artículos
+
+Editar:
+- Basta con navegar al tag/ley/artículo a editar y agregar ``/edit`` a la URL
+- Requiere que el usuario tenga el rol de ``admin``
+
+Borrar:
+- Requiere interacción directa con la base de datos
+
 
 ##Demo
 [Explica.la/ley](http://explica.la/ley)
