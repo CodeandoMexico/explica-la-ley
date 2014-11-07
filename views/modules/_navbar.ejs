@@ -16,4 +16,29 @@
       <% } %>
     </ul>
   </nav>
+  <% if (req.session.user && req.session.user.role == 'admin') {%>
+    <div>
+      <p>
+        &nbsp;
+        Admin:
+        <a href="/tag/create">
+          <button class="pure-button">
+            <i class="fa fa-plus"></i> tag/reforma
+          </button>
+        </a>
+        &nbsp;
+        <a href="/law/create">
+          <button class="pure-button">
+            <i class="fa fa-plus"></i> ley
+          </button>
+        </a>
+        &nbsp;
+        <a href="/article/create">
+          <button class="pure-button">
+            <i class="fa fa-plus"></i> artículo
+          </button>
+        </a>
+      </p>
+    </div>
+  <% } %>
 </header>

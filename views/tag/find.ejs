@@ -1,20 +1,18 @@
-<% if (req.session.user && req.session.user.role == 'admin') { %>
-  <%-
-    partial('../modules/_admin_buttons', {
-      gui_id : tag.slug,
-      db_id  : tag.id,
-      origin : '/',
-      model  : 'tag'
-    })
-  %>
-<% } %>
-
 <div class="law">
   <header class='text-center header l-box'>
     <h1 class="l-no-margin-b header-title"><%= tag.name %></h1>
+    <% if (req.session.user && req.session.user.role == 'admin') { %>
+      <%-
+        partial('../modules/_admin_buttons', {
+          gui_id : tag.slug,
+          db_id  : tag.id,
+          origin : '/',
+          model  : 'tag'
+        })
+      %>
+    <% } %>
     <h2 class='header-subtitle'><%= tag.summary %></h2>
   </header>
-
   <h3 class='text-center l-box l-no-margin'>Leyes dentro de esta reforma:</h3>
   <ul class="pure-g empty-ul card-listing">
    <% _.each(laws, function(law) { %>

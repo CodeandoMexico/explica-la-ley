@@ -1,17 +1,17 @@
-<% if (req.session.user && req.session.user.role == 'admin') { %>
-  <%-
-    partial('../modules/_admin_buttons',{
-      gui_id : law.slug,
-      db_id  : law.id,
-      origin : '/reforma/' + law.tag.slug,
-      model  : 'law'
-    })
-  %>
-<% } %>
 
 <div class="law">
   <header class='text-center header l-box'>
     <h1 class="l-no-margin-b header-title"><%= law.name %></h1>
+    <% if (req.session.user && req.session.user.role == 'admin') { %>
+      <%-
+        partial('../modules/_admin_buttons',{
+          gui_id : law.slug,
+          db_id  : law.id,
+          origin : '/reforma/' + law.tag.slug,
+          model  : 'law'
+        })
+      %>
+    <% } %>
     <h3>Como parte de la <u><a href="/reforma/<%= law.tag.slug %>"><%= law.tag.name %></a></u><h3>
     <h2 class='header-subtitle'><%= law.summary %></h2>
   </header>
