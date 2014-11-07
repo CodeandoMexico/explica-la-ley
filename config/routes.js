@@ -36,6 +36,11 @@ module.exports.routes = {
     action: 'homepage'
   },
 
+  '/acerca': {
+    controller: 'page',
+    action: 'about'
+  },
+
   '/login': {
     controller: 'user',
     action: 'login'

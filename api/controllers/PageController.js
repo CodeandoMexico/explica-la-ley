@@ -28,5 +28,11 @@ module.exports = {
         });
       });
     });
-  }
+  },
+
+  about: function(req, res) {
+    res.locals.layout = 'layoutv2-full-width';
+    return res.view('pages/about');
+  },
+
 };
