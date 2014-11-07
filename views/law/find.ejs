@@ -1,7 +1,10 @@
-
 <div class="law">
-  <header class='text-center header l-box'>
-    <h1 class="l-no-margin-b header-title"><%= law.name %></h1>
+  <header class='header l-box'>
+    <h1 class="l-no-margin-b header-title">
+      <a href="/reforma/<%= law.tag.slug %>"><%= law.tag.name %></a>
+      <i class="inactive-font fa fa-angle-double-right"></i>
+      <span class="inactive-font"><%= law.name %></span>
+    </h1>
     <% if (req.session.user && req.session.user.role == 'admin') { %>
       <%-
         partial('../modules/_admin_buttons',{
@@ -12,26 +15,26 @@
         })
       %>
     <% } %>
-    <h3>Como parte de la <u><a href="/reforma/<%= law.tag.slug %>"><%= law.tag.name %></a></u><h3>
     <h2 class='header-subtitle'><%= law.summary %></h2>
   </header>
 
   <form action="/ley/article/search" method="POST" class="pure-form pure-g l-box" role="form">
     <div class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 center-block input-group'>
       <% if (typeof searchTerm === 'undefined') { %>
-      <input type="text" name="text" id="filter" class="pure-input-1 input-w-icon" placeholder="Buscar artículo" />
+      <input type="text" name="text" id="filter" class="pure-input-1 input-w-icon" placeholder="Buscar artículo en esta ley" />
       <% } else { %>
-      <input type="text" name="text" id="filter" class="pure-input-1 input-w-icon" placeholder="Buscar artículo" value="<%= searchTerm %>" />
+      <input type="text" name="text" id="filter" class="pure-input-1 input-w-icon" placeholder="Buscar artículo en esta ley" value="<%= searchTerm %>" />
       <% } %>
       <i class='fa fa-search'></i>
       <input type="hidden" name="law" value="<%= law.id %>" />
     </div>
   </form>
 
+  <h3 class='l-box l-no-margin'>Artículos dentro de esta ley:</h3>
+
   <% if (law.articles.length == 0) { %>
     <h3 class='text-center l-box l-no-margin'>Tu b&uacute;squeda no arroj&oacute; resultados</h3>
   <% } else { %>
-    <h3 class='text-center l-box l-no-margin'>Artículos dentro de esta ley:</h3>
     <ul class="pure-g empty-ul card-listing">
       <% _.each(law.articles, function(article) { %>
         <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
