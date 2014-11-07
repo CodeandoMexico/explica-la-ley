@@ -65,15 +65,19 @@ module.exports = {
 
   edit: function(req, res) {
     if (req.method == 'POST' || req.method == 'post') {
-      Law.update({
-        id: req.param('id')
-      }, {
-        name: req.param('name'),
-        summary: req.param('summary'),
-        tag: req.param('tag')
-      }).exec(function(err, laws) {
+      Tag.findOne({id: req.param('tag')}).exec(function(err, tag) {
         if (err) return _error(err, req, res);
-        return res.redirect('/reforma/' + req.param('tag_slug') + '/ley/' + req.param('law_slug'));
+        if (!tag) return _error('Tag no encontrada', req, res);
+        Law.update({
+          id: req.param('id')
+        }, {
+          name: req.param('name'),
+          summary: req.param('summary'),
+          tag: req.param('tag')
+        }).exec(function(err, laws) {
+          if (err) return _error(err, req, res);
+          return res.redirect('/reforma/' + tag.slug + '/ley/' + req.param('law_slug'));
+        });
       });
     } else if (req.method == 'GET' || req.method == 'get') {
       Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {

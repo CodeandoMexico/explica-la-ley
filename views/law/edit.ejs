@@ -1,25 +1,46 @@
-<h2 class="col-md-offset-2">Actualizar Ley</h2>
+<h2 class="col-md-offset-2">Actualizar ley</h2>
 <form method="POST" action="edit" class="col-md-4 col-md-offset-2" role="form">
   <div class="form-group">
-    <label for="name">Nombre</label>
-    <input type="text" class="form-control" id="name" name="name" value="<%= law.name %>" placeholder="Nombre de la Ley" />
+    <label for="name">Nombre</label><br />
+    <input type="text" class="form-control" id="name" name="name" value="<%= law.name %>" placeholder="Nombre" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="summary">Resumen</label>
-    <textarea class="form-control" id="summary" name="summary" placeholder="Resumen de la ley, una pequeña descripción" rows="10"><%= law.summary %></textarea>
+    <label for="summary">Resumen (unas 20 palabras)</label><br />
+    <input type="text" class="form-control" id="summary" name="summary" placeholder="Resumen" value="<%= law.summary %>" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="tag">Reforma a la que pertenece:</label>
-    <select name="tag">
-      <% _.each(tags, function(tag) {%>
-        <% if (law.tag == tag.id) { %>
-        <option selected value="<%= tag.id %>"><%= tag.name %></option>
-        <% } else { %>
-        <option value="<%= tag.id %>"><%= tag.name %></option>
-        <% } %>
-      <% }) %>
-    </select>
+    <label for="summary">Slug</label><br />
+    <input type="text" class="form-control" id="slug" name="slug" placeholder="nombre-de-ley" value="<%= law.slug %>" required /><br />
+    <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Ley" (por ejemplo: federal-de-impuestos).</small>
   </div>
+  <br />
+  <div class="form-group">
+    <label for="tag">Tag/Reforma a la que pertenece:</label><br />
+    <% if (tags.length == 0) { %>
+      <small>
+        No has creado tags/reformas.<br />
+        Crea una tag/reforma en esta <a href="/tag/create">liga</a> primero.<br />
+        <u>No puedes crear leyes sin asociarlas a tags/reformas.</u>
+      </small>
+    <% } else { %>
+      <select name="tag">
+        <% _.each(tags, function(tag) {%>
+          <% if (law.tag == tag.id) { %>
+          <option selected value="<%= tag.id %>"><%= tag.name %></option>
+          <% } else { %>
+          <option value="<%= tag.id %>"><%= tag.name %></option>
+          <% } %>
+        <% }) %>
+      </select>
+    <% } %>
+  </div>
+  <br />
   <input type="hidden" id="id" name="id" value="<%= law.id %>" />
-  <button type="submit" class="btn btn-primary">Actualizar</button>
+  <% if (tags.length > 0) { %>
+    <button type="submit" class="pure-button el-button el-button-primary">Actualizar</button>
+  <% } else { %>
+    <button class="pure-button pure-button-disabled">Actualizar</button>
+  <% } %>
 </form>

@@ -49,15 +49,15 @@ module.exports = {
         name: req.param('name'),
         slug: req.param('slug'),
         summary: req.param('summary')
-      }).exec(function(err, tag) {
+      }).exec(function(err, tags) {
         if (err) _error(err, req, res);
-        if (!tag) _error('Tag a editar no encontrado', req, res);
-        return res.redirect('/reforma/' + tag.slug);
+        if (!tags) _error('Tag a editar no encontrada', req, res);
+        return res.redirect('/reforma/' + tags[0].slug);
       });
     } else if (req.method == 'get' || req.method == 'GET') {
       Tag.findOne({slug: req.param('tag_slug')}).exec(function (err, tag) {
         if (err) return _error(err, req, res);
-        if (!tag) return _error('Tag no encontrado', req, res);
+        if (!tag) return _error('Tag no encontrada', req, res);
         res.locals.layout = 'layoutv2';
         return res.view('tag/edit', {tag: tag});
       });

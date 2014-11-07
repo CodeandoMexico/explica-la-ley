@@ -1,19 +1,22 @@
-<h2 class="col-md-offset-2">Actualizar Tag</h2>
-<form method="POST" action="/ley/tag/<%= tag.id %>/edit" class="col-md-4 col-md-offset-2" role="form">
+<h2 class="col-md-offset-2">Actualizar tag</h2>
+<form method="POST" action="edit" class="col-md-4 col-md-offset-2" role="form">
   <div class="form-group">
-    <label for="name">Nombre</label>
-    <input type="text" class="form-control" id="name" name="name" value="<%= tag.name %>" placeholder="Nombre de la Reforma" />
+    <label for="name">Nombre</label><br />
+    <input type="text" class="form-control" id="name" name="name" value="<%= tag.name %>" placeholder="Nombre" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="name">Resumen</label>
-    <input type="text" class="form-control" id="name" name="name" value="<%= tag.summary %>" placeholder="Resumen" />
+    <label for="name">Resumen corto (unas 20 palabras)</label><br />
+    <input type="text" class="form-control" id="summary" name="summary" value="<%= tag.summary %>" placeholder="Resumen" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="slug">Slug</label>
+    <label for="slug">Slug</label><br />
     <input type="text" class="form-control" id="slug" name="slug" value="<%= tag.slug %>" placeholder="nombre-de-reforma" />
     <br />
-    <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Reforma".</small>
+    <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Reforma" (por ejemplo: telecomunicaciones-y-transporte).</small>
   </div>
+  <br />
   <input type="hidden" id="id" name="id" value="<%= tag.id %>" />
-  <button type="submit" class="btn btn-primary">Actualizar</button>
+  <button type="submit" class="pure-button el-button el-button-primary">Actualizar</button>
 </form>

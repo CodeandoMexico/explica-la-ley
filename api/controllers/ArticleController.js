@@ -46,13 +46,15 @@ module.exports = {
       }, {
         number: parseInt(req.param('number'), 10),
         body: req.param('body'),
-      }).exec(function(err, article) {
+      }).exec(function(err, articles) {
         if (err) _error(err, req, res);
-        if (!article) _error('Articulo a editar no encontrado', req, res);
+        if (!articles[0]) _error('Articulo a editar no encontrado', req, res);
         return res.redirect('/reforma/' + req.param('tag_slug') + '/ley/' + req.param('law_slug') + '/articulo/' + req.param('number'));
       });
     } else if (req.method == 'get' || req.method == 'GET') {
-      Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
+      Law.findOne({slug: req.param('law_slug')})
+      .populate('tag')
+      .exec(function(err, law) {
         if (err) return _error('Error al buscar leyes', req, res);
         if (!law) _error('Ley no encontrada', req, res);
         Article.findOne({
@@ -63,7 +65,7 @@ module.exports = {
           if (!article) return _error('Articulo no encontrado', req, res);
           article.body = typeof article.body === 'undefined' ? '' : article.body.trim();
           res.locals.layout = 'layoutv2';
-          return res.view('article/edit', {article: article});
+          return res.view('article/edit', {article: article, law: law});
         });
       });
     }
