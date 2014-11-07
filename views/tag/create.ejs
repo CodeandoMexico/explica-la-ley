@@ -1,18 +1,21 @@
-<h2 class="col-md-offset-2">Nuevo Tag</h2>
+<h2 class="col-md-offset-2">Nuevo tag</h2>
+<h4>Un tag es un contenedor de leyes. Puedes verlo como una reforma. Cada ley sólo puede pertenecer a 1 tag.</h4>
 <form method="POST" action="/ley/tag/create" class="col-md-4 col-md-offset-2" role="form">
   <div class="form-group">
-    <label for="name">Nombre</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" />
+    <label for="name">Nombre</label><br />
+    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="summary">Resumen</label>
-    <input type="text" class="form-control" id="summary" name="summary" placeholder="Resumen" />
+    <label for="summary">Resumen corto (unas 20 palabras)</label><br />
+    <input type="text" class="form-control" id="summary" name="summary" placeholder="Resumen" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="slug">Slug</label>
-    <input type="text" class="form-control" id="slug" name="slug" placeholder="nombre-de-reforma" />
-    <br />
-    <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Reforma".</small>
+    <label for="slug">Slug (esto será parte de la URL)</label><br />
+    <input type="text" class="form-control" id="slug" name="slug" placeholder="nombre-de-reforma" required /><br />
+    <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Reforma" (por ejemplo: telecomunicaciones-y-transporte).</small>
   </div>
-  <button type="submit" class="btn btn-primary">Crear</button>
+  <br />
+  <button type="submit" class="pure-button el-button el-button-primary">Crear</button>
 </form>

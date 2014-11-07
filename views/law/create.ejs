@@ -1,26 +1,42 @@
-<h2 class="col-md-offset-2">Nueva Ley</h2>
+<h2 class="col-md-offset-2">Nueva ley</h2>
+<h4>Una ley es un contenedor de artículos. Cada artículo sólo puede puede pertenecer a 1 ley.</h4>
 <form method="POST" action="/ley/law/create" class="col-md-4 col-md-offset-2" role="form">
   <div class="form-group">
-    <label for="name">Nombre</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la Ley" />
+    <label for="name">Nombre</label><br />
+    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la ley" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="summary">Resumen</label>
-    <textarea class="form-control" id="summary" name="summary" placeholder="Resumen de la ley, una pequeña descripción" rows="10"></textarea>
+    <label for="summary">Resumen (unas 20 palabras)</label><br />
+    <input type="text" class="form-control" id="summary" name="summary" placeholder="Resumen" required />
   </div>
+  <br />
   <div class="form-group">
-    <label for="tag">Reforma a la que pertenece:</label>
-    <select name="tag">
-      <% _.each(tags, function(tag) {%>
-        <option value="<%= tag.id %>"><%= tag.name %></option>
-      <% }) %>
-    </select>
+    <label for="summary">Slug</label><br />
+    <input type="text" class="form-control" id="slug" name="slug" placeholder="nombre-de-ley" required /><br />
+    <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Ley" (por ejemplo: federal-de-impuestos).</small>
   </div>
+  <br />
   <div class="form-group">
-    <label for="summary">Slug</label>
-    <input type="text" class="form-control" id="slug" name="slug" placeholder="nombre-de-ley" />
-    <br />
-    <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Ley".</small>
+    <label for="tag">Tag/Reforma a la que pertenece:</label><br />
+    <% if (tags.length == 0) { %>
+      <small>
+        No has creado tags/reformas.<br />
+        Crea una tag/reforma en esta <a href="/tag/create">liga</a> primero.<br />
+        <u>No puedes crear leyes sin asociarlas a tags/reformas.</u>
+      </small>
+    <% } else { %>
+      <select name="tag">
+        <% _.each(tags, function(tag) {%>
+          <option value="<%= tag.id %>"><%= tag.name %></option>
+        <% }) %>
+      </select>
+    <% } %>
   </div>
-  <button type="submit" class="btn btn-primary">Crear</button>
+  <br />
+  <% if (tags.length > 0) { %>
+    <button type="submit" class="pure-button el-button el-button-primary">Crear</button>
+  <% } else { %>
+    <button class="pure-button pure-button-disabled">Crear</button>
+  <% } %>
 </form>

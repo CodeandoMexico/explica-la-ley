@@ -90,20 +90,24 @@ module.exports = {
 
   create: function(req, res) {
     if (req.method == 'POST' || req.method == 'post') {
-      Law.create({
-        name: req.param('name'),
-        summary: req.param('summary'),
-        tag: req.param('tag'),
-        slug: req.param('slug')
-      }).exec(function(err, law) {
-        if (err) return _error(err, req, res);
-        Law.findOne({id: law.id})
-        .populate('tag') // The reason for this DB query.
-        .exec(function(err, law) {
+      if (typeof req.param('tag') === 'undefined') {
+        return res.redirect('/law/create');
+      } else {
+        Tag.findOne({id: req.param('tag')}).exec(function(err, tag) {
           if (err) return _error(err, req, res);
-          return res.redirect('/reforma/' + law.tag.slug + '/ley/' + law.slug);
+          if (!tag) return _error('Tag no encontrada', req, res);
+          Law.create({
+            name: req.param('name'),
+            summary: req.param('summary'),
+            tag: req.param('tag'),
+            slug: req.param('slug')
+          }).exec(function(err, law) {
+            if (err) return _error(err, req, res);
+            console.log('/reforma/' + tag.slug + '/ley/' + law.slug);
+            return res.redirect('/reforma/' + tag.slug + '/ley/' + law.slug);
+          });
         });
-      });
+      }
     } else if (req.method == 'GET' || req.method == 'get') {
       Tag.find({}).exec(function(err, tags) {
         if (err) return _error(err, req, res);
