@@ -8,3 +8,6 @@
 .vote-btn-voted:hover {
   cursor: default;
 }
+.inactive-font {
+  color: #303949 !important;
+}
