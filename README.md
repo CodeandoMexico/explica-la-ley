@@ -114,7 +114,7 @@ Every user that's created in the database gets the default role: ``user``. Roles
 
 IMPORTANT: If you use PostgreSQL, since the word ``user`` has a special meaning and our user table is named this way, you'll need to make reference to this table by using double quotes in your queries (example: ``SELECT * FROM "user";``).
 
-###Tags, Leyes y Artículos
+###Tags, Laws, and Articles
 - A tag is a collection of laws
 - A law belongs to only one tag
 - A law is a collection of articles
