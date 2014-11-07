@@ -107,7 +107,6 @@ module.exports = {
             slug: req.param('slug')
           }).exec(function(err, law) {
             if (err) return _error(err, req, res);
-            console.log('/reforma/' + tag.slug + '/ley/' + law.slug);
             return res.redirect('/reforma/' + tag.slug + '/ley/' + law.slug);
           });
         });
@@ -119,6 +118,15 @@ module.exports = {
         return res.view('law/create', {tags: tags});
       });
     }
+  },
+
+  destroy: function(req, res) {
+    Law.destroy({
+      id: req.param('id')
+    }).exec(function(err, law) {
+      if (err) return _error(err, req, res);
+      return res.redirect(req.param('origin'));
+    });
   },
 	
 };

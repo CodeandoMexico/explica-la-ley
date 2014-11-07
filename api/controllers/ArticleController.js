@@ -121,4 +121,13 @@ module.exports = {
     });
   },
 
+  destroy: function(req, res) {
+    Article.destroy({
+      id: req.param('id')
+    }).exec(function(err, article) {
+      if (err) return _error(err, req, res);
+      return res.redirect(req.param('origin'));
+    });
+  },
+
 };

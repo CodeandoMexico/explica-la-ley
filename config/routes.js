@@ -59,6 +59,11 @@ module.exports.routes = {
     action: 'create'
   },
 
+  '/article/destroy': {
+    controller: 'article',
+    action: 'destroy'
+  },
+
   'post /article/search': {
     controller: 'article',
     action: 'search'
@@ -74,6 +79,11 @@ module.exports.routes = {
     action: 'create'
   },
 
+  '/law/destroy': {
+    controller: 'law',
+    action: 'destroy'
+  },
+
   'get /law/:id': {
     controller: 'law',
     action: 'find'
@@ -82,6 +92,11 @@ module.exports.routes = {
   '/tag/create': {
     controller: 'tag',
     action: 'create'
+  },
+
+  '/tag/destroy': {
+    controller: 'tag',
+    action: 'destroy'
   },
 
   '/reforma/:tag_slug/edit': {
@@ -168,5 +183,11 @@ module.exports.routes = {
     controller: 'article',
     action: 'edit'
   },
+
+  '/reforma/:tag_slug/ley/:law_slug/articulo/:article_number/destroy': {
+    controller: 'article',
+    action: 'destroy'
+  },
+
 
 };

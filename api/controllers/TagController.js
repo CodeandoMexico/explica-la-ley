@@ -95,4 +95,13 @@ module.exports = {
     });
   },
 
+  destroy: function(req, res) {
+    Tag.destroy({
+      id: req.param('id')
+    }).exec(function(err, tag) {
+      if (err) return _error(err, req, res);
+      return res.redirect(req.param('origin'));
+    });
+  },
+
 };

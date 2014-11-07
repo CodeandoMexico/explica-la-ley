@@ -1,10 +1,19 @@
+<% if (req.session.user && req.session.user.role == 'admin') { %>
+  <%-
+    partial('../modules/_admin_buttons',{
+      gui_id : article.number,
+      db_id  : article.id,
+      origin : '/reforma/' + law.tag.slug + '/ley/' + law.slug,
+      model  : 'article'
+    })
+  %>
+<% } %>
+
 <div class="l-box article l-spacer-b">
   <h1 class="article-title">Art&iacute;culo <%= article.number %></h1>
-
   <p class='article-body'>
     <%- article.body %>
   </p>
-
 </div>
 
 <div class='pure-g l-box'>

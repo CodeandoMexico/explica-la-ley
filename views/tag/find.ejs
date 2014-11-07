@@ -1,3 +1,14 @@
+<% if (req.session.user && req.session.user.role == 'admin') { %>
+  <%-
+    partial('../modules/_admin_buttons', {
+      gui_id : tag.slug,
+      db_id  : tag.id,
+      origin : '/',
+      model  : 'tag'
+    })
+  %>
+<% } %>
+
 <div class="law">
   <header class='text-center header l-box'>
     <h1 class="l-no-margin-b header-title"><%= tag.name %></h1>
