@@ -3,7 +3,7 @@
     <i class="fa fa-pencil"></i> editar
   </button>
 </a>
-<button class="button-error pure-button" onclick="document.getElementById('destroy-form').submit()">
+<button class="button-error pure-button" onclick="destroyEntity()">
   <i class="fa fa-times"></i> borrar
 </button>
 
@@ -11,3 +11,22 @@
   <input type="hidden" name="id" value="<%= db_id %>" />
   <input type="hidden" name="origin" value="<%= origin %>" />
 </form>
+
+<script>
+  function destroyEntity() {
+      var msg = '';
+    <% if (model == 'tag') { %>
+      msg += '¿Seguro que deseas borrar esta tag/reforma? ';
+      msg += 'Toda ley dentro de esta tag/reforma también será eliminada, ';
+      msg += 'así como todos los artículos dentro de esas leyes. ';
+    <% } else if (model == 'law') { %>
+      msg += '¿Seguro que deseas borrar esta ley? ';
+      msg += 'Todo artículo dentro de esta ley también será eliminado.';
+    <% } else if (model == 'article') { %>
+      msg += '¿Seguro que deseas borrar este artículo? ';
+    <% } %>
+    if (confirm(msg)) {
+      document.getElementById('destroy-form').submit();
+    }
+  }
+</script>
