@@ -50,8 +50,8 @@ module.exports = {
         slug: req.param('slug'),
         summary: req.param('summary')
       }).exec(function(err, tags) {
-        if (err) _error(err, req, res);
-        if (!tags) _error('Tag a editar no encontrada', req, res);
+        if (err) return _error(err, req, res);
+        if (!tags) return _error('Tag a editar no encontrada', req, res);
         return res.redirect('/reforma/' + tags[0].slug);
       });
     } else if (req.method == 'get' || req.method == 'GET') {
@@ -88,7 +88,7 @@ module.exports = {
       'name': {contains: req.param('name')},
     })
     .exec(function(err, tags) {
-      if (err) _error(err, req, res);
+      if (err) return _error(err, req, res);
       if (!tags) tags = []
       res.locals.layout = 'layoutv2';
       return res.view('tag/find', {tags: tags, searchTerm: req.param('name')})

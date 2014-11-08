@@ -133,8 +133,8 @@ module.exports = {
     Tag.findOne({id: req.param('tag')})
     .populate('laws')
     .exec(function(err, tag) {
-      if (err) _error(err, req, res);
-      if (!tag) _error('Tag inexistente', req, res);
+      if (err) return _error(err, req, res);
+      if (!tag) return _error('Tag inexistente', req, res);
       Law.find({
         sort: 'id ASC',
         tag: req.param('tag')
@@ -148,7 +148,7 @@ module.exports = {
       })
       .populate('articles')
       .exec(function(err, laws) {
-        if (err) _error(err, req, res);
+        if (err) return _error(err, req, res);
         if (!laws) laws = []
         tag.laws = laws;
         Law.getAnnotationCount(laws, function(result) {

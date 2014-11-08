@@ -47,8 +47,8 @@ module.exports = {
         number: parseInt(req.param('number'), 10),
         body: req.param('body'),
       }).exec(function(err, articles) {
-        if (err) _error(err, req, res);
-        if (!articles[0]) _error('Articulo a editar no encontrado', req, res);
+        if (err) return _error(err, req, res);
+        if (!articles[0]) return _error('Articulo a editar no encontrado', req, res);
         return res.redirect('/reforma/' + req.param('tag_slug') + '/ley/' + req.param('law_slug') + '/articulo/' + req.param('number'));
       });
     } else if (req.method == 'get' || req.method == 'GET') {
@@ -56,7 +56,7 @@ module.exports = {
       .populate('tag')
       .exec(function(err, law) {
         if (err) return _error('Error al buscar leyes', req, res);
-        if (!law) _error('Ley no encontrada', req, res);
+        if (!law) return _error('Ley no encontrada', req, res);
         Article.findOne({
           number: req.param('article_number'),
           law: law.id
@@ -101,8 +101,8 @@ module.exports = {
     Law.findOne({id: req.param('law')})
     .populate('tag')
     .exec(function(err, law) {
-      if (err) _error(err, req, res);
-      if (!law) _error('Ley inexistente', req, res);
+      if (err) return _error(err, req, res);
+      if (!law) return _error('Ley inexistente', req, res);
       Article.find({
         sort: 'number ASC',
         law: req.param('law')
@@ -112,7 +112,7 @@ module.exports = {
       })
       .populate('annotations')
       .exec(function(err, articles) {
-        if (err) _error(err, req, res);
+        if (err) return _error(err, req, res);
         if (!articles) articles = []
         law.articles = articles;
         res.locals.layout = 'layoutv2';
