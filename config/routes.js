@@ -84,6 +84,11 @@ module.exports.routes = {
     action: 'destroy'
   },
 
+  'post /law/search': {
+    controller: 'law',
+    action: 'search'
+  },
+
   'get /law/:id': {
     controller: 'law',
     action: 'find'

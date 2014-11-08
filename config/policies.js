@@ -60,6 +60,7 @@ module.exports.policies = {
     '*'       : false,
     'index'   : true,
     'find'    : true,
+    'search'  : true,
     'create'  : 'adminRole',
     'edit'    : 'adminRole',
     'destroy' : 'adminRole'

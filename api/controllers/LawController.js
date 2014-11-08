@@ -128,5 +128,40 @@ module.exports = {
       return res.redirect(req.param('origin'));
     });
   },
+
+  search: function(req, res) {
+    Tag.findOne({id: req.param('tag')})
+    .populate('laws')
+    .exec(function(err, tag) {
+      if (err) _error(err, req, res);
+      if (!tag) _error('Tag inexistente', req, res);
+      Law.find({
+        sort: 'id ASC',
+        tag: req.param('tag')
+      })
+      .where({
+        or: [{
+          name: {contains: req.param('text')},
+        }, {
+          summary: {contains: req.param('text')},
+        }]
+      })
+      .populate('articles')
+      .exec(function(err, laws) {
+        if (err) _error(err, req, res);
+        if (!laws) laws = []
+        tag.laws = laws;
+        Law.getAnnotationCount(laws, function(result) {
+          res.locals.layout = 'layoutv2';
+          return res.view('tag/find', {
+            tag: tag,
+            laws: laws,
+            annotationCounters: result,
+            searchTerm: req.param('text')
+          });
+        });
+      });
+    });
+  },
 	
 };
