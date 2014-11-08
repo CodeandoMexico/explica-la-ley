@@ -1,27 +1,13 @@
-  <style scoped>
-    .button-error,
-    .button-secondary {
-      color: white;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    }
-    .button-secondary {
-      background: rgb(66, 184, 221);
-    }
-    .button-error {
-      background: rgb(202, 60, 60);
-    }
-  </style>
-
-  <a href="<%= gui_id %>/edit">
-    <button class="button-secondary pure-button">
-      <i class="fa fa-pencil"></i> editar
-    </button>
-  </a>
-  <button class="button-error pure-button" onclick="document.getElementById('destroy-form').submit()">
-    <i class="fa fa-times"></i> borrar
+<a href="<%= gui_id %>/edit">
+  <button class="button-secondary pure-button">
+    <i class="fa fa-pencil"></i> editar
   </button>
+</a>
+<button class="button-error pure-button" onclick="document.getElementById('destroy-form').submit()">
+  <i class="fa fa-times"></i> borrar
+</button>
 
-  <form id="destroy-form" action="/<%= model %>/destroy" method="POST">
-    <input type="hidden" name="id" value="<%= db_id %>" />
-    <input type="hidden" name="origin" value="<%= origin %>" />
-  </fom>
+<form id="destroy-form" action="/<%= model %>/destroy" method="POST">
+  <input type="hidden" name="id" value="<%= db_id %>" />
+  <input type="hidden" name="origin" value="<%= origin %>" />
+</form>
