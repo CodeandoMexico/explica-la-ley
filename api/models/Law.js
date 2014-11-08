@@ -53,4 +53,10 @@ module.exports = {
     }
   },
 
+  afterDestroy: function(destroyedRecords, cb) {
+    // Emulate cascading delete (unsupported by Sails.js at the moment).
+    // If a law is destroyed, all of its articles must destroyed as well.
+    Article.destroy({law: _.pluck(destroyedRecords, 'id')}).exec(cb);
+  },
+
 };
