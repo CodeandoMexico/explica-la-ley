@@ -1,0 +1,56 @@
+<header class=" header l-box text-center">
+    <h1 class="l-no-margin-b header-title">
+      <span>Tus notificaciones</span>
+    </h1>
+    <h2 class="header-subtitle">
+      Aqui puedes ver los votos y las respuestas que tus comentarios han recibido
+    </h2>
+</header>
+
+<% if (typeof notifications === 'undefined' || notifications.length == 0) { %>
+  <div class='pure-u-1 pure-u-md-1-1 text-center card card-on-light l-box'>
+    No hay notificaciones que mostrar
+  </div>
+<% } else { %>
+  <div class="notification-container">
+    <ul class="empty-ul card-listing">
+      <% _.each(notifications, function(notification) { %>
+        <li class="notification pure-u-md-1-2 text-center <% if (!notification.seen) { %> unseen-notification <% } %>">
+          <%- partial('../modules/_notification_card', { notification: notification }) %>
+        </li>
+      <% })%>
+    </ul>
+  </div>
+<% } %>
+
+<div class='text-center l-container'>
+
+  <% if (page > 1) { %>
+    <a href="/notificaciones/<%= parseInt(page, 10) - 1 %>">
+      <button class="pure-button">
+        <i class="fa fa-angle-left"></i>
+      </button>
+    </a>
+  <% } else { %>
+    <button class="pure-button hidden">
+      <i class="fa fa-angle-left"></i>
+    </button>
+  <% } %>
+
+  <button class="pure-button">
+    <%= page %>
+  </button>
+
+  <% if (more_pages) { %>
+    <a href="/notificaciones/<%= parseInt(page, 10) + 1 %>">
+      <button class="pure-button">
+        <i class="fa fa-angle-right"></i>
+      </button>
+    </a>
+  <% } else { %>
+    <button class="pure-button hidden">
+      <i class="fa fa-angle-right"></i>
+    </button>
+  <% } %>
+
+</div>

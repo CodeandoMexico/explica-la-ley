@@ -36,6 +36,16 @@ module.exports.routes = {
     action: 'admin'
   },
 
+  '/notificaciones': {
+    controller: 'notification',
+    action: 'find'
+  },
+
+  '/notificaciones/:page': {
+    controller: 'notification',
+    action: 'find'
+  },
+
   '/ley': {
     controller: 'page',
     action: 'homepage'

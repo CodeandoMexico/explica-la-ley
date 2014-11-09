@@ -25,3 +25,35 @@
 .pure-badge-info {
   background-color: #1BCC8C;
 }
+.hidden {
+  visibility: hidden !important;
+}
+.notification-container {
+  text-align: center !important;
+}
+.notification {
+  display: block;
+  margin: 10px !important;
+  padding: 0px !important;
+  border-radius: 5px;
+  border: 2px solid #1BCC8C;
+}
+.unseen-notification {
+  background-color: #baefdc;
+}
+.bigicon {
+  float: left;
+  font-size: 2.5em;
+  line-height: 0.5;
+  margin: 0.215em 0.153em 0.6em 0.6em;
+  opacity: 0.25;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}

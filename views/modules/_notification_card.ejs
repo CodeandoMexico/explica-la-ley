@@ -1,0 +1,12 @@
+<p>
+  <% if (notification.type == 'vote_up') { %>
+    <i class="bigicon fa fa-arrow-up green"></i>
+  <% } else if (notification.type == 'vote_down') { %>
+    <i class="bigicon fa fa-arrow-down red "></i>
+  <% } else if (notification.type == 'info') { %>
+    <i class="bigicon fa fa-info-circle blue"></i>
+  <% } %>
+  <%= notification.text %>
+  <br />
+  <i class="fa fa-clock-o"></i> <%= sails.config.globals.getFriendlyDate(notification.createdAt) %>
+</p>

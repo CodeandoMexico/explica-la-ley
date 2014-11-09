@@ -85,7 +85,11 @@ module.exports.policies = {
   },
 
   PageController: {
-    'admin' : 'adminRole'
+    'admin'          : 'adminRole'
+  },
+
+  NotificationController: {
+    'find' : 'userRole'
   },
 
 };
