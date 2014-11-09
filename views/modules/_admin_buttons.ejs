@@ -7,6 +7,21 @@
   <i class="fa fa-times"></i> borrar
 </button>
 
+
+<% if (model == 'tag') { %>
+  <a href="/law/create?tag_id=<%= db_id %>">
+    <button class="pure-button">
+      <i class="fa fa-plus"></i> ley
+    </button>
+  </a>
+<% } else if (model == 'law') { %>
+  <a href="/article/create?law_id=<%= db_id %>">
+    <button class="pure-button">
+      <i class="fa fa-plus"></i> artículo
+    </button>
+  </a>
+<% } %>
+
 <form id="destroy-form" action="/<%= model %>/destroy" method="POST">
   <input type="hidden" name="id" value="<%= db_id %>" />
   <input type="hidden" name="origin" value="<%= origin %>" />

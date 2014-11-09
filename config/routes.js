@@ -31,6 +31,11 @@ module.exports.routes = {
     action: 'redirect'
   },
 
+  '/admin': {
+    controller: 'page',
+    action: 'admin'
+  },
+
   '/ley': {
     controller: 'page',
     action: 'homepage'
@@ -144,7 +149,7 @@ module.exports.routes = {
     action: 'votedown'
   },
 
-  'get /user': {
+  'get /perfil': {
     controller: 'user',
     action: 'profile'
   },

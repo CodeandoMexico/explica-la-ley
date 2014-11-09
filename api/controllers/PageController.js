@@ -28,5 +28,11 @@ module.exports = {
         });
       });
     });
-  }
+  },
+
+  admin: function(req, res) {
+    res.locals.layout = 'layoutv2-full-width';
+    return res.view('pages/admin');
+  },
+
 };

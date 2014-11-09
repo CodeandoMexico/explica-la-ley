@@ -82,7 +82,12 @@ module.exports.policies = {
     'profile'             : 'userRole',
     'saveEmail'           : 'userRole',
     'forgetEmail'         : 'userRole',
-  }
+  },
+
+  PageController: {
+    'admin' : 'adminRole'
+  },
+
 };
 
 

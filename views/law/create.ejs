@@ -19,18 +19,24 @@
   <br />
   <div class="form-group">
     <label for="tag">Tag/Reforma a la que pertenece:</label><br />
-    <% if (tags.length == 0) { %>
-      <small>
-        No has creado tags/reformas.<br />
-        Crea una tag/reforma en esta <a href="/tag/create">liga</a> primero.<br />
-        <u>No puedes crear leyes sin asociarlas a tags/reformas.</u>
-      </small>
-    <% } else { %>
-      <select name="tag">
-        <% _.each(tags, function(tag) {%>
-          <option value="<%= tag.id %>"><%= tag.name %></option>
-        <% }) %>
-      </select>
+    <% if (direct) { %>
+      <b><%= tags[0].name %></b>
+      <input type="hidden" name="tag" value="<%= tags[0].id %>" />
+    <% } else {%>
+      <% if (tags.length == 0) { %>
+        <small>
+          No has creado tags/reformas.<br />
+          Crea una tag/reforma en esta <a href="/tag/create">liga</a> primero.<br />
+          <u>No puedes crear leyes sin asociarlas a tags/reformas.</u>
+        </small>
+      <% } else { %>
+        <select name="tag" required>
+          <option value="">-SELECCIONA-</option>
+          <% _.each(tags, function(tag) {%>
+            <option value="<%= tag.id %>"><%= tag.name %></option>
+          <% }) %>
+        </select>
+      <% } %>
     <% } %>
   </div>
   <br />

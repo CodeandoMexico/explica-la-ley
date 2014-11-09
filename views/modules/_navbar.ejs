@@ -5,40 +5,23 @@
     </a>
     <ul>
       <% if (req.session.user) {%>
+        <% if (req.session.user.role == 'admin') { %>
+          <li>
+            <a href="/admin">Admin</a>
+          </li>
+        <% } %>
         <li>
-          <a href="/logout">Logout</a>
+          <a href="/notificaciones">Notificaciones <span class="pure-badge-info">12</span></a>
         </li>
         <li>
-          <a href="/user">Mi Perfil (<%= req.session.user.twitterScreenName %>)</a>
+          <a href="/perfil">Mi perfil</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
         </li>
       <% } else { %>
         <li><a href="/login">Iniciar Sesión</a></li>
       <% } %>
     </ul>
   </nav>
-  <% if (req.session.user && req.session.user.role == 'admin') {%>
-    <div>
-      <p>
-        &nbsp;
-        Admin:
-        <a href="/tag/create">
-          <button class="pure-button">
-            <i class="fa fa-plus"></i> tag/reforma
-          </button>
-        </a>
-        &nbsp;
-        <a href="/law/create">
-          <button class="pure-button">
-            <i class="fa fa-plus"></i> ley
-          </button>
-        </a>
-        &nbsp;
-        <a href="/article/create">
-          <button class="pure-button">
-            <i class="fa fa-plus"></i> artículo
-          </button>
-        </a>
-      </p>
-    </div>
-  <% } %>
 </header>

@@ -89,10 +89,19 @@ module.exports = {
         });
       });
     } else if (req.method == 'get' || req.method == 'GET') {
-      Law.find({}).exec(function(err, laws) {
+      var args = {};
+      var direct = false;
+
+      // Check if the request came from the law's "find" view.
+      if (typeof req.param('law_id') != 'undefined') {
+        args = req.param('law_id');
+        direct = true;
+      }
+
+      Law.find(args).exec(function(err, laws) {
         if (err) return _error('Error al buscar leyes ' + err, req, res);
         res.locals.layout = 'layoutv2';
-        return res.view('article/create', {laws: laws});
+        return res.view('article/create', {laws: laws, direct: direct});
       });
     }
   },

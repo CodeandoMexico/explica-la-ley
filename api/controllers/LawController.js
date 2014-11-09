@@ -112,10 +112,19 @@ module.exports = {
         });
       }
     } else if (req.method == 'GET' || req.method == 'get') {
-      Tag.find({}).exec(function(err, tags) {
+      var args = {};
+      var direct = false;
+
+      // Check if the request came from the tag's "find" view.
+      if (typeof req.param('tag_id') != 'undefined') {
+        args = req.param('tag_id');
+        direct = true;
+      }
+
+      Tag.find(args).exec(function(err, tags) {
         if (err) return _error(err, req, res);
         res.locals.layout = 'layoutv2';
-        return res.view('law/create', {tags: tags});
+        return res.view('law/create', {tags: tags, direct: direct});
       });
     }
   },

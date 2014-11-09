@@ -13,18 +13,24 @@
   <br />
   <div class="form-group">
     <label for="law">Ley a la que pertenece:</label><br />
-    <% if (laws.length == 0) { %>
-      <small>
-        No has creado leyes.<br />
-        Crea una ley en esta <a href="/law/create">liga</a> primero.<br />
-        <u>No puedes crear artículos sin asociarlos a leyes.</u>
-      </small>
+    <% if (direct) { %>
+      <b><%= laws[0].name %></b>
+      <input type="hidden" name="law" value="<%= laws[0].id %>" />
     <% } else { %>
-      <select name="law">
-        <% for(var i = 0; i < laws.length; i++) {%>
-          <option value="<%= laws[i].id %>"><%= laws[i].name %></option>
-        <% } %>
-      </select>
+      <% if (laws.length == 0) { %>
+        <small>
+          No has creado leyes.<br />
+          Crea una ley en esta <a href="/law/create">liga</a> primero.<br />
+          <u>No puedes crear artículos sin asociarlos a leyes.</u>
+        </small>
+      <% } else { %>
+        <select name="law" required>
+          <option value="">-SELECCIONA-</option>
+          <% for(var i = 0; i < laws.length; i++) {%>
+            <option value="<%= laws[i].id %>"><%= laws[i].name %></option>
+          <% } %>
+        </select>
+      <% } %>
     <% } %>
   </div>
   <br />
