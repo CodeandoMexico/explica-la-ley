@@ -24,7 +24,9 @@ module.exports = {
   },
 
   afterCreate: function(notification, cb) {
-    console.log('--->send commet',notification);
+    // Get the room of the owning user and notify him/her.
+    var notification_owner = sails.sockets.subscribers(notification.belongs_to)[0];
+    sails.sockets.emit(notification_owner, 'new', notification);
     cb();
   },
 

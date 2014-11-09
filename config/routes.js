@@ -41,6 +41,11 @@ module.exports.routes = {
     action: 'find'
   },
 
+  '/notificaciones/escucha': {
+    controller: 'notification',
+    action: 'liveUpdates'
+  },
+
   '/notificaciones/:page': {
     controller: 'notification',
     action: 'find'
