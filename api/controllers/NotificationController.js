@@ -50,4 +50,10 @@ module.exports = {
     }
   },
 
+  getUnseenJson: function(req, res) {
+    Notification.getUnseenFromUser(req.session.user.id, function(count) {
+      return res.json(count);
+    });
+  }
+
 };

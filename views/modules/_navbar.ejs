@@ -1,3 +1,29 @@
+<script type="text/javascript">
+
+// Manages the live update of the front-end whenever there's
+// notification activity in the back-end.
+window.onload = function processNotifications(){
+    var dom_navbar_notifications = document.getElementById('navbar-notifications');
+
+    // Get existing unseen notifications.
+    $.get("/notificaciones/no_vistas", function(data) {
+      dom_navbar_notifications.innerHTML = data.count;
+
+      // Listen for new ones.
+      new_notifications = 0;
+      io.socket.get('/notificaciones/escucha');
+      io.socket.on('new', function(obj){
+        new_notifications++;
+        if (typeof updateNewNotificationsMsg != 'undefined') {
+          // This should be defined in the /notificaciones page.
+          updateNewNotificationsMsg(new_notifications);
+        }
+        dom_navbar_notifications.innerHTML = parseInt(data.count, 10) + new_notifications;
+      }); 
+
+    });
+};
+</script>
 <header>
   <nav class="el-skin pure-menu pure-menu-open pure-menu-horizontal">
     <a href="/" title='Go to homepage' class="pure-menu-heading">
@@ -11,7 +37,10 @@
           </li>
         <% } %>
         <li>
-          <a href="/notificaciones">Notificaciones <span class="pure-badge-info">12</span></a>
+          <a href="/notificaciones">
+            Notificaciones 
+            <span id="navbar-notifications" class="pure-badge-info">...</span>
+          </a>
         </li>
         <li>
           <a href="/perfil">Mi perfil</a>

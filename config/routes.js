@@ -46,6 +46,11 @@ module.exports.routes = {
     action: 'liveUpdates'
   },
 
+  '/notificaciones/no_vistas': {
+    controller: 'notification',
+    action: 'getUnseenJson'
+  },
+
   '/notificaciones/:page': {
     controller: 'notification',
     action: 'find'

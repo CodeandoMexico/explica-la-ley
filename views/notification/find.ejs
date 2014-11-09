@@ -1,12 +1,4 @@
 <script type="text/javascript">
-var new_notifications = 0;
-window.onload = function listenForNewNotifications(){
-    io.socket.get('/notificaciones/escucha');
-    io.socket.on('new', function(obj){
-      updateNewNotificationsMsg(++new_notifications);
-    });
-};
-
 function updateNewNotificationsMsg(n) {
   var div = document.getElementById('new-notifications-msg');
   var words = n == 1 ? ['notificación', 'nueva'] : ['notificaciones', 'nuevas'];

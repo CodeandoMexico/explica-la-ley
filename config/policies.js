@@ -89,8 +89,9 @@ module.exports.policies = {
   },
 
   NotificationController: {
-    'find'        : 'userRole',
-    'liveUpdates' : 'userRole'
+    'find'          : 'userRole',
+    'liveUpdates'   : 'userRole',
+    'getUnseenJson' : 'userRole'
   },
 
 };
