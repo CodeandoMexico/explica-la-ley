@@ -25,6 +25,7 @@ module.exports = {
   },
 
   afterCreate: function(new_annotation, cb) {
+    console.log(new_annotation);
     Annotation.find({
       article: new_annotation.article,
       user: { '!': new_annotation.user }
@@ -48,17 +49,24 @@ module.exports = {
         }
 
         if (i == annotations.length - 1) {
-          for (j in touched_annotations) {
+          // Get the authors of the touched annotations (who will be getting a
+          // notification). Do not repeat their IDs (the new annotation can touch
+          // several old annotations from a same author -- however, that author
+          // must only get ONE notification).
+          var uniq_authors_touched_annotations = _.uniq(_.pluck(touched_annotations, 'user'));
+
+          for (j in uniq_authors_touched_annotations) {
             Notification.create({
-              text         : 'Han respondido a uno de tus comentarios',
-              type         : 'info',
-              belongs_to   : touched_annotations[j].user,
+              article      : new_annotation.article,
+              type         : 'reply',
+              belongs_to   : uniq_authors_touched_annotations[j],
               triggered_by : new_annotation.user
             }).exec(function(err, notification) {
-              if (j == touched_annotations.length - 1) {
+              if (j == uniq_authors_touched_annotations.length - 1) {
                 cb();
               }
             });
+
           }
         }
 

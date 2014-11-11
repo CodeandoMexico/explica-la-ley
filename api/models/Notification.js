@@ -1,19 +1,26 @@
 /**
  * Notification.js
  *
+ * This is the ugliest model of all.
+ * It does not fall under the "third normal form" category.
+ * It should be related only to the Annotation model, since the flow goes like
+ * Annotaion -> Article -> Law -> Tag. But associating it with an Article makes
+ * my life easier :^)
  */
 
 module.exports = {
 
   attributes: {
-    text: 'STRING',
+    article: {
+      model: 'article'
+    },
     seen: {
       type: 'boolean',
       defaultsTo: false
     },
     type: {
       type: 'STRING',
-      enum: ['vote_down', 'vote_up', 'info']
+      enum: ['vote_down', 'vote_up', 'reply']
     },
     belongs_to: {
       model: 'user'

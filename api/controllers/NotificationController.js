@@ -23,21 +23,45 @@ module.exports = {
     .exec(function(err, notifications) {
       if (err) return _error(err, req, res);
 
-      // Check if any of the next pages has unseen notifications.
-      Notification.find({
-        skip  : parseInt(req.param('page') || 1) * notifications_per_page,
-        where : {seen: false}
-      }).exec(function(err, unseen_notifications) {
+      // Simulate multi-level populate() (unsupported by sails ATM).
+      var article_ids = _.uniq(_.pluck(notifications, 'article'));
+      Article.find({id: article_ids}).exec(function(err, articles) {
         if (err) return _error(err, req, res);
-        var response = {
-          notifications : notifications,
-          page          : req.param('page') || 1,
-          more_pages    : notifications.length == notifications_per_page,
-          has_unseen    : unseen_notifications.length > 0
-        };
-        res.locals.layout = 'layoutv2-full-width';
-        return res.view(response);
+        var law_ids = _.uniq(_.pluck(articles, 'law'));
+        Law.find({id: law_ids}).exec(function(err, laws) {
+          if (err) return _error(err, req, res);
+          var tag_ids = _.uniq(_.pluck(laws, 'tag'));
+          Tag.find({id: tag_ids}).exec(function(err, tags) {
+
+            // Now we have the relevant "articles", "laws", and "tags" with
+            // just 3 queries. We can make our notifications more verbose.
+            // Leave this task to the EJS views (associate a notification with
+            // an article, law, and tag for informational purposes).
+
+            // Check if any of the next pages has unseen notifications. Use the
+            // "has_unseen" variable to paint the "next page" button green.
+
+            Notification.find({
+              skip  : parseInt(req.param('page') || 1) * notifications_per_page,
+              where : {seen: false}
+            }).exec(function(err, unseen_notifications) {
+              if (err) return _error(err, req, res);
+              var response = {
+                notifications : notifications,
+                page          : req.param('page') || 1,
+                more_pages    : notifications.length == notifications_per_page,
+                has_unseen    : unseen_notifications.length > 0,
+                articles      : articles,
+                laws          : laws,
+                tags          : tags
+              };
+              res.locals.layout = 'layoutv2-full-width';
+              return res.view(response);
+            });
+          });
+        });
       });
+
     });
   },
 
@@ -54,6 +78,6 @@ module.exports = {
     Notification.getUnseenFromUser(req.session.user.id, function(count) {
       return res.json(count);
     });
-  }
+  },
 
 };
