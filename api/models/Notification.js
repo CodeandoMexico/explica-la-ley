@@ -32,7 +32,7 @@ module.exports = {
 
   // Get the room of the owning user and alert him/her of this new notification.
   afterCreate: function(notification, cb) {
-    var notification_owner = sails.sockets.subscribers(notification.belongs_to)[0];
+    var notification_owner = sails.sockets.subscribers(notification.belongs_to);
     sails.sockets.emit(notification_owner, 'new', notification);
     cb();
   },
