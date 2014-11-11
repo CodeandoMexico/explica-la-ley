@@ -1,13 +1,5 @@
 <script type="text/javascript">
-function updateNewNotificationsMsg(n) {
-  var div = document.getElementById('new-notifications-msg');
-  var words = n == 1 ? ['notificación', 'nueva'] : ['notificaciones', 'nuevas'];
-  var link = '<a href="">Actualizar vista</a>.';
-  div.innerHTML = n + ' ' + words[0] + ' ' + words[1] + '. ' + link;
-}
-</script>
 
-<script type="text/javascript">
 // This is here to remove workload from the server.
 // Let the user's browser do the lookups.
 
@@ -31,6 +23,13 @@ for (i in tags) {
   tag_dict[tags[i].id] = tags[i];
 }
 
+function updateNewNotificationsMsg(n) {
+  var div = document.getElementById('new-notifications-msg');
+  var words = n == 1 ? ['notificación', 'nueva'] : ['notificaciones', 'nuevas'];
+  var link = '<a href="">Actualizar vista</a>.';
+  div.innerHTML = n + ' ' + words[0] + ' ' + words[1] + '. ' + link;
+}
+
 function lookupArticleData(article_id) {
   var article = article_dict[article_id];
   var law = law_dict[article.law];
@@ -45,6 +44,21 @@ function lookupArticleData(article_id) {
 
   return data;
 }
+
+function markAsSeen() {
+  $.ajax({
+    url: '/notificaciones/marca_como_vistas',
+    method: 'POST',
+    data: {notifications: [<%= _.pluck(notifications, 'id') %>]},
+  }).done(function(data, textStatus, jqXHR) {
+    if (textStatus == 'success') {
+      $('.unseen-notification').each(function() {
+        $(this).animate({backgroundColor: '#fff'}, 'slow');
+      });
+    }
+  });
+}
+
 </script>
 
 <header class=" header l-box text-center">

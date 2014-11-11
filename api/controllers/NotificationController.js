@@ -74,9 +74,20 @@ module.exports = {
     }
   },
 
-  getUnseenJson: function(req, res) {
-    Notification.getUnseenFromUser(req.session.user.id, function(count) {
+  getUnseenCountJson: function(req, res) {
+    Notification.getUnseenCountFromUser(req.session.user.id, function(count) {
       return res.json(count);
+    });
+  },
+
+  markAsSeen: function(req, res) {
+    Notification.update({
+      id: req.param('notifications')
+    }, {
+      seen: true
+    }).exec(function(err, notifications) {
+      if (err) return _error(err, req, res);
+      return res.send(200);
     });
   },
 

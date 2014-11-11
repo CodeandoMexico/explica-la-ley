@@ -48,7 +48,12 @@ module.exports.routes = {
 
   '/notificaciones/no_vistas': {
     controller: 'notification',
-    action: 'getUnseenJson'
+    action: 'getUnseenCountJson'
+  },
+
+  '/notificaciones/marca_como_vistas': {
+    controller: 'notification',
+    action: 'markAsSeen'
   },
 
   '/notificaciones/:page': {

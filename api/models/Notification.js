@@ -39,7 +39,7 @@ module.exports = {
 
   // Query the DB directly for this number. This is done to improve performance.
   // There's no need for more info on these notifications.
-  getUnseenFromUser: function(user_id, next) {
+  getUnseenCountFromUser: function(user_id, next) {
     Notification.query({
       text: 'SELECT COUNT(*) FROM notification WHERE belongs_to = $1 AND seen = false',
       values: [user_id],
