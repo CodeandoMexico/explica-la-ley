@@ -24,4 +24,53 @@ module.exports = {
     },
   },
 
+  afterCreate: function(new_annotation, cb) {
+    Annotation.find({
+      article: new_annotation.article,
+      user: { '!': new_annotation.user }
+    })
+    .exec(function(err, annotations) {
+      // XXX: Keep an eye on this line.
+      // Seems like sails should have parsed this beforehand.
+      // Sails might do it in future version (will crash this app).
+      var ranges = JSON.parse(new_annotation.ranges);
+      var start = ranges[0].startOffset;
+      var end = ranges[0].endOffset;
+      var touched_annotations = [];
+
+      for (i in annotations) {
+
+        var ranges2 = annotations[i].ranges;
+        var start2 = ranges2[0].startOffset;
+        var end2 = ranges2[0].endOffset;
+        if (start2 <= end || end2 >= start) {
+          touched_annotations.push(annotations[i]);
+        }
+
+        if (i == annotations.length - 1) {
+          // Get the authors of the touched annotations (who will be getting a
+          // notification). Do not repeat their IDs (the new annotation can touch
+          // several old annotations from a same author -- however, that author
+          // must only get ONE notification).
+          var uniq_authors_touched_annotations = _.uniq(_.pluck(touched_annotations, 'user'));
+
+          for (j in uniq_authors_touched_annotations) {
+            Notification.create({
+              article      : new_annotation.article,
+              type         : 'reply',
+              belongs_to   : uniq_authors_touched_annotations[j],
+              triggered_by : new_annotation.user
+            }).exec(function(err, notification) {
+              if (j == uniq_authors_touched_annotations.length - 1) {
+                cb();
+              }
+            });
+
+          }
+        }
+
+      }
+    });
+  },
+
 };

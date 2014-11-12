@@ -27,12 +27,6 @@ module.exports = {
     }
   },
 
-  getFriendlyDate: function(date) {
-    var moment = require('moment');
-    moment.locale('es-MX');
-    return moment(date).fromNow();
-  },
-
   afterDestroy: function(destroyedRecords, cb) {
     // Emulate cascading delete (unsupported by Sails.js at the moment).
     // If a tag is destroyed, all of its laws must destroyed as well.

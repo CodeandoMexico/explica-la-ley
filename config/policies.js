@@ -85,7 +85,15 @@ module.exports.policies = {
   },
 
   PageController: {
-    'admin' : 'adminRole'
+    'admin': 'adminRole'
+  },
+
+  NotificationController: {
+    '*'                  : false,
+    'find'               : 'userRole',
+    'liveUpdates'        : 'userRole',
+    'getUnseenCountJson' : 'userRole',
+    'markAsSeen'         : 'userRole',
   },
 
 };

@@ -36,6 +36,31 @@ module.exports.routes = {
     action: 'admin'
   },
 
+  '/notificaciones': {
+    controller: 'notification',
+    action: 'find'
+  },
+
+  '/notificaciones/escucha': {
+    controller: 'notification',
+    action: 'liveUpdates'
+  },
+
+  '/notificaciones/no_vistas': {
+    controller: 'notification',
+    action: 'getUnseenCountJson'
+  },
+
+  '/notificaciones/marca_como_vistas': {
+    controller: 'notification',
+    action: 'markAsSeen'
+  },
+
+  '/notificaciones/:page': {
+    controller: 'notification',
+    action: 'find'
+  },
+
   '/ley': {
     controller: 'page',
     action: 'homepage'

@@ -22,6 +22,44 @@
 .button-error {
   background: rgb(202, 60, 60);
 }
+.button-unseen-notifications {
+  background: #BAEFDC;
+}
 .pure-badge-info {
   background-color: #1BCC8C;
+}
+.hidden {
+  visibility: hidden !important;
+}
+.notification-container {
+  text-align: center !important;
+  margin: auto;
+}
+.notification {
+  margin: 10px !important;
+  padding: 0px !important;
+  border-radius: 5px;
+  border: 2px solid #1BCC8C;
+  position: relative;
+}
+.unseen-notification {
+  background-color: #baefdc;
+}
+.notification-icon {
+  float: left;
+  left: 0;
+  font-size: 2.5em;
+  line-height: 0.5;
+  margin: 0.1em;
+  opacity: 0.30;
+  position: absolute;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
 }

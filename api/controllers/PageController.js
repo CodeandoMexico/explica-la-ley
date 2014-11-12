@@ -1,9 +1,13 @@
 /**
  * PageController.js
  *
- * @description ::
- * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
+
+function _error(msg, req, res) {
+  console.log('(!!) ERROR @: ' + req.options.controller + '/' + req.options.action);
+  console.log(msg);
+  return res.redirect('/');
+}
 
 module.exports = {
 
@@ -33,6 +37,14 @@ module.exports = {
   admin: function(req, res) {
     res.locals.layout = 'layoutv2-full-width';
     return res.view('pages/admin');
+  },
+
+  notificaciones: function(req, res) {
+    Notification.find().exec(function(err, notifications) {
+      if (err) return _error(err, req, res);
+      res.locals.layout = 'layoutv2-full-width';
+      return res.view('pages/notificaciones', {notifications: notifications});
+    });
   },
 
 };
