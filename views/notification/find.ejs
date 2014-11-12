@@ -40,8 +40,12 @@ function structurizeData() {
 function updateNewNotificationsMsg(n) {
   var div = document.getElementById('new-notifications-msg');
   var words = n == 1 ? ['notificación', 'nueva'] : ['notificaciones', 'nuevas'];
-  var link = '<a href="">Actualizar vista</a>.';
-  div.innerHTML = n + ' ' + words[0] + ' ' + words[1] + '. ' + link;
+  div.innerHTML = 
+    '<a href="">' + 
+      '<span class="pure-badge-info">' + 
+        n + ' ' + words[0] + ' ' + words[1] + '. Click para ver.' +
+      '</span>' +
+    '</a>';
 }
 
 /*
@@ -84,6 +88,11 @@ function markNotificationsAsSeen() {
         // Decrease navbar notification count by 1.
         var dom_navbar_counter = document.getElementById('navbar-notifications');
         dom_navbar_counter.innerHTML = parseInt(dom_navbar_counter.innerHTML, 10) - 1;
+
+        if (parseInt(dom_navbar_counter.innerHTML, 10) == 0) {
+          dom_navbar_counter.className = 'pure-badge';
+        }
+
       });
     }
   });
@@ -100,14 +109,14 @@ function markNotificationsAsSeen() {
   </h2>
 </header>
 
-<div id="new-notifications-msg" class="text-center"></div>
+<div id="new-notifications-msg" class="text-center">&nbsp;</div>
 
 <% if (typeof notifications === 'undefined' || notifications.length == 0) { %>
   <div class='pure-u-1 pure-u-md-1-1 text-center card card-on-light l-box'>
     No hay notificaciones que mostrar
   </div>
 <% } else { %>
-  <div class="notification-container">
+  <div class="notification-container pure-u-md-1">
     <ul class="empty-ul card-listing">
       <% _.each(notifications, function(notification) { %>
         <li class="notification pure-u-md-1-2 text-center <% if (!notification.seen) { %> unseen-notification <% } %>">

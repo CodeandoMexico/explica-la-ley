@@ -33,9 +33,9 @@
 }
 .notification-container {
   text-align: center !important;
+  margin: auto;
 }
 .notification {
-  display: block;
   margin: 10px !important;
   padding: 0px !important;
   border-radius: 5px;

@@ -11,6 +11,9 @@ window.onload = function processNotifications(){
 
     // Get existing unseen notifications.
     $.get("/notificaciones/no_vistas", function(data) {
+      if (data.count > 0 ) {
+        dom_navbar_notifications.className = 'pure-badge-info';
+      }
       dom_navbar_notifications.innerHTML = parseInt(data.count, 10);
 
       // Listen for new ones.
@@ -26,6 +29,8 @@ window.onload = function processNotifications(){
 
         dom_navbar_notifications.innerHTML = 
           parseInt(dom_navbar_notifications.innerHTML, 10) + 1;
+
+        dom_navbar_notifications.className = 'pure-badge-info';
 
       }); 
 
