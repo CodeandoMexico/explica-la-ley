@@ -25,7 +25,6 @@ module.exports = {
   },
 
   afterCreate: function(new_annotation, cb) {
-    console.log(new_annotation);
     Annotation.find({
       article: new_annotation.article,
       user: { '!': new_annotation.user }

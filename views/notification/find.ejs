@@ -1,28 +1,42 @@
 <script type="text/javascript">
 
-// This is here to remove workload from the server.
-// Let the user's browser do the lookups.
+/****************************************************************
+| This code manages some actions regarding to notifications.    |
+| It is included in this specific view since no other needs it. |
+****************************************************************/
 
-var articles = <%- JSON.stringify(articles) %>;
-var laws = <%- JSON.stringify(laws) %>;
-var tags = <%- JSON.stringify(tags) %>;
+// Hold article, law, and tag objects. Their ID is the key.
+var article_dict = {};
+var law_dict = {};
+var tag_dict = {};
+structurizeData();
 
-article_dict = {};
-law_dict = {};
-tag_dict = {};
+/*
+ * Puts in a dictionary all of the articles, laws, and tags related to this 
+ * page's notifications for easy access. 
+ */
+function structurizeData() {
+  var articles = <%- JSON.stringify(articles) %>;
+  var laws = <%- JSON.stringify(laws) %>;
+  var tags = <%- JSON.stringify(tags) %>;
 
-for (i in articles) {
-  article_dict[articles[i].id] = articles[i];
+  for (i in articles) {
+    article_dict[articles[i].id] = articles[i];
+  }
+  for (i in laws) {
+    law_dict[laws[i].id] = laws[i];
+  }
+  for (i in tags) {
+    tag_dict[tags[i].id] = tags[i];
+  }
+
 }
 
-for (i in laws) {
-  law_dict[laws[i].id] = laws[i];
-}
-
-for (i in tags) {
-  tag_dict[tags[i].id] = tags[i];
-}
-
+/*
+ * Updates the DOM with a message that tells how many unseen
+ * notifications there are waiting to be displayed.
+ * @param {int} n: Number of unseen notifications.
+ */
 function updateNewNotificationsMsg(n) {
   var div = document.getElementById('new-notifications-msg');
   var words = n == 1 ? ['notificación', 'nueva'] : ['notificaciones', 'nuevas'];
@@ -30,6 +44,14 @@ function updateNewNotificationsMsg(n) {
   div.innerHTML = n + ' ' + words[0] + ' ' + words[1] + '. ' + link;
 }
 
+/*
+ * Gets the a notification's relevant data (in which tag -> law -> article
+ * an action happened?).
+ * @param {int} article_id: The ID of the article to which a notification
+ *   is related.
+ * @return {String} data: An HTML breadcrumb linking to the entities where
+ *   the action that triggered the notification happened.
+ */ 
 function lookupArticleData(article_id) {
   var article = article_dict[article_id];
   var law = law_dict[article.law];
@@ -45,7 +67,11 @@ function lookupArticleData(article_id) {
   return data;
 }
 
-function markAsSeen() {
+/*
+ * Having an array with the IDs of the notifications being shown in this view,
+ * call the notification's controller to mark them as "seen".
+ */
+function markNotificationsAsSeen() {
   $.ajax({
     url: '/notificaciones/marca_como_vistas',
     method: 'POST',
@@ -53,7 +79,11 @@ function markAsSeen() {
   }).done(function(data, textStatus, jqXHR) {
     if (textStatus == 'success') {
       $('.unseen-notification').each(function() {
+        // Change color to white.
         $(this).animate({backgroundColor: '#fff'}, 'slow');
+        // Decrease navbar notification count by 1.
+        var dom_navbar_counter = document.getElementById('navbar-notifications');
+        dom_navbar_counter.innerHTML = parseInt(dom_navbar_counter.innerHTML, 10) - 1;
       });
     }
   });
@@ -62,12 +92,12 @@ function markAsSeen() {
 </script>
 
 <header class=" header l-box text-center">
-    <h1 class="l-no-margin-b header-title">
-      <span>Tus notificaciones</span>
-    </h1>
-    <h2 class="header-subtitle">
-      Aqui puedes ver los votos y las respuestas que tus comentarios han recibido
-    </h2>
+  <h1 class="l-no-margin-b header-title">
+    <span>Tus notificaciones</span>
+  </h1>
+  <h2 class="header-subtitle">
+    Aqui puedes ver los votos y las respuestas que tus comentarios han recibido
+  </h2>
 </header>
 
 <div id="new-notifications-msg" class="text-center"></div>
@@ -121,4 +151,3 @@ function markAsSeen() {
 
   </div>
 <% } %>
-

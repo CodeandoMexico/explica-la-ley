@@ -43,7 +43,7 @@ module.exports = {
 
             Notification.find({
               skip  : parseInt(req.param('page') || 1) * notifications_per_page,
-              where : {seen: false}
+              where : {seen: false, belongs_to: req.session.user.id}
             }).exec(function(err, unseen_notifications) {
               if (err) return _error(err, req, res);
               var response = {
