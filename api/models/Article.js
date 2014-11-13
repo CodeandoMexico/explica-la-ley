@@ -46,7 +46,16 @@ module.exports = {
   afterDestroy: function(destroyedRecords, cb) {
     // Emulate cascading delete (unsupported by Sails.js at the moment).
     // If an article is destroyed, all of its annotations must destroyed as well.
-    Annotation.destroy({article: _.pluck(destroyedRecords, 'id')}).exec(cb);
+    var targeted_articles = _.pluck(destroyedRecords, 'id');
+    if (targeted_articles.length == 0) {
+      cb();
+    } else {
+      Annotation.destroy({article: targeted_articles})
+      .exec(function(err, d) {
+        if (err) console.log('Error afterDestroy (article model)', err);
+        cb();
+      });
+    }
   },
 
 };

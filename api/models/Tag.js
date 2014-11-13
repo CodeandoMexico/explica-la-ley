@@ -30,7 +30,16 @@ module.exports = {
   afterDestroy: function(destroyedRecords, cb) {
     // Emulate cascading delete (unsupported by Sails.js at the moment).
     // If a tag is destroyed, all of its laws must destroyed as well.
-    Law.destroy({tag: _.pluck(destroyedRecords, 'id')}).exec(cb);
+    var targeted_laws = _.pluck(destroyedRecords, 'id');
+    if (targeted_laws.length == 0) {
+      cb();
+    } else {
+      Law.destroy({tag: targeted_laws})
+      .exec(function(err, d) {
+        if (err) console.log('Error afterDestroy (tag model)', err);
+        cb();
+      });
+    }
   },
 
 };

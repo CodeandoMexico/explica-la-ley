@@ -1,0 +1,12 @@
+<script type="text/javascript">
+  function showFlash() {
+    <% if (req.session.flash) { %>
+      <% if (req.session.flash.type == 'error') { %>
+          Annotator.showNotification('<%= req.session.flash.msg %>', Annotator.Notification.ERROR);
+      <% } else if (req.session.flash.type == 'success') { %>
+          Annotator.showNotification('<%= req.session.flash.msg %>', Annotator.Notification.SUCCESS);
+      <% } %>
+      <% req.session.flash = null %>
+    <% } %>
+  }
+</script>

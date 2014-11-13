@@ -1,6 +1,9 @@
-// Manages the live update of the front-end whenever there's
-// notification activity in the back-end.
-window.onload = function processNotifications(){
+// Actions that need to be executed when the page finishes loading.
+// - Manage the live update of notifications
+// - Manage flash messages
+
+window.onload = function() {
+    showFlash();
 
     // This should be defined in the /notificaciones page.
     if (typeof markNotificationsAsSeen != 'undefined') {
