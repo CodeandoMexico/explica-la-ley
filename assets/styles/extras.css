@@ -63,3 +63,7 @@
 .blue {
   color: blue;
 }
+.danger {
+  color: red;
+  font-weight: bold;
+}

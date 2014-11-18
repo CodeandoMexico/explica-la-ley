@@ -54,7 +54,8 @@ module.exports = {
 
   edit: function(req, res) {
     if (req.method == 'post' || req.method == 'POST') {
-      var body = typeof req.param('body') === 'undefined' ? '' : req.param('body').trim();
+      var body = (typeof req.param('body') === 'undefined' || req.param('body') == null) ?
+                 '' : req.param('body').trim();
       Article.update({
         id: req.param('id')
       }, {
@@ -80,13 +81,16 @@ module.exports = {
         }).exec(function (err, article) {
           if (err) return _error(err, req, res, false);
           if (!article) return _error('Artículo no encontrado', req, res, true);
-          if (typeof article.body === 'undefined' || article.body == null) {
-            article.body = '';
-          } else {
-            article.body.trim();
-          }
-          res.locals.layout = 'layoutv2';
-          return res.view('article/edit', {article: article, law: law});
+          article.body = (typeof article.body === 'undefined' || article.body == null) ?
+                         '' : article.body.trim();
+          Annotation.find({article: article.id}).exec(function(err, annotations) {
+            res.locals.layout = 'layoutv2';
+            return res.view('article/edit', {
+              article         : article,
+              law             : law,
+              has_annotations : annotations.length > 0
+            });
+          });
         });
       });
     }
