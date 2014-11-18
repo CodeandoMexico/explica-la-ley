@@ -90,6 +90,7 @@ module.exports = {
           tag: req.param('tag')
         }).exec(function(err, laws) {
           if (err) return _error(err, req, res, false);
+          if (!laws[0]) return _error('Ley no encontrada', req, res, true);
           return _success('Ley editada exitosamente', req, res, '/reforma/' + tag.slug + '/ley/' + req.param('law_slug'));
         });
       });
