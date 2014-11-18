@@ -66,7 +66,7 @@ module.exports = {
         summary: req.param('summary')
       }).exec(function(err, tags) {
         if (err) return _error(err, req, res, false);
-        if (!tags) return _error('Tag a editar no encontrada', req, res, true);
+        if (!tags[0]) return _error('Tag a editar no encontrada', req, res, true);
         return _success('Tag editada exitosamente', req, res, '/reforma/' + tags[0].slug);
       });
     } else if (req.method == 'get' || req.method == 'GET') {
