@@ -80,7 +80,11 @@ module.exports = {
         }).exec(function (err, article) {
           if (err) return _error(err, req, res, false);
           if (!article) return _error('Artículo no encontrado', req, res, true);
-          article.body = typeof article.body === 'undefined' ? '' : article.body.trim();
+          if (typeof article.body === 'undefined' || article.body == null) {
+            article.body = '';
+          } else {
+            article.body.trim();
+          }
           res.locals.layout = 'layoutv2';
           return res.view('article/edit', {article: article, law: law});
         });

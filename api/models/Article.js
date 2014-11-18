@@ -8,8 +8,14 @@
 module.exports = {
 
   attributes: {
-    number: 'INTEGER',
-    body: 'STRING',
+    number: {
+      type: 'INTEGER',
+      required: true
+    },
+    body: {
+      type: 'STRING',
+      required: true
+    },
     law: {
       model: 'law'
     },
