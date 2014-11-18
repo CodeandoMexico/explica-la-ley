@@ -20,26 +20,6 @@ module.exports = {
     }
   },
 
-  beforeCreate: function(attrs, next) {
-    var marked = require('marked');
-    marked(attrs.body, function(err, body) {
-      if (err) return next(err);
-
-      attrs.body = body;
-      next();
-    });
-  },
-
-  beforeUpdate: function(attrs, next) {
-    var marked = require('marked');
-    marked(attrs.body, function(err, body) {
-      if (err) return next(err);
-
-      attrs.body = body;
-      next();
-    });
-  },
-
   afterDestroy: function(destroyedRecords, cb) {
     // Emulate cascading delete (unsupported by Sails.js at the moment).
     // If an article is destroyed, all of its annotations must destroyed as well.
