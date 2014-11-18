@@ -96,16 +96,26 @@ module.exports = {
       .exec(function(err, law) {
         if (err) return _error(err, req, res, false);
         if (!law) return _error('Ley no encontrada', req, res, true);
-        Article.create({
+
+        // Check if there's already an article under 
+        // the chosen law with this number.
+        Article.findOne({
           law: req.param('law'),
-          number: req.param('number'),
-          body: req.param('body')
+          number: req.param('number')
         }).exec(function(err, article) {
           if (err) return _error(err, req, res, false);
-          var return_url = '/reforma/' + law.tag.slug +
-                           '/ley/' + law.slug +
-                           '/articulo/' + req.param('number');
-          return _success('Artículo creado exitosamente', req, res, return_url);
+          if (article) return _error('Error al crear artículo. Ya existe un artículo con ese número dentro de esta ley', req, res, true);
+          Article.create({
+            law: req.param('law'),
+            number: req.param('number'),
+            body: req.param('body')
+          }).exec(function(err, article) {
+            if (err) return _error(err, req, res, false);
+            var return_url = '/reforma/' + law.tag.slug +
+                             '/ley/' + law.slug +
+                             '/articulo/' + req.param('number');
+            return _success('Artículo creado exitosamente', req, res, return_url);
+          });
         });
       });
     } else if (req.method == 'get' || req.method == 'GET') {
