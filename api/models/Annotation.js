@@ -30,10 +30,9 @@ module.exports = {
       user: { '!': new_annotation.user }
     })
     .exec(function(err, annotations) {
-      // XXX: Keep an eye on this line.
-      // Seems like sails should have parsed this beforehand.
-      // Sails might do it in future version (will crash this app).
-      var ranges = JSON.parse(new_annotation.ranges);
+      if (annotations.length == 0) cb();
+
+      var ranges = new_annotation.ranges;
       var start = ranges[0].startOffset;
       var end = ranges[0].endOffset;
       var touched_annotations = [];
@@ -53,6 +52,7 @@ module.exports = {
           // several old annotations from a same author -- however, that author
           // must only get ONE notification).
           var uniq_authors_touched_annotations = _.uniq(_.pluck(touched_annotations, 'user'));
+          if (uniq_authors_touched_annotations.length == 0) cb();
 
           for (j in uniq_authors_touched_annotations) {
             Notification.create({
