@@ -54,20 +54,31 @@ module.exports = {
 
   edit: function(req, res) {
     if (req.method == 'post' || req.method == 'POST') {
-      var body = (typeof req.param('body') === 'undefined' || req.param('body') == null) ?
-                 '' : req.param('body').trim();
-      Article.update({
-        id: req.param('id')
-      }, {
-        number: parseInt(req.param('number'), 10),
-        body: req.param('body'),
-      }).exec(function(err, articles) {
+      var new_body = (typeof req.param('body') === 'undefined' || req.param('body') == null) ?
+                     '' : req.param('body').trim();
+      Article.findOne({id: req.param('article_id')})
+      .exec(function(err, article) {
         if (err) return _error(err, req, res, false);
-        if (!articles[0]) return _error('Articulo a editar no encontrado', req, res, true);
-        var return_url = '/reforma/' + req.param('tag_slug') +
-                         '/ley/' + req.param('law_slug') +
-                         '/articulo/' + req.param('number');
-        return _success('Artículo editado exitosamente', req, res, return_url);
+        if (!article) return _error('Artículo no encontrado', req, res, true);
+        Article.isNumberOk('update', article, req.param('number'), req.param('law_id'), function(ok) {
+          if (ok) {
+            Article.update({
+              id: article.id
+            }, {
+              number: req.param('number'),
+              body: new_body,
+            }).exec(function(err, articles) {
+              if (err) return _error(err, req, res, false);
+              if (!articles[0]) return _error('Articulo a editar no encontrado', req, res, true);
+              var return_url = '/reforma/' + req.param('tag_slug') +
+                               '/ley/' + req.param('law_slug') +
+                               '/articulo/' + req.param('number');
+              return _success('Artículo editado exitosamente', req, res, return_url);
+            });
+          } else {
+            return _error('Error al actualizar artículo. Ya existe un artículo con ese número dentro de esta ley.', req, res, true);
+          }
+        });
       });
     } else if (req.method == 'get' || req.method == 'GET') {
       Law.findOne({slug: req.param('law_slug')})
@@ -104,26 +115,22 @@ module.exports = {
       .exec(function(err, law) {
         if (err) return _error(err, req, res, false);
         if (!law) return _error('Ley no encontrada', req, res, true);
-
-        // Check if there's already an article under 
-        // the chosen law with this number.
-        Article.findOne({
-          law: req.param('law'),
-          number: req.param('number')
-        }).exec(function(err, article) {
-          if (err) return _error(err, req, res, false);
-          if (article) return _error('Error al crear artículo. Ya existe un artículo con ese número dentro de esta ley', req, res, true);
-          Article.create({
-            law: req.param('law'),
-            number: req.param('number'),
-            body: req.param('body')
-          }).exec(function(err, article) {
-            if (err) return _error(err, req, res, false);
-            var return_url = '/reforma/' + law.tag.slug +
-                             '/ley/' + law.slug +
-                             '/articulo/' + req.param('number');
-            return _success('Artículo creado exitosamente', req, res, return_url);
-          });
+        Article.isNumberOk('create', {}, req.param('number'), req.param('law'), function(ok) {
+          if (ok) {
+            Article.create({
+              law: req.param('law'),
+              number: req.param('number'),
+              body: req.param('body')
+            }).exec(function(err, article) {
+              if (err) return _error(err, req, res, false);
+              var return_url = '/reforma/' + law.tag.slug +
+                               '/ley/' + law.slug +
+                               '/articulo/' + req.param('number');
+              return _success('Artículo creado exitosamente', req, res, return_url);
+            });
+          } else {
+            return _error('Error al crear artículo. Ya existe un artículo con ese número dentro de esta ley.', req, res, true);
+          }
         });
       });
     } else if (req.method == 'get' || req.method == 'GET') {

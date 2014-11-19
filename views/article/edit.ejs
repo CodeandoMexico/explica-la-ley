@@ -22,6 +22,7 @@
     Este artículo le pertenece a la ley <b><%= law.slug %></b>, de la tag/reforma <b><%= law.tag.slug %></b>.
   </div>
   <br />
-  <input type="hidden" name="id" id="id" value="<%= article.id %>" />
+  <input type="hidden" name="article_id" id="article_id" value="<%= article.id %>" />
+  <input type="hidden" name="law_id" id="law_id" value="<%= law.id %>" />
   <button type="submit" class="pure-button el-button el-button-primary">Actualizar</button>
 </form>
