@@ -5,28 +5,28 @@
     Si editas su contenido, estas anotaciones perderán su posición original en el texto.
   </h3>
 <% } %>
-<form method="POST" action="edit" class="col-md-4 col-md-offset-2" role="form">
-  <div class="form-group">
-    <label for="number">Número</label><br />
+<form method="POST" action="edit" class="col-md-4 col-md-offset-2 pure-form pure-form-stacked" role="form">
+  <fieldset>
+    <label for="number">Número</label>
     <input type="number" class="form-control" id="number" name="number" value="<%= article.number %>" placeholder="Número" min="1" required />
-  </div>
-  <br />
-  <div class="form-group">
-    <label for="body">Cuerpo</label><br />
+    <br />
+
+    <label for="body">Cuerpo</label>
     <textarea class="ckeditor" cols="80" id="body" name="body" rows="30" required>
       <%= article.body %>
     </textarea>
-  </div>
-  <br />
-  <div>
+    <br />
+
     <% if (tagged) { %>
       Este artículo le pertenece a la ley <b><%= law.slug %></b>, de la tag/reforma <b><%= law.tag.slug %></b>.
     <% } else { %>
       Este artículo le pertenece a la ley <b><%= law.slug %></b>.
     <% } %>
-  </div>
-  <br />
-  <input type="hidden" name="article_id" id="article_id" value="<%= article.id %>" />
-  <input type="hidden" name="law_id" id="law_id" value="<%= law.id %>" />
-  <button type="submit" class="pure-button el-button el-button-primary">Actualizar</button>
+    <br />
+    <br />
+
+    <input type="hidden" name="article_id" id="article_id" value="<%= article.id %>" />
+    <input type="hidden" name="law_id" id="law_id" value="<%= law.id %>" />
+    <button type="submit" class="pure-button el-button el-button-primary">Actualizar</button>
+  </fieldset>
 </form>
