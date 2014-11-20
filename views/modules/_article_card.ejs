@@ -9,5 +9,9 @@
       <%= article.annotations.length %><%= article.annotations.length == 1 ? ' comentario': ' comentarios'%>
     </span>
   </div>
-  <a href='/reforma/<%= tag_slug %>/ley/<%= law_slug %>/articulo/<%= article.number %>' class='pure-button el-button el-button-primary'>Ver más</a>
+  <% if (tagged) { %>
+    <a href='/reforma/<%= tag_slug %>/ley/<%= law_slug %>/articulo/<%= article.number %>' class='pure-button el-button el-button-primary'>Ver más</a>
+  <% } else { %>
+    <a href='/ley/<%= law_slug %>/articulo/<%= article.number %>' class='pure-button el-button el-button-primary'>Ver más</a>
+  <% } %>
 </div>

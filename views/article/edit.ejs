@@ -19,7 +19,11 @@
   </div>
   <br />
   <div>
-    Este artículo le pertenece a la ley <b><%= law.slug %></b>, de la tag/reforma <b><%= law.tag.slug %></b>.
+    <% if (tagged) { %>
+      Este artículo le pertenece a la ley <b><%= law.slug %></b>, de la tag/reforma <b><%= law.tag.slug %></b>.
+    <% } else { %>
+      Este artículo le pertenece a la ley <b><%= law.slug %></b>.
+    <% } %>
   </div>
   <br />
   <input type="hidden" name="article_id" id="article_id" value="<%= article.id %>" />

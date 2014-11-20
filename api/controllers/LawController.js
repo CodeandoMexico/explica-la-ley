@@ -54,7 +54,7 @@ module.exports = {
     });
   },
 
-  find: function(req, res) {
+  findTagged: function(req, res) {
     Law.findOne({slug: req.param('law_slug')})
     .populate('tag')
     .exec(function(err, law) {
@@ -71,29 +71,61 @@ module.exports = {
           if (err) return _error(err, req, res, false);
           law.articles = articles;
           res.locals.layout = 'layoutv2';
-          return res.view('law/find', {law: law});
+          return res.view('law/find', {law: law, tagged: true});
         });
+      });
+    });
+  },
+
+  findUntagged: function(req, res) {
+    Law.findOne({slug: req.param('law_slug')})
+    .exec(function(err, law) {
+      if (err) return _error(err, req, res, false);
+      if (!law) return _error('Ley no encontrada', req, res, true);
+      if (law.tag) return _error('URL inválida: tenemos registrada esta ley, pero no es independiente.', req, res, true);
+      Article.find({sort: 'number ASC', law: law.id})
+      .populate('annotations')
+      .exec(function(err, articles) {
+        if (err) return _error(err, req, res, false);
+        law.articles = articles;
+        res.locals.layout = 'layoutv2';
+        return res.view('law/find', {law: law, tagged: false});
       });
     });
   },
 
   edit: function(req, res) {
     if (req.method == 'POST' || req.method == 'post') {
-      Tag.findOne({id: req.param('tag')}).exec(function(err, tag) {
-        if (err) return _error(err, req, res, false);
-        if (!tag) return _error('Tag no encontrada', req, res, true);
+      var tagged = req.param('tag') == '' ? false : true;
+      if (tagged) {
+        Tag.findOne({id: req.param('tag')}).exec(function(err, tag) {
+          if (err) return _error(err, req, res, false);
+          if (!tag) return _error('Tag no encontrada', req, res, true);
+          Law.update({
+            id: req.param('id')
+          }, {
+            name: req.param('name'),
+            summary: req.param('summary'),
+            tag: req.param('tag')
+          }).exec(function(err, laws) {
+            if (err) return _error(err, req, res, false);
+            if (!laws[0]) return _error('Ley no encontrada', req, res, true);
+            return _success('Ley editada exitosamente', req, res, '/reforma/' + tag.slug + '/ley/' + req.param('law_slug'));
+          });
+        });
+      } else {
         Law.update({
           id: req.param('id')
         }, {
           name: req.param('name'),
           summary: req.param('summary'),
-          tag: req.param('tag')
+          tag: null
         }).exec(function(err, laws) {
           if (err) return _error(err, req, res, false);
           if (!laws[0]) return _error('Ley no encontrada', req, res, true);
-          return _success('Ley editada exitosamente', req, res, '/reforma/' + tag.slug + '/ley/' + req.param('law_slug'));
+          return _success('Ley editada exitosamente', req, res, '/ley/' + req.param('law_slug'));
         });
-      });
+      }
     } else if (req.method == 'GET' || req.method == 'get') {
       Law.findOne({slug: req.param('law_slug')}).exec(function(err, law) {
         if (err) return _error(err, req, res, false);
@@ -109,20 +141,34 @@ module.exports = {
 
   create: function(req, res) {
     if (req.method == 'POST' || req.method == 'post') {
-      Tag.findOne({id: req.param('tag') || -1}).exec(function(err, tag) {
-        if (err) return _error(err, req, res, false);
-        if (!tag) return _error('Tag no encontrada', req, res, true);
+      var tagged = req.param('tag') == '' ? false : true;
+      if (tagged) {
+        Tag.findOne({id: req.param('tag')}).exec(function(err, tag) {
+          if (err) return _error(err, req, res, false);
+          if (!tag) return _error('Tag no encontrada', req, res, true);
+          Law.create({
+            name: req.param('name'),
+            summary: req.param('summary'),
+            tag: req.param('tag'),
+            slug: req.param('slug')
+          }).exec(function(err, law) {
+            if (err) return _error(err, req, res, false);
+            if (!law) return _error('Error al crear ley', req, res, true);
+            return _success('Ley creada exitosamente', req, res, '/reforma/' + tag.slug + '/ley/' + law.slug);
+          });
+        });
+      } else {
         Law.create({
           name: req.param('name'),
           summary: req.param('summary'),
-          tag: req.param('tag'),
+          tag: null,
           slug: req.param('slug')
         }).exec(function(err, law) {
           if (err) return _error(err, req, res, false);
           if (!law) return _error('Error al crear ley', req, res, true);
-          return _success('Ley creada exitosamente', req, res, '/reforma/' + tag.slug + '/ley/' + law.slug);
+          return _success('Ley creada exitosamente', req, res, '/ley/' + law.slug);
         });
-      });
+      }
     } else if (req.method == 'GET' || req.method == 'get') {
       var args = {};
       var direct = false;

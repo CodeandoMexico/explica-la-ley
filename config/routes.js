@@ -66,6 +66,26 @@ module.exports.routes = {
     action: 'homepage'
   },
 
+  '/ley/:law_slug': {
+    controller: 'law',
+    action: 'findUntagged'
+  },
+
+  '/ley/:law_slug/edit': {
+    controller: 'law',
+    action: 'edit'
+  },
+
+  '/ley/:law_slug/articulo/:article_number': {
+    controller: 'article',
+    action: 'find'
+  },
+
+  '/ley/:law_slug/articulo/:article_number/edit': {
+    controller: 'article',
+    action: 'edit'
+  },
+
   '/login': {
     controller: 'user',
     action: 'login'
@@ -117,11 +137,6 @@ module.exports.routes = {
   'post /law/search': {
     controller: 'law',
     action: 'search'
-  },
-
-  'get /law/:id': {
-    controller: 'law',
-    action: 'find'
   },
 
   '/tag/create': {
@@ -201,7 +216,7 @@ module.exports.routes = {
 
   '/reforma/:tag_slug/ley/:law_slug': {
     controller: 'law',
-    action: 'find'
+    action: 'findTagged'
   },
 
   '/reforma/:tag_slug/ley/:law_slug/edit': {

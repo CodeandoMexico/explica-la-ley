@@ -47,7 +47,8 @@ module.exports = {
         if (err) return _error(err, req, res, false)
         if (!article) return _error('Articulo no encontrado', req, res, true);
         res.locals.layout = 'layoutv2';
-        return res.view('article/find', {article: article, law: law});
+        var tagged = law.tag ? true : false;
+        return res.view('article/find', {article: article, law: law, tagged: tagged});
       });
     });
   },
@@ -70,9 +71,11 @@ module.exports = {
             }).exec(function(err, articles) {
               if (err) return _error(err, req, res, false);
               if (!articles[0]) return _error('Articulo a editar no encontrado', req, res, true);
-              var return_url = '/reforma/' + req.param('tag_slug') +
-                               '/ley/' + req.param('law_slug') +
-                               '/articulo/' + req.param('number');
+              var tagged = typeof req.param('tag_slug') !== 'undefined' ? true : false;
+              var return_url = '/ley/' + req.param('law_slug') + '/articulo/' + req.param('number');
+              if (tagged) {
+                return_url = '/reforma/' + req.param('tag_slug') + return_url;
+              }
               return _success('Artículo editado exitosamente', req, res, return_url);
             });
           } else {
@@ -86,6 +89,7 @@ module.exports = {
       .exec(function(err, law) {
         if (err) return _error('Error al buscar leyes', req, res, false);
         if (!law) return _error('Ley no encontrada', req, res, true);
+        var tagged = law.tag ? true : false;
         Article.findOne({
           number: req.param('article_number'),
           law: law.id
@@ -99,7 +103,8 @@ module.exports = {
             return res.view('article/edit', {
               article         : article,
               law             : law,
-              has_annotations : annotations.length > 0
+              has_annotations : annotations.length > 0,
+              tagged          : tagged
             });
           });
         });
@@ -123,9 +128,10 @@ module.exports = {
               body: req.param('body')
             }).exec(function(err, article) {
               if (err) return _error(err, req, res, false);
-              var return_url = '/reforma/' + law.tag.slug +
-                               '/ley/' + law.slug +
-                               '/articulo/' + req.param('number');
+              var return_url = '/ley/' + law.slug + '/articulo/' + req.param('number');
+              if (law.tag) {
+                return_url = '/reforma/' + law.tag.slug + return_url;
+              }
               return _success('Artículo creado exitosamente', req, res, return_url);
             });
           } else {
