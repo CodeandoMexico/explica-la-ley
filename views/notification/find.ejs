@@ -57,16 +57,26 @@ function updateNewNotificationsMsg(n) {
  *   the action that triggered the notification happened.
  */ 
 function lookupArticleData(article_id) {
+  var data = '';
+
   var article = article_dict[article_id];
   var law = law_dict[article.law];
-  var tag = tag_dict[law.tag];
-  var tag_url = '/reforma/' + tag.slug;
-  var law_url = tag_url + '/ley/' + law.slug;
-  var article_url = law_url + '/articulo/' + article.number;
 
-  var data = '<u><a href="' + tag_url + '" target="_blank">' + tag.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' + 
-             '<u><a href="' + law_url + '" target="_blank">' + law.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' + 
-             '<u><a href="' + article_url + '" target="_blank">Artículo ' + article.number + '</a></u>';
+  var article_url = '/articulo/' + article.number;
+  var law_url = '/ley/' + law.slug;
+
+  var tagged = law.tag ? true : false;
+
+  if (tagged) {
+    var tag = tag_dict[law.tag];
+    var tag_url = '/reforma/' + tag.slug;
+    var data = '<u><a href="' + tag_url + '" target="_blank">' + tag.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' +
+               '<u><a href="' + tag_url + law_url + '" target="_blank">' + law.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' +
+               '<u><a href="' + tag_url + law_url + article_url + '" target="_blank">Artículo ' + article.number + '</a></u>';
+  } else {
+    var data = '<u><a href="' + law_url + '" target="_blank">' + law.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' +
+               '<u><a href="' + law_url + article_url + '" target="_blank">Artículo ' + article.number + '</a></u>';
+  }
 
   return data;
 }
