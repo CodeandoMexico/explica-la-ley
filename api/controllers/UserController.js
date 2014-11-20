@@ -77,6 +77,7 @@ module.exports = {
                       return _error('Error creating user: ' + err, req, res);
                     } else {
                       req.session.user.id = user.id;
+                      req.session.user.role = user.role;
                       return res.redirect('/');
                     }
                   });
