@@ -1,24 +1,22 @@
 <h2 class="col-md-offset-2">Nueva ley</h2>
-<h4>Una ley es un contenedor de artículos. Cada artículo sólo puede puede pertenecer a 1 ley.</h4>
-<form method="POST" action="/ley/law/create" class="col-md-4 col-md-offset-2" role="form">
-  <div class="form-group">
-    <label for="name">Nombre</label><br />
+<h4>Una ley es un contenedor de artículos. Una ley puede o no estar dentro de una tag.</h4>
+<form method="POST" action="/ley/law/create" class="col-md-4 col-md-offset-2 pure-form pure-form-stacked" role="form">
+  <fieldset>
+    <label for="name">Nombre</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la ley" required />
-  </div>
-  <br />
-  <div class="form-group">
-    <label for="summary">Resumen (unas 20 palabras)</label><br />
+    <br />
+
+    <label for="summary">Resumen (unas 20 palabras)</label>
     <input type="text" class="form-control" id="summary" name="summary" placeholder="Resumen" required />
-  </div>
-  <br />
-  <div class="form-group">
-    <label for="summary">Slug</label><br />
-    <input type="text" class="form-control" id="slug" name="slug" placeholder="nombre-de-ley" required /><br />
+    <br />
+
+    <label for="summary">Slug</label>
+    <input type="text" class="form-control" id="slug" name="slug" placeholder="nombre-de-ley" required />
     <small>SLUG: Debe de contener un nombre único y URL-friendly; de preferencia sin la palabra "Ley" (por ejemplo: federal-de-impuestos).</small>
-  </div>
-  <br />
-  <div class="form-group">
-    <label for="tag">Tag/Reforma a la que pertenece:</label><br />
+    <br />
+    <br />
+
+    <label for="tag">Tag/Reforma a la que pertenece:</label>
     <% if (direct) { %>
       <b><%= tags[0].name %></b>
       <input type="hidden" name="tag" value="<%= tags[0].id %>" />
@@ -30,11 +28,9 @@
         <% }) %>
       </select>
     <% } %>
-  </div>
-  <br />
-  <% if (tags.length > 0) { %>
+    <br />
+    <br />
+
     <button type="submit" class="pure-button el-button el-button-primary">Crear</button>
-  <% } else { %>
-    <button class="pure-button pure-button-disabled">Crear</button>
-  <% } %>
+  </fieldset>
 </form>

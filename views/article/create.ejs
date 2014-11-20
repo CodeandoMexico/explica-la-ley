@@ -1,19 +1,16 @@
 <h2 class="col-md-offset-2">Nuevo artículo</h2>
-<h4>Cada artículo debe de estar bajo una ley.</h4>
-<form method="POST" action="/ley/article/create" class="col-md-3 col-md-offset-2" role="form">
-  <div class="form-group">
-    <label for="number">Número</label><br />
+<h4>Cada artículo debe de estar contenido dentro de una ley.</h4>
+<form method="POST" action="/ley/article/create" class="col-md-3 col-md-offset-2 pure-form pure-form-stacked" role="form">
+  <fieldset>
+    <label for="number">Número</label>
     <input type="number" class="form-control" id="number" name="number" placeholder="Número" min="1" required />
-  </div>
-  <br />
-  <div class="form-group">
-    <label for="body">Cuerpo</label><br />
-    <textarea class="ckeditor" cols="80" id="body" name="body" rows="30" required>
-    </textarea>
-  </div>
-  <br />
-  <div class="form-group">
-    <label for="law">Ley a la que pertenece:</label><br />
+    <br />
+
+    <label for="body">Cuerpo</label>
+    <textarea class="ckeditor" cols="80" id="body" name="body" rows="30" required></textarea>
+    <br />
+
+    <label for="law">Ley a la que pertenece:</label>
     <% if (direct) { %>
       <b><%= laws[0].name %></b>
       <input type="hidden" name="law" value="<%= laws[0].id %>" />
@@ -33,11 +30,12 @@
         </select>
       <% } %>
     <% } %>
-  </div>
-  <br />
-  <% if (laws.length > 0) { %>
-    <button type="submit" class="pure-button el-button el-button-primary">Crear</button>
-  <% } else { %>
-    <button class="pure-button pure-button-disabled">Crear</button>
-  <% } %>
+    <br />
+
+    <% if (laws.length > 0) { %>
+      <button type="submit" class="pure-button el-button el-button-primary">Crear</button>
+    <% } else { %>
+      <button class="pure-button pure-button-disabled">Crear</button>
+    <% } %>
+    </fieldset>
 </form>
