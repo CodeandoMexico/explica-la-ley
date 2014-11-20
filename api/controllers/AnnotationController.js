@@ -30,7 +30,7 @@ module.exports = {
     .exec(function(err, user) {
       if (err) return _error(err, req, res);
       Annotation.create({
-        text: req.param('text'),
+        text: req.param('text').replace(/</g,"&lt;").replace(/>/g,"&gt;"),
         quote: req.param('quote'),
         ranges: req.param('ranges'),
         article: req.param('article'),
