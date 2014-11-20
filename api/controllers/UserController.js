@@ -56,7 +56,7 @@ module.exports = {
             } else {
               req.session.user = {
                 twitterScreenName: data.screen_name,
-                twitterName: data.name,
+                twitterName: data.name.replace(/</g,"&lt;").replace(/>/g,"&gt;"),
                 twitterProfileImageUrl: data.profile_image_url,
                 twitterId: data.id
               }
@@ -68,7 +68,7 @@ module.exports = {
                   User.create({
                     twitterId: data.id,
                     twitterScreenName: data.screen_name,
-                    twitterName: data.name,
+                    twitterName: data.name.replace(/</g,"&lt;").replace(/>/g,"&gt;"),
                     role: 'user'
                   }).exec(function(err, user) {
                     if (err) {
