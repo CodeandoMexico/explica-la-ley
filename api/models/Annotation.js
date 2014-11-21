@@ -25,14 +25,21 @@ module.exports = {
   },
 
   afterCreate: function(new_annotation, cb) {
+    // Get all anotations inside this article that are not owned by this new
+    // annotation's author.
     Annotation.find({
       article: new_annotation.article,
       user: { '!': new_annotation.user }
     })
     .exec(function(err, annotations) {
+
+      // No need need to send notifications if no one else has annotated this
+      // article.
       if (annotations.length == 0) cb();
 
-      var ranges = new_annotation.ranges;
+      // Check whether this is a string or an array. There's a bug somewhere
+      // that makes this unpredictable.
+      var ranges = typeof new_annotation.ranges === 'string' ? JSON.parse(new_annotation.ranges) : new_annotation.ranges;
       var start = ranges[0].startOffset;
       var end = ranges[0].endOffset;
       var touched_annotations = [];
@@ -42,17 +49,26 @@ module.exports = {
         var ranges2 = annotations[i].ranges;
         var start2 = ranges2[0].startOffset;
         var end2 = ranges2[0].endOffset;
+
+        // Save a reference to the annotations that were touched by this new
+        // one.
         if (start2 <= end || end2 >= start) {
           touched_annotations.push(annotations[i]);
         }
 
         if (i == annotations.length - 1) {
+
+          // If this new annotation didn't touch existing ones, there's no
+          // need to send notifications.
+          if (touched_annotations.length == 0) {
+            cb();
+          }
+
           // Get the authors of the touched annotations (who will be getting a
           // notification). Do not repeat their IDs (the new annotation can touch
           // several old annotations from a same author -- however, that author
           // must only get ONE notification).
           var uniq_authors_touched_annotations = _.uniq(_.pluck(touched_annotations, 'user'));
-          if (uniq_authors_touched_annotations.length == 0) cb();
 
           for (j in uniq_authors_touched_annotations) {
             Notification.create({
@@ -65,8 +81,8 @@ module.exports = {
                 cb();
               }
             });
-
           }
+
         }
 
       }
