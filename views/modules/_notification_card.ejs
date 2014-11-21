@@ -1,12 +1,12 @@
 <p>
   <% if (notification.type == 'vote_up') { %>
-    <i class="notification-icon fa fa-arrow-up green"></i>
+    <i class="notification-icon fa fa-thumbs-up green"></i>
     Recibiste un voto positivo en <br />
   <% } else if (notification.type == 'vote_down') { %>
-    <i class="notification-icon fa fa-arrow-down red"></i>
+    <i class="notification-icon fa fa-thumbs-down red"></i>
     Recibiste un voto negativo en <br />
   <% } else if (notification.type == 'reply') { %>
-    <i class="notification-icon fa fa-info-circle blue"></i>
+    <i class="notification-icon fa fa-comments"></i>
     Recibiste un comentario en <br />
   <% } %>
   <script>document.write(lookupArticleData(<%= notification.article %>))</script>

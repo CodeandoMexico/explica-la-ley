@@ -10,14 +10,15 @@ window.onload = function() {
       markNotificationsAsSeen();
     }
 
-    var dom_navbar_notifications = document.getElementById('navbar-notifications');
+    var dom_navbar_notifications_badge   = document.getElementById('navbar-notifications-badge');
+    var dom_navbar_notifications_counter = document.getElementById('navbar-notifications-counter');
 
     // Get existing unseen notifications.
     $.get("/notificaciones/no_vistas", function(data) {
       if (data.count > 0 ) {
-        dom_navbar_notifications.className = 'pure-badge-info';
+        dom_navbar_notifications_badge.className = 'pure-badge-info';
       }
-      dom_navbar_notifications.innerHTML = parseInt(data.count, 10);
+      dom_navbar_notifications_counter.innerHTML = parseInt(data.count, 10);
 
       // Listen for new ones.
       var new_notifications = 0;
@@ -30,10 +31,10 @@ window.onload = function() {
           updateNewNotificationsMsg(new_notifications);
         }
 
-        dom_navbar_notifications.innerHTML = 
-          parseInt(dom_navbar_notifications.innerHTML, 10) + 1;
+        dom_navbar_notifications_counter.innerHTML = 
+          parseInt(dom_navbar_notifications_counter.innerHTML, 10) + 1;
 
-        dom_navbar_notifications.className = 'pure-badge-info';
+        dom_navbar_notifications_badge.className = 'pure-badge-info';
 
       }); 
 

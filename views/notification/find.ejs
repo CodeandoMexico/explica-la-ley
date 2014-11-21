@@ -93,14 +93,17 @@ function markNotificationsAsSeen() {
   }).done(function(data, textStatus, jqXHR) {
     if (textStatus == 'success') {
       $('.unseen-notification').each(function() {
+
         // Change color to white.
         $(this).animate({backgroundColor: '#fff'}, 'slow');
-        // Decrease navbar notification count by 1.
-        var dom_navbar_counter = document.getElementById('navbar-notifications');
-        dom_navbar_counter.innerHTML = parseInt(dom_navbar_counter.innerHTML, 10) - 1;
 
-        if (parseInt(dom_navbar_counter.innerHTML, 10) == 0) {
-          dom_navbar_counter.className = 'pure-badge';
+        // Decrease navbar notification count by 1.
+        var dom_navbar_notifications_badge         = document.getElementById('navbar-notifications-badge');
+        var dom_navbar_notifications_counter       = document.getElementById('navbar-notifications-counter');
+        dom_navbar_notifications_counter.innerHTML = parseInt(dom_navbar_notifications_counter.innerHTML, 10) - 1;
+
+        if (parseInt(dom_navbar_notifications_counter.innerHTML, 10) == 0) {
+          dom_navbar_notifications_badge.className = 'pure-badge';
         }
 
       });
