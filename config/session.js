@@ -15,7 +15,7 @@ module.exports.session = {
   // Session secret is automatically generated when your new app is created
   // Replace at your own risk in production-- you will invalidate the cookies of your users,
   // forcing them to log in again. 
-  secret: '5ede98abababe96e07772d830ad0f82d',
+  secret: process.env.SAILS_SESSION_SECRET,
 
 
   // Set the session cookie expire time
