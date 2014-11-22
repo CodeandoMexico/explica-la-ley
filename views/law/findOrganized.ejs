@@ -84,11 +84,12 @@ function getLi(entity_type, obj) {
     html +=     'Artículo ' + obj.number;
     html +=   '</a>';
     html += '</li>';
-  } else {
+  } else if (entity_type == 'title') {
     html += '<li class="' + entity_type + '">';
     html +=   obj.heading;
     html +=   "&nbsp;<a onclick='prepareTitleModal(\"edit\"," + JSON.stringify(obj) + ")'><i class='fa fa-pencil'></i></a>";
     html +=   "&nbsp;<a onclick='destroyLawDivisionEntity(\"title\"," + obj.id + ")'><i class='fa fa-trash-o'></i></a>";
+    html +=   "&nbsp;<button class='pure-button'><i class='fa fa-plus'></i> capítulo</button>";
     html += '</li>';
   }
   return html;
