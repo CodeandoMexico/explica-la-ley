@@ -54,6 +54,70 @@ module.exports = {
     });
   },
 
+  findOrganized: function(req, res) {
+
+    var tagged = typeof req.param('tag_slug') !== 'undefined';
+
+    function _trickleDown_Law_Titles_Chapters_Sections_Articles(cb) {
+      Law.findOne({slug: req.param('law_slug')})
+      .exec(function(err, law) {
+        if (err) return _error(err, req, res, false);
+        if (!law) return _error('Ley no encontrada', req, res, true);
+        Title.find({law: law.id, sort: 'number ASC'})
+        .exec(function(err, titles) {
+          if (err) return _error(err, req, res, false);
+          var title_ids = _.uniq(_.pluck(titles, 'id'));
+          Chapter.find({title: title_ids, sort: 'number ASC'})
+          .exec(function(err, chapters) {
+            if (err) return _error(err, req, res, false);
+            var chapter_ids = _.uniq(_.pluck(chapters, 'id'));
+            Section.find({chapter: chapter_ids, sort: 'number ASC'})
+            .exec(function(err, sections) {
+              if (err) return _error(err, req, res, false);
+              var section_ids = _.uniq(_.pluck(sections, 'id'));
+              Article.find({section: section_ids, sort: 'number ASC'})
+              .exec(function(err, articles_under_section) {
+                if (err) return _error(err, req, res, false);
+                Article.find({section: null, chapter: chapter_ids, sort: 'number ASC'})
+                .exec(function(err, articles_under_chapter) {
+                  if (err) return _error(err, req, res, false);
+                  cb({
+                    law                     : law,
+                    titles                  : titles,
+                    chapters                : chapters,
+                    sections                : sections,
+                    articles_under_section  : articles_under_section,
+                    articles_under_chapter  : articles_under_chapter
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    }
+
+    if (tagged) {
+      Tag.findOne({slug: req.param('tag_slug')})
+      .exec(function(err, tag) {
+        if (err) return _error(err, req, res, false);
+        if (!tag) return _error('Tag no encontrada', req, res, true);
+        _trickleDown_Law_Titles_Chapters_Sections_Articles(function(data) {
+          if (tag.id != data.law.tag) return _error('URL inválida', req, res, true);
+          data.tag = tag;
+          res.locals.layout = 'layoutv2';
+          return res.view('law/findOrganized', data);
+        });
+      });
+    } else {
+      _trickleDown_Law_Titles_Chapters_Sections_Articles(function(data) {
+        res.locals.layout = 'layoutv2';
+        return res.view('law/findOrganized', data);
+      });
+    }
+
+  },
+
   findTagged: function(req, res) {
     Law.findOne({slug: req.param('law_slug')})
     .populate('tag')

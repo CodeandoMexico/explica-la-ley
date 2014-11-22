@@ -61,6 +61,7 @@ module.exports.policies = {
     'index'        : true,
     'findTagged'   : true,
     'findUntagged' : true,
+    'findOrganized' : true,
     'search'       : true,
     'create'       : 'adminRole',
     'edit'         : 'adminRole',

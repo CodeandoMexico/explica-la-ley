@@ -19,6 +19,12 @@ module.exports = {
     law: {
       model: 'law'
     },
+    chapter: {
+      model: 'chapter'
+    },
+    section: {
+      model: 'section'
+    },
     annotations: {
       collection: 'annotation',
       via: 'article',
