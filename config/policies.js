@@ -98,6 +98,13 @@ module.exports.policies = {
     'markAsSeen'         : 'userRole',
   },
 
+  TitleController: {
+    '*'       : false,
+    'create'  : 'adminRole',
+    'edit'    : 'adminRole',
+    'destroy' : 'adminRole',
+  },
+
 };
 
 

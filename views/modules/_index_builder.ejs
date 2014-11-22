@@ -1,0 +1,71 @@
+<script type="text/javascript">
+
+  /*
+   * Sets the title's modal text boxes and other settings accordingly.
+   * @param {Object} obj: a Title object.
+   */
+  function prepareTitleModal(action, obj) {
+    var form_header  = document.getElementById('title-modal-header');
+    var form         = document.getElementById('title-form');
+    var form_number  = document.getElementById('title-form-number');
+    var form_heading = document.getElementById('title-form-heading');
+    var title_id     = document.getElementById('title-form-title-id');
+    if (action == 'create') {
+      form_header.innerHTML = 'Crear título';
+      form.action           = '/title/create';
+    } else if (action == 'edit') {
+      form_header.innerHTML = 'Editar título';
+      form.action           = '/title/edit';
+      form_number.value     = obj.number;
+      form_heading.value    = obj.heading;
+      title_id.value        = obj.id;
+    }
+    $('#title-modal').modal('toggle');
+  }
+
+  function destroyLawDivisionEntity(entity_type, obj_id) {
+    var form = document.getElementById('destroyer-form');
+    var id   = document.getElementById('destroyer-form-id');
+    id.value = obj_id;
+    document.getElementById('destroyer-form-origin').value = document.URL;
+
+    if (entity_type == 'title') {
+      form.action = '/title/destroy';
+    }
+
+    form.submit();
+  }
+
+</script>
+
+<button class="pure-button" onclick="prepareTitleModal('create', {})">
+  <i class="fa fa-plus"></i> título
+</button>
+
+<div id="title-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+        <h1 id="title-modal-header"></h1>
+    </div>
+
+    <div class="modal-body">
+        <form id="title-form" class="pure-form pure-form-stacked" method="POST" action="">
+            <label for="number">Número</label>
+            <input id="title-form-number" name="number" type="number" min="1" placeholder="ej: 1" required />
+            <br />
+            <label for="heading">Encabezado</label>
+            <input id="title-form-heading" name="heading" type="text" placeholder="ej: Autoridad en Materia..." required />
+            <input id="law" name="law" type="hidden" value="<%= law.id %>" />
+            <input id="title-form-title-id" name="title" type="hidden" value="" />
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="pure-button" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button type="submit" class="pure-button pure-button-primary" form="title-form">Aceptar</button>
+    </div>
+</div>
+
+<form id="destroyer-form" method="POST" action="">
+  <input type="hidden" name="id" id="destroyer-form-id" value="" />
+  <input type="hidden" name="origin" id="destroyer-form-origin" value="" />
+</form>

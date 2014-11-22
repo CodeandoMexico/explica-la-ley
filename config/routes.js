@@ -244,5 +244,19 @@ module.exports.routes = {
     action: 'destroy'
   },
 
+  '/title/create': {
+    controller: 'title',
+    action: 'create'
+  },
+
+  '/title/edit': {
+    controller: 'title',
+    action: 'edit'
+  },
+
+  '/title/destroy': {
+    controller: 'title',
+    action: 'destroy'
+  },
 
 };
