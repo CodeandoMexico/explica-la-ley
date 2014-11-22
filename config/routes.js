@@ -68,12 +68,12 @@ module.exports.routes = {
 
   '/ley/:law_slug': {
     controller: 'law',
-    action: 'findUntagged'
+    action: 'find'
   },
 
   '/ley/:law_slug/indice': {
     controller: 'law',
-    action: 'findOrganized'
+    action: 'showIndex'
   },
 
   '/ley/:law_slug/edit': {
@@ -221,7 +221,7 @@ module.exports.routes = {
 
   '/reforma/:tag_slug/ley/:law_slug': {
     controller: 'law',
-    action: 'findTagged'
+    action: 'find'
   },
 
   '/reforma/:tag_slug/ley/:law_slug/edit': {

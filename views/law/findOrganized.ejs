@@ -87,9 +87,6 @@ function getLi(entity_type, obj) {
   } else if (entity_type == 'title') {
     html += '<li class="' + entity_type + '">';
     html +=   obj.heading;
-    html +=   "&nbsp;<a onclick='prepareTitleModal(\"edit\"," + JSON.stringify(obj) + ")'><i class='fa fa-pencil'></i></a>";
-    html +=   "&nbsp;<a onclick='destroyLawDivisionEntity(\"title\"," + obj.id + ")'><i class='fa fa-trash-o'></i></a>";
-    html +=   "&nbsp;<button class='pure-button'><i class='fa fa-plus'></i> capítulo</button>";
     html += '</li>';
   }
   return html;
@@ -130,38 +127,6 @@ function buildIndex() {
   }
 }
 
-/*
- * Having an array with the IDs of the notifications being shown in this view,
- * call the notification's controller to mark them as "seen".
- */
-function markNotificationsAsSeen() {
-/*
-  $.ajax({
-    url: '/notificaciones/marca_como_vistas',
-    method: 'POST',
-    data: {},
-  }).done(function(data, textStatus, jqXHR) {
-    if (textStatus == 'success') {
-      $('.unseen-notification').each(function() {
-
-        // Change color to white.
-        $(this).animate({backgroundColor: '#fff'}, 'slow');
-
-        // Decrease navbar notification count by 1.
-        var dom_navbar_notifications_badge         = document.getElementById('navbar-notifications-badge');
-        var dom_navbar_notifications_counter       = document.getElementById('navbar-notifications-counter');
-        dom_navbar_notifications_counter.innerHTML = parseInt(dom_navbar_notifications_counter.innerHTML, 10) - 1;
-
-        if (parseInt(dom_navbar_notifications_counter.innerHTML, 10) == 0) {
-          dom_navbar_notifications_badge.className = 'pure-badge';
-        }
-
-      });
-    }
-  });
-*/
-}
-
 </script>
 
 <% var tagged = typeof tag !== 'undefined' %>
@@ -175,27 +140,10 @@ function markNotificationsAsSeen() {
       <% } %>
       <span class="inactive-font"><%= law.name %></span>
     </h1>
-    <% if (req.session.user && req.session.user.role == 'admin') { %>
-      <% var origin = tagged ? ('/reforma/' + tag.slug) : ('/') %>
-      <%-
-        partial('../modules/_admin_buttons',{
-          gui_id : law.slug,
-          db_id  : law.id,
-          origin : origin,
-          model  : 'law'
-        })
-      %>
-    <% } %>
     <h2 class='header-subtitle'><%= law.summary %></h2>
   </header>
 
   <h3 class='l-box l-no-margin'>Índice</h3>
-
-  <% if (req.session.user && req.session.user.role == 'admin') { %>
-    <div class='l-box l-no-margin'>
-      <%- partial('../modules/_index_builder') %>
-    </div>
-  <% } %>
 
   <div id="index" class='l-box l-no-margin'>
     Aún no se ha construido el índice para esta ley.

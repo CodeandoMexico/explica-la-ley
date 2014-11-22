@@ -54,7 +54,7 @@ module.exports = {
     });
   },
 
-  findOrganized: function(req, res) {
+  showIndex: function(req, res) {
 
     var tagged = typeof req.param('tag_slug') !== 'undefined';
 
@@ -118,44 +118,47 @@ module.exports = {
 
   },
 
-  findTagged: function(req, res) {
-    Law.findOne({slug: req.param('law_slug')})
-    .populate('tag')
-    .exec(function(err, law) {
-      if (err) return _error(err, req, res, false);
-      if (!law) return _error('Ley no encontrada', req, res, true);
+  find: function(req, res) {
+
+    var tagged = typeof req.param('tag_slug') !== 'undefined';
+
+    function _trickleDown_Law_Articles(cb) {
+      Law.findOne({slug: req.param('law_slug')})
+      .populate('tag') // Doesn't matter whether it's tagged or not -- avoids doing another find().
+                       // Not populating articles since we need their annotations data.
+      .exec(function(err, law) {
+        if (err) return _error(err, req, res, false);
+        if (!law) return _error('Ley no encontrada', req, res, true);
+        Article.find({law: law.id, sort: 'number ASC'})
+        .populate('annotations')
+        .exec(function(err, articles) {
+          if (err) return _error(err, req, res, false);
+          cb({law: law, articles: articles});
+        });
+      });
+    }
+
+    if (tagged) {
       Tag.findOne({slug: req.param('tag_slug')})
       .exec(function(err, tag) {
         if (err) return _error(err, req, res, false);
         if (!tag) return _error('Tag no encontrada', req, res, true);
-        if (law.tag.id != tag.id) return _error('Esta ley no esta dentro de este tag', req, res, true);
-        Article.find({sort: 'number ASC', law: law.id})
-        .populate('annotations')
-        .exec(function(err, articles) {
-          if (err) return _error(err, req, res, false);
-          law.articles = articles;
+        _trickleDown_Law_Articles(function(data) {
           res.locals.layout = 'layoutv2';
-          return res.view('law/find', {law: law, tagged: true});
+          if (tag.id != data.law.tag.id) {
+            return _error('Error: URL inválida', req, res, true);
+          } else {
+            data.tag = tag;
+            return res.view('law/find', data);
+          }
         });
       });
-    });
-  },
-
-  findUntagged: function(req, res) {
-    Law.findOne({slug: req.param('law_slug')})
-    .exec(function(err, law) {
-      if (err) return _error(err, req, res, false);
-      if (!law) return _error('Ley no encontrada', req, res, true);
-      if (law.tag) return _error('URL inválida: tenemos registrada esta ley, pero no es independiente.', req, res, true);
-      Article.find({sort: 'number ASC', law: law.id})
-      .populate('annotations')
-      .exec(function(err, articles) {
-        if (err) return _error(err, req, res, false);
-        law.articles = articles;
+    } else {
+      _trickleDown_Law_Articles(function(data) {
         res.locals.layout = 'layoutv2';
-        return res.view('law/find', {law: law, tagged: false});
+        return res.view('law/find', data);
       });
-    });
+    }
   },
 
   edit: function(req, res) {

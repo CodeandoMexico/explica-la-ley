@@ -1,4 +1,4 @@
-<% if (typeof tagged === 'undefined') tagged = false %>
+<% tagged = typeof tag !== 'undefined' %>
 
 <div class="law">
   <header class='header l-box'>
@@ -37,11 +37,11 @@
 
   <h3 class='l-box l-no-margin'>Artículos dentro de esta ley:</h3>
 
-  <% if (law.articles.length == 0) { %>
+  <% if (articles.length == 0) { %>
     <h3 class='l-box l-no-margin'>No se encontraron artículos bajo este criterio</h3>
   <% } else { %>
     <ul class="pure-g empty-ul card-listing">
-      <% _.each(law.articles, function(article) { %>
+      <% _.each(articles, function(article) { %>
         <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 text-center card card-on-light card-w-meta l-box'>
           <article class='l-box'>
             <%

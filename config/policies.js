@@ -57,15 +57,14 @@ module.exports.policies = {
   },
 
   LawController: {
-    '*'            : false,
-    'index'        : true,
-    'findTagged'   : true,
-    'findUntagged' : true,
-    'findOrganized' : true,
-    'search'       : true,
-    'create'       : 'adminRole',
-    'edit'         : 'adminRole',
-    'destroy'      : 'adminRole'
+    '*'         : false,
+    'index'     : true,
+    'find'      : true,
+    'showIndex' : true,
+    'search'    : true,
+    'create'    : 'adminRole',
+    'edit'      : 'adminRole',
+    'destroy'   : 'adminRole'
   },
 
   TagController: {
