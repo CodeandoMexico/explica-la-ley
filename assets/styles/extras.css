@@ -67,3 +67,13 @@
   color: red;
   font-weight: bold;
 }
+
+@media screen and (max-width : 800px) {
+  #el-main-navbar {
+    height: 7em;
+  }
+  #el-main-navbar ul {
+    width: 100%;
+    text-align: center;
+  }
+}

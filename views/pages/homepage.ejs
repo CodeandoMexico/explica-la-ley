@@ -8,23 +8,7 @@
 </div>
 
 <div class='highlight-container l-container'>
-  <section class='highlight-section'>
-    <h2 class="highlight-section-title text-center l-no-margin-t">Reformas recientes</h2>
-    <div class="pure-g">
-      <% if (typeof tags === 'undefined' || tags.length == 0) { %>
-        <div class="pure-u-1 pure-u-md-1-1 pure-u-lg-1-1 card card-w-meta text-center l-box">
-          No hay reformas registradas
-        </div>
-      <% } else { %>
-        <% _.each(tags, function(tag) { %>
-          <div class="pure-u-1 pure-u-md-1-1 pure-u-lg-1-1 card card-w-meta text-center l-box">
-            <%- partial('../modules/_tag_card', {tag: tag}) %>
-          </div>
-        <% })%>
-      <% } %>
-    </div>
-  </section>
-  <hr class='highlight-container-separator'>
+
   <section class='highlight-section'>
     <h2 class="highlight-section-title text-center l-no-margin-t">Leyes más discutidas</h2>
     <div class="pure-g">
@@ -42,6 +26,7 @@
     </div>
   </section>
   <hr class='highlight-container-separator'>
+
   <section class='highlight-section'>
     <h2 class="highlight-section-title text-center">Colaboradores que explican la ley</h2>
     <div class="pure-g">
@@ -52,10 +37,12 @@
       <% })%>
     </div>
   </section>
+
   <p class='text-center'>
     Si deseas contribuir en las explicaciones de la ley, contáctanos en:
     <a href='mailto:equipo@codeandomexico.org'>equipo@codeandomexico.org</a>
   </p>
+
 </div>
 
 <div class='text-center l-container'>
