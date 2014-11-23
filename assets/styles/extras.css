@@ -71,6 +71,7 @@
 @media screen and (max-width : 800px) {
   #el-main-navbar {
     height: 7em;
+    text-align: center;
   }
   #el-main-navbar ul {
     width: 100%;
