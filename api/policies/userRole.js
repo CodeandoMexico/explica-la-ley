@@ -4,6 +4,7 @@ module.exports = function(req, res, next) {
   if (req.session.user && (req.session.user.role == 'user' || req.session.user.role == 'expert' || req.session.user.role == 'admin')) {
     return next();
   } else {
-    return res.send('You are not permitted to perform this action.', 403);
+    res.locals.layout = false;
+    return res.view('403');
   }
 };
