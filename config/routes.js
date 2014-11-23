@@ -36,6 +36,16 @@ module.exports.routes = {
     action: 'admin'
   },
 
+  '/reformas': {
+    controller: 'tag',
+    action: 'index'
+  },
+
+  '/leyes': {
+    controller: 'law',
+    action: 'index'
+  },
+
   '/notificaciones': {
     controller: 'notification',
     action: 'find'

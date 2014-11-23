@@ -37,20 +37,13 @@ var descCompareArticles = function(a, b) {
 module.exports = {
 
   index: function(req, res) {
-    var slug = req.param("tag");
-    // Filter laws by tag.
-    Tag.findOne({slug: slug}).exec(function(err, tag) {
-      // If tag found, use it as filter.
-      var filterCriteria = tag ? {tag: tag.id} : {};
+    Law.find()
+    .populate('articles')
+    .populate('tag')
+    .exec(function(err, laws) {
       if (err) return _error(err, req, res, false);
-      Law.find(filterCriteria).exec(function(err, laws) {
-        if (err) return _error(err, req, res, false);
-        Tag.find().exec(function(err, tags) {
-          if (err) return _error(err, req, res, false);
-          res.locals.layout = 'layoutv2';
-          res.view('law/index', {laws: laws, tags: tags});
-        });
-      });
+      res.locals.layout = 'layoutv2';
+      return res.view({laws: laws});
     });
   },
 
