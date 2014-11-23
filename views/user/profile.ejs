@@ -3,17 +3,17 @@
   <h2 class='l-no-margin-b'>¡Hola <%= req.session.user.twitterName %>!</h2>
   <div>
     <p>
-      Has iniciado sesi&oacute;n mediante tu cuenta de Twitter, <a href="https://twitter.com/<%= req.session.user.twitterScreenName %>">@<%= req.session.user.twitterScreenName %></a>.
+      Has iniciado sesi&oacute;n mediante tu cuenta de Twitter, <a href="https://twitter.com/<%= req.session.user.twitterScreenName %>" target="_blank">@<%= req.session.user.twitterScreenName %></a>. Puedes ver tu perfil público <a href="/usuario/<%= req.session.user.id %>" target="_blank">aquí</a>.
     </p>
     <% if (typeof req.session.user.email === 'undefined' || req.session.user.email == '' || req.session.user.email == null) { %>
     <p>
-      Parece que no tenemos tu e-mail registrado. ¿Quisieras compartirlo? Lo usaremos <b>&uacute;nicamente</b> para mantenerte al tanto de esta app.
+      Parece que no tenemos tu e-mail registrado. ¿Quisieras compartirlo? Lo usaremos <b>&uacute;nicamente</b> para mantenerte al tanto de esta app -- tampoco será mostrado en tu perfil público.
     </p>
     <form action="/user/saveEmail" method="post" class="validate pure-form">
       <div class="pure-u-2-3 pure-u-md-1-4">
         <input type="email" name="email" class="pure-input-1" placeholder="Correo Electrónico" aria-label="Ingresa tu correo electrónico" required >
       </div>
-      <button style='margin-top:0px;' type="submit" id="mc-embedded-subscribe"class="pure-button el-button el-button-primary l-no-margin-t" aria-label='Suscribirme'><i class="fa fa-floppy-o fa-lg"></i></button>
+      <button style='margin-top:0px;' type="submit" id="mc-embedded-subscribe" class="pure-button el-button el-button-primary l-no-margin-t" aria-label='Suscribirme'><i class="fa fa-floppy-o fa-lg"></i></button>
     </form>
     <% } else { %>
     <p>
@@ -23,8 +23,27 @@
       Si has cambiado de opnini&oacute;n, tambi&eacute;n podemos olvidar tu e-mail (<i><%= req.session.user.email %></i>).
     </p>
     <form action="/user/forgetEmail" method="post" class="validate pure-form">
-      <button style='margin-top:0px;' type="submit" id="mc-embedded-subscribe"class="pure-button el-button el-button-primary l-no-margin-t" aria-label='Olvidar e-mail'>Olvidar <i class="fa fa-eraser fa-lg"></i></button>
+      <button style='margin-top:0px;' type="submit" id="mc-embedded-subscribe" class="pure-button el-button el-button-primary l-no-margin-t" aria-label='Olvidar e-mail'>Olvidar <i class="fa fa-eraser fa-lg"></i></button>
     </form>
     <% } %>
+  </div>
+
+  <br />
+
+  <h2 class='l-no-margin-b'>Para tu perfil público...</h2>
+  <div>
+    <form action="/user/saveBio" method="post">
+      <p>
+        Comparte algo sobre ti:
+      </p>
+      <p>
+      <% if (typeof user.bio !== 'undefined' && user.bio != null) { %>
+        <textarea name="bio" cols="50" rows="5"><%= user.bio.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/^\ +|\ +$/g,'') || '' %></textarea>
+      <% } else { %>
+        <textarea name="bio" cols="50" rows="5"></textarea>
+      <% } %>
+      </p>
+      <button style='margin-top:0px;' type="submit" class="pure-button el-button el-button-primary l-no-margin-t" aria-label='Guardar'>Guardar <i class="fa fa-floppy-o fa-lg"></i></button>
+    </form>
   </div>
 </div>

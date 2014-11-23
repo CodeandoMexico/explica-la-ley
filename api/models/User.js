@@ -20,8 +20,15 @@ module.exports = {
       type: 'STRING',
       required: true
     },
+    twitterImageUrl: {
+      type: 'STRING',
+    },
     email: {
       type: 'EMAIL',
+    },
+    bio: {
+      type: 'STRING',
+      defaultsTo: ''
     },
     role: {
       type: 'STRING',

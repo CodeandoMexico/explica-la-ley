@@ -209,6 +209,16 @@ module.exports.routes = {
     action: 'profile'
   },
 
+  'get /usuario/:user_id': {
+    controller: 'user',
+    action: 'find'
+  },
+
+  'post /user/saveBio': {
+    controller: 'user',
+    action: 'saveBio'
+  },
+
   'post /user/saveEmail': {
     controller: 'user',
     action: 'saveEmail'

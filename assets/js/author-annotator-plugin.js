@@ -2,17 +2,17 @@
 Annotator.Plugin.Author = function (element) {
 
   // Returns an HTML anchor tag pointed at a twitter profile
-  getAuthorAnchorHtml = function(twitterScreenName, twitterName, annotationId) {
+  getAuthorAnchorHtml = function(twitterScreenName, twitterName, annotationId, userId) {
     var url = '', anchor = '';
     if (twitterScreenName) {
       // This annotation was already in the database.
-      url    += 'http://twitter.com/' + twitterScreenName;
+      url    += '/usuario/' + userId;
       anchor += '<a id="anchor-' + annotationId + '" href="' + url + '" target="_blank">';
       anchor +=   twitterName.replace(/</g,"&lt;").replace(/>/g,"&gt;");
       anchor += '</a>';
     } else {
       // This annotation has just been created by the logged-in user.
-      url    += 'http://twitter.com/' + document.getElementById('sessionUserTwitterScreenName');
+      url    += '/usuario/' + document.getElementById('sessionUserId').innerHTML;
       anchor += '<a id="anchor-' + annotationId + '" href="' + url + '" target="_blank">';
       anchor +=   document.getElementById('sessionUserTwitterName').innerHTML.replace(/</g,"&lt;").replace(/>/g,"&gt;");
       anchor += '</a>';
@@ -24,7 +24,7 @@ Annotator.Plugin.Author = function (element) {
   pluginInit = function() {
     this.annotator.subscribe('annotationViewerTextField', function(field, annotation) {
       if (typeof annotation.user !== 'undefined') {
-        var authorAnchorHtml = getAuthorAnchorHtml(annotation.user.twitterScreenName, annotation.user.twitterName, annotation.id);
+        var authorAnchorHtml = getAuthorAnchorHtml(annotation.user.twitterScreenName, annotation.user.twitterName, annotation.id, annotation.user.id);
         var text = annotation.text.replace(/</g,"&lt;").replace(/>/g,"&gt;");
         $(field).html(authorAnchorHtml + ': ' + text);
 
