@@ -224,6 +224,11 @@ module.exports.routes = {
     action: 'find'
   },
 
+  '/reforma/:tag_slug/ley/:law_slug/indice': {
+    controller: 'law',
+    action: 'showIndex'
+  },
+
   '/reforma/:tag_slug/ley/:law_slug/edit': {
     controller: 'law',
     action: 'edit'

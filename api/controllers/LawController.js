@@ -106,13 +106,13 @@ module.exports = {
           if (tag.id != data.law.tag) return _error('URL inválida', req, res, true);
           data.tag = tag;
           res.locals.layout = 'layoutv2';
-          return res.view('law/findOrganized', data);
+          return res.view('law/showIndex', data);
         });
       });
     } else {
       _trickleDown_Law_Titles_Chapters_Sections_Articles(function(data) {
         res.locals.layout = 'layoutv2';
-        return res.view('law/findOrganized', data);
+        return res.view('law/showIndex', data);
       });
     }
 
