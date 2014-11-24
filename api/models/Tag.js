@@ -27,11 +27,20 @@ module.exports = {
     }
   },
 
-  getFriendlyDate: function(date) {
-    var moment = require('moment');
-    moment.locale('es-MX');
-    return moment(date).fromNow();
-  }
+  afterDestroy: function(destroyedRecords, cb) {
+    // Emulate cascading delete (unsupported by Sails.js at the moment).
+    // If a tag is destroyed, all of its laws must destroyed as well.
+    var targeted_laws = _.pluck(destroyedRecords, 'id');
+    if (targeted_laws.length == 0) {
+      cb();
+    } else {
+      Law.destroy({tag: targeted_laws})
+      .exec(function(err, d) {
+        if (err) console.log('Error afterDestroy (tag model)', err);
+        cb();
+      });
+    }
+  },
 
 };
 

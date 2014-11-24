@@ -57,17 +57,20 @@ module.exports.policies = {
   },
 
   LawController: {
-    '*'       : false,
-    'index'   : true,
-    'find'    : true,
-    'create'  : 'adminRole',
-    'edit'    : 'adminRole',
-    'destroy' : 'adminRole'
+    '*'         : false,
+    'index'     : true,
+    'find'      : true,
+    'showIndex' : true,
+    'search'    : true,
+    'create'    : 'adminRole',
+    'edit'      : 'adminRole',
+    'destroy'   : 'adminRole'
   },
 
   TagController: {
     '*'       : false,
     'find'    : true,
+    'index'   : true,
     'create'  : 'adminRole',
     'edit'    : 'adminRole',
     'destroy' : 'adminRole'
@@ -78,10 +81,25 @@ module.exports.policies = {
     'login'               : true,
     'twitterAuthCallback' : true,
     'logout'              : true,
+    'find'                : true,
     'profile'             : 'userRole',
+    'saveBio'             : 'userRole',
     'saveEmail'           : 'userRole',
     'forgetEmail'         : 'userRole',
-  }
+  },
+
+  PageController: {
+    'admin': 'adminRole'
+  },
+
+  NotificationController: {
+    '*'                  : false,
+    'find'               : 'userRole',
+    'liveUpdates'        : 'userRole',
+    'getUnseenCountJson' : 'userRole',
+    'markAsSeen'         : 'userRole',
+  },
+
 };
 
 

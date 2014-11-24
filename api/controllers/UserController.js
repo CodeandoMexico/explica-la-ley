@@ -6,7 +6,7 @@
  */
 
 function _error(msg, req, res) {
-  console.log('(!!) ERROR @: ' + req.options.controller + '/' + req.options.action);
+  console.log('(!!) ERROR @ ' + req.options.controller + '/' + req.options.action);
   console.log(msg);
   return res.redirect('/');
 }
@@ -56,7 +56,7 @@ module.exports = {
             } else {
               req.session.user = {
                 twitterScreenName: data.screen_name,
-                twitterName: data.name,
+                twitterName: data.name.replace(/</g,"&lt;").replace(/>/g,"&gt;"),
                 twitterProfileImageUrl: data.profile_image_url,
                 twitterId: data.id
               }
@@ -68,8 +68,9 @@ module.exports = {
                   User.create({
                     twitterId: data.id,
                     twitterScreenName: data.screen_name,
-                    twitterName: data.name,
-                    role: 'user'
+                    twitterName: data.name.replace(/</g,"&lt;").replace(/>/g,"&gt;"),
+                    role: 'user',
+                    twitterImageUrl: data.profile_image_url
                   }).exec(function(err, user) {
                     if (err) {
                       req.session.user = null;
@@ -77,6 +78,7 @@ module.exports = {
                       return _error('Error creating user: ' + err, req, res);
                     } else {
                       req.session.user.id = user.id;
+                      req.session.user.role = user.role;
                       return res.redirect('/');
                     }
                   });
@@ -84,13 +86,14 @@ module.exports = {
                   req.session.user.id = user.id;
                   req.session.user.email = user.email;
                   req.session.user.role = user.role;
-                  if (user.twitterScreenName != data.screen_name) {
-                    // This user changed twitter screen name since the last visit.
+                  if (user.twitterScreenName != data.screen_name || user.twitterImageUrl != data.profile_image_url) {
+                    // This user changed twitter screen name or picture since the last visit.
                     // Update that info.
                     User.update({
                       twitterId: data.id
                     }, {
-                      twitterScreenName: data.screen_name
+                      twitterScreenName: data.screen_name,
+                      twitterImageUrl: data.profile_image_url
                     }).exec(function(err, users) {
                       if (err) return _error(err, req, res);
                       return res.redirect('/');
@@ -119,8 +122,22 @@ module.exports = {
   },
 
   profile: function(req, res) {
-    res.locals.layout = 'layoutv2';
-    return res.view();
+    User.findOne({id: req.session.user.id})
+    .exec(function(err, user) {
+      if (err) return _error(err, req, res, false);
+      if (!user) return _error('Usuario no encontrado', req, res, true);
+      res.locals.layout = 'layoutv2';
+      return res.view({user: user});
+    });
+  },
+
+  saveBio: function(req, res) {
+    User.update({id: req.session.user.id}, {bio: req.param('bio')})
+    .exec(function(err, users) {
+      if (err) return _error(err, req, res, false);
+      if (!users[0]) return _error('Usuario no encontrado', req, res, true);
+      return res.redirect('/perfil');
+    });
   },
 
   saveEmail: function(req, res) {
@@ -131,7 +148,7 @@ module.exports = {
     }).exec(function(err, user) {
       if (err) return _error(err, req, res);
       req.session.user.email = req.param('email');
-      return res.redirect('/user');
+      return res.redirect('/perfil');
     });
   },
 
@@ -143,8 +160,26 @@ module.exports = {
     }).exec(function(err, user) {
       if (err) return _error(err, req, res);
       req.session.user.email = '';
-      return res.redirect('/user');
+      return res.redirect('/perfil');
     });
-  }
+  },
+
+  find: function(req, res) {
+    User.findOne({id: req.param('user_id')})
+    .populate('annotations')
+    .exec(function(err, user) {
+      if (err) return _error(err, req, res, false);
+      if (!user) return _error('Usuario no encontrado', req, res, true);
+      var user_public_data               = {};
+      user_public_data.name              = user.twitterName;
+      user_public_data.twitter           = user.twitterScreenName;
+      user_public_data.role              = user.role;
+      user_public_data.bio               = user.bio;
+      user_public_data.annotation_count  = user.annotations.length;
+      user_public_data.avatar            = user.twitterImageUrl;
+      res.locals.layout = 'layoutv2';
+      return res.view({user_public_data: user_public_data});
+    });
+  },
 
 };

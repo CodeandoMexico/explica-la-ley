@@ -1,18 +1,40 @@
 <header>
-  <nav class="el-skin pure-menu pure-menu-open pure-menu-horizontal">
+  <nav id="el-main-navbar" class="el-skin pure-menu pure-menu-open pure-menu-horizontal">
     <a href="/" title='Go to homepage' class="pure-menu-heading">
       <img src="/images/explica-logo.png" alt="Explica la ley logo" class='pure-img' />
     </a>
     <ul>
+      <li>
+        <a href="/leyes">Leyes</a>
+      </li>
+      <li>
+        <a href="/reformas">Reformas</a>
+      </li>
       <% if (req.session.user) {%>
+        <% if (req.session.user.role == 'admin') { %>
+          <li>
+            <a href="/admin">Admin</a>
+          </li>
+        <% } %>
+        <li>
+          <a href="/notificaciones">
+            <span id="navbar-notifications-badge" class="pure-badge">
+              <i class="fa fa-bell"></i>
+              &nbsp;
+              <span id="navbar-notifications-counter">
+                ...
+              </span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="/perfil">Mi perfil</a>
+        </li>
         <li>
           <a href="/logout">Logout</a>
         </li>
-        <li>
-          <a href="/user">Mi Perfil (<%= req.session.user.twitterScreenName %>)</a>
-        </li>
       <% } else { %>
-        <li><a href="/login">Iniciar Sesión</a></li>
+        <li><a href="/login">Login</a></li>
       <% } %>
     </ul>
   </nav>

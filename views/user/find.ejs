@@ -1,0 +1,99 @@
+<!-- TODO: improve this page -->
+
+<style>
+.user-profile {
+  margin: auto;
+  width: 30em; 
+  height: auto;
+  background: #e7e8ea;
+  border-radius: .4em;
+}
+
+.user-profile  .username {
+  margin: auto;
+  margin-top: -3.80em;
+  margin-left: 5.80em;
+  color: #1BCC8C;
+  font-size: 1.53em;
+  font-weight: bold;
+}
+.user-profile .role {
+  margin: auto;
+  display: inline-block;
+  margin-left: 10.43em;
+  color: #e76043; 
+  font-weight: bold;
+  font-size: .87em;
+}
+.user-profile .bio {
+  margin: auto;
+  margin-top: 1.35em;
+  margin-right: 4.43em;
+  width: 20em;
+  color: black; 
+  font-size: .87em;
+  padding-bottom: 1.5em;
+}
+.user-profile > img.avatar {
+  padding: .7em;
+  margin-left: .4em;
+  margin-top: .4em;
+  height: 6.43em;
+  width: 6.43em;
+}
+.user-profile .footer {
+  padding-top: 1em;
+  height: 3.70em;
+  background: #a5f3d7;
+  text-align: center;
+  border-radius: 0 0 .4em .4em;
+  color: #4c4c4c;
+}
+.user-profile li {
+  margin: 0 auto;
+  padding: 1.30em; 
+  width: 33.33334%;
+  display: table-cell;
+  text-align: center;
+}
+
+.user-profile span {
+  color: black;
+  white-space: nowrap;
+  font-size: 1.27em;
+  font-weight: bold;
+}
+</style>
+
+<br />
+<br />
+
+<div class="l-content-wrapper l-content-wrapper-constrained">
+<div class="user-profile">
+  &nbsp;&nbsp;
+  <img alt="<% user_public_data.name %>" title="<%= user_public_data.name %>" class="avatar pure-img-eliptical" src="<%= user_public_data.avatar || 'https://pbs.twimg.com/client_application_images/1341636/explica_small.png' %>" />
+    <div class="username">
+      <%= user_public_data.name %>
+      <a href="https://twitter.com/<%= user_public_data.twitter %>" target="_blank">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </div>
+  <div class="role">
+    <% if (user_public_data.role == 'admin') { %>
+      Administrador
+    <% } else if (user_public_data == 'expert') { %>
+      Experto
+    <% } %>
+  </div>
+  <div class="bio">
+    <% if (typeof user_public_data.bio !== 'undefined' && user_public_data.bio != null) { %>
+      <%= user_public_data.bio.replace(/</g,"&lt;").replace(/>/g,"&gt;") || '' %>
+    <% } %>
+  </div>
+  <div class="footer">
+    <i class="i-el i-el-message vertical-middle l-icon-spacer-r"></i>
+    <% noun = user_public_data.annotation_count == 1 ? 'comentario' : 'comentarios' %>
+    <%= user_public_data.annotation_count || 0 %> <%= noun %>
+  </div>
+</div>
+</div>

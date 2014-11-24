@@ -1,20 +1,34 @@
 // Appends the author's username at the beginning of an annotation
 Annotator.Plugin.Author = function (element) {
-  // Private API
 
-  // Returns a HTML anchor tag pointed at a twitter profile
-  var twitterAnchorTag = function(twitterScreenName, twitterName, annotationId) {
-    var twitterUrl = 'http://twitter.com/' + (twitterScreenName || document.getElementById('sessionUserTwitterScreenName').innerHTML);
-    var anchor = '<a id="anchor-' + annotationId + '" href="' + twitterUrl + '" target="_blank">' + (twitterName || document.getElementById('sessionUserTwitterName').innerHTML) + '</a>';
+  // Returns an HTML anchor tag pointed at a twitter profile
+  getAuthorAnchorHtml = function(twitterScreenName, twitterName, annotationId, userId) {
+    var url = '', anchor = '';
+    if (twitterScreenName) {
+      // This annotation was already in the database.
+      url    += '/usuario/' + userId;
+      anchor += '<a id="anchor-' + annotationId + '" href="' + url + '" target="_blank">';
+      anchor +=   twitterName.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      anchor += '</a>';
+    } else {
+      // This annotation has just been created by the logged-in user.
+      url    += '/usuario/' + document.getElementById('sessionUserId').innerHTML;
+      anchor += '<a id="anchor-' + annotationId + '" href="' + url + '" target="_blank">';
+      anchor +=   document.getElementById('sessionUserTwitterName').innerHTML.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      anchor += '</a>';
+    }
     return anchor;
   },
 
-  // Starts the plugin.
+  // Start the plugin.
   pluginInit = function() {
     this.annotator.subscribe('annotationViewerTextField', function(field, annotation) {
       if (typeof annotation.user !== 'undefined') {
-        $(field).html(twitterAnchorTag(annotation.user.twitterScreenName, annotation.user.twitterName, annotation.id) + ': ' + annotation.text);
-        var twitterAnchor = document.getElementById('anchor-' + annotation.id);
+        var authorAnchorHtml = getAuthorAnchorHtml(annotation.user.twitterScreenName, annotation.user.twitterName, annotation.id, annotation.user.id);
+        var text = annotation.text.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        $(field).html(authorAnchorHtml + ': ' + text);
+
+        var authorAnchorDom = document.getElementById('anchor-' + annotation.id);
         var btnsHtml = '';
         btnsHtml += '<span id="vote-btns-' + annotation.id + '">';
         if (document.getElementById('sessionUserId').innerHTML == '') {
@@ -50,9 +64,9 @@ Annotator.Plugin.Author = function (element) {
 
         // This element holds the actual action buttons, which need to be
         // modified on-the-fly according to the user/annotation's state.
-        twitterAnchor.parentNode.parentNode.children[0].innerHTML = btnsHtml;
+        authorAnchorDom.parentNode.parentNode.children[0].innerHTML = btnsHtml;
         if (annotation.user.role == 'expert') {
-          twitterAnchor.parentNode.style.backgroundColor = '#EDE0BC';
+          authorAnchorDom.parentNode.style.backgroundColor = '#EDE0BC';
         }
       }
     });

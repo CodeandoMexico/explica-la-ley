@@ -20,8 +20,15 @@ module.exports = {
       type: 'STRING',
       required: true
     },
+    twitterImageUrl: {
+      type: 'STRING',
+    },
     email: {
       type: 'EMAIL',
+    },
+    bio: {
+      type: 'STRING',
+      defaultsTo: ''
     },
     role: {
       type: 'STRING',
@@ -51,17 +58,35 @@ module.exports = {
     // meaningful.
     cb([
       {
-        name: 'Israel Rosas',
-        avatarUrl: 'https://pbs.twimg.com/profile_images/378800000693344300/f77fe0a85b6ece1a200ff98a11239e8e_400x400.jpeg',
-        twitterProfile: '@irosasr',
-        bio:'Integrante de <a href="https://twitter.com/internetsociety" target="_blank">@internetsociety</a> México y <a href="https://twitter.com/wikimedia_mx" target="_blank">@Wikimedia_mx</a>. Internet y telecomunicaciones (a título personal) en <a href="https://twitter.com/poblanerias" target="_blank">@Poblanerias</a>, <a href="https://twitter.com/fayerwayer" target="_blank">@FayerWayer</a>, <a href="https://twitter.com/ladobemx" target="_blank">@ladobemx</a> y <a href="http://irosasr.mx" target="_blank">irosasr.mx</a>'
+        name: 'Alejandro López',
+        avatarUrl: 'https://pbs.twimg.com/client_application_images/1341636/explica_small.png',
+        twitterProfile: '',
+        bio:''
       },
       {
-        name: 'Jesús Romo',
-        avatarUrl: 'https://pbs.twimg.com/profile_images/455007702280712192/2n1QFsK8_400x400.jpeg',
-        twitterProfile: '@Dackjaniel',
-        bio:'Analista independiente de telecomunicaciones, medios y TICs con experiencia en periodismo. Exatec. ITESM (LMI) y EGAP (Maestría en Análisis político y Medios).'
-      }
+        name: 'Daniel Butruille',
+        avatarUrl: 'https://pbs.twimg.com/client_application_images/1341636/explica_small.png',
+        twitterProfile: '',
+        bio:''
+      },
+      {
+        name: 'Sandrine Molinard',
+        avatarUrl: 'https://pbs.twimg.com/client_application_images/1341636/explica_small.png',
+        twitterProfile: '',
+        bio:''
+      },
+      {
+        name: 'Eduardo Román',
+        avatarUrl: 'https://pbs.twimg.com/client_application_images/1341636/explica_small.png',
+        twitterProfile: '',
+        bio:''
+      },
+      {
+        name: 'Cecy Martínez',
+        avatarUrl: 'https://pbs.twimg.com/client_application_images/1341636/explica_small.png',
+        twitterProfile: '',
+        bio:''
+      },
     ]);
   }
 

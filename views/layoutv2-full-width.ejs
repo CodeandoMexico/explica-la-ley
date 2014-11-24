@@ -9,7 +9,7 @@
     Resumir a las secciones más comentadas de una ley.
     Ver el texto original de la ley, para que puedas sacar tus propias conclusiones." />
 
-    <title>Explica.la/ley</title>
+    <title>explica.la/ley</title>
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
@@ -43,6 +43,7 @@
     </div>
 
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
     <!--SCRIPTS-->
     <script src="/js/dependencies/annotator-full.js"></script>
     <script src="/js/dependencies/clamp.min.js"></script>
@@ -51,9 +52,31 @@
     <script src="/js/ajax-vote.js"></script>
     <script src="/js/article-annotator.js"></script>
     <script src="/js/author-annotator-plugin.js"></script>
+    <script src="/js/ckeditor/adapters/jquery.js"></script>
+    <script src="/js/ckeditor/build-config.js"></script>
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script src="/js/ckeditor/config.js"></script>
+    <script src="/js/ckeditor/lang/en.js"></script>
+    <script src="/js/ckeditor/lang/es.js"></script>
+    <script src="/js/ckeditor/plugins/a11yhelp/dialogs/a11yhelp.js"></script>
+    <script src="/js/ckeditor/plugins/a11yhelp/dialogs/lang/en.js"></script>
+    <script src="/js/ckeditor/plugins/a11yhelp/dialogs/lang/es.js"></script>
+    <script src="/js/ckeditor/plugins/clipboard/dialogs/paste.js"></script>
+    <script src="/js/ckeditor/plugins/dialog/dialogDefinition.js"></script>
+    <script src="/js/ckeditor/plugins/image/dialogs/image.js"></script>
+    <script src="/js/ckeditor/plugins/link/dialogs/anchor.js"></script>
+    <script src="/js/ckeditor/plugins/link/dialogs/link.js"></script>
+    <script src="/js/ckeditor/plugins/pastefromword/filter/default.js"></script>
+    <script src="/js/ckeditor/plugins/specialchar/dialogs/lang/en.js"></script>
+    <script src="/js/ckeditor/plugins/specialchar/dialogs/lang/es.js"></script>
+    <script src="/js/ckeditor/plugins/specialchar/dialogs/specialchar.js"></script>
+    <script src="/js/ckeditor/plugins/table/dialogs/table.js"></script>
+    <script src="/js/ckeditor/plugins/tabletools/dialogs/tableCell.js"></script>
+    <script src="/js/ckeditor/styles.js"></script>
     <script src="/js/clamp-text.js"></script>
     <script src="/js/gui-vote-manager.js"></script>
     <script src="/js/nav-sidebar.js"></script>
+    <script src="/js/onload.js"></script>
     <script src="/js/share.min.js"></script>
     <!--SCRIPTS END-->
     <script>
@@ -64,7 +87,7 @@
 
       ga('create', 'UA-46973214-4', 'explica.la');
       ga('send', 'pageview');
-
     </script>
+    <%- partial('modules/_flash') %>
   </body>
 </html>

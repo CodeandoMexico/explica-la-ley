@@ -1,20 +1,41 @@
-<h2 class="col-md-offset-2">Nuevo Art&iacute;culo</h2>
-<form method="POST" action="/ley/article/create" class="col-md-4 col-md-offset-2" role="form">
-  <div class="form-group">
-    <label for="number">N&uacute;mero</label>
-    <input type="text" class="form-control" id="number" name="number" placeholder="Número de Artículo" />
-  </div>
-  <div class="form-group">
+<h2 class="col-md-offset-2">Nuevo artículo</h2>
+<h4>Cada artículo debe de estar contenido dentro de una ley.</h4>
+<form method="POST" action="/ley/article/create" class="col-md-3 col-md-offset-2 pure-form pure-form-stacked" role="form">
+  <fieldset>
+    <label for="number">Número</label>
+    <input type="number" class="form-control" id="number" name="number" placeholder="Número" min="1" required />
+    <br />
+
     <label for="body">Cuerpo</label>
-    <textarea class="form-control" id="body" name="body" placeholder="Texto de artículo" rows="10"></textarea>
-  </div>
-  <div class="form-group">
+    <textarea class="ckeditor" cols="80" id="body" name="body" rows="30" required></textarea>
+    <br />
+
     <label for="law">Ley a la que pertenece:</label>
-    <select name="law">
-      <% for(var i = 0; i < laws.length; i++) {%>
-        <option value="<%= laws[i].id %>"><%= laws[i].name %></option>
+    <% if (direct) { %>
+      <b><%= laws[0].name %></b>
+      <input type="hidden" name="law" value="<%= laws[0].id %>" />
+    <% } else { %>
+      <% if (laws.length == 0) { %>
+        <small>
+          No has creado leyes.<br />
+          Crea una ley en esta <a href="/law/create">liga</a> primero.<br />
+          <u>No puedes crear artículos sin asociarlos a leyes.</u>
+        </small>
+      <% } else { %>
+        <select name="law" required>
+          <option value="">-SELECCIONA-</option>
+          <% for(var i = 0; i < laws.length; i++) {%>
+            <option value="<%= laws[i].id %>"><%= laws[i].name %></option>
+          <% } %>
+        </select>
       <% } %>
-    </select>
-  </div>
-  <button type="submit" class="btn btn-primary">Crear</button>
+    <% } %>
+    <br />
+
+    <% if (laws.length > 0) { %>
+      <button type="submit" class="pure-button el-button el-button-primary">Crear</button>
+    <% } else { %>
+      <button class="pure-button pure-button-disabled">Crear</button>
+    <% } %>
+    </fieldset>
 </form>

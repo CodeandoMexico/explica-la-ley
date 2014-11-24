@@ -1,0 +1,203 @@
+<script type="text/javascript">
+
+/****************************************************************
+| This code manages some actions regarding to notifications.    |
+| It is included in this specific view since no other needs it. |
+****************************************************************/
+
+// Hold article, law, and tag objects. Their ID is the key.
+var article_dict = {};
+var law_dict = {};
+var tag_dict = {};
+structurizeData();
+
+/*
+ * Puts in a dictionary all of the articles, laws, and tags related to this 
+ * page's notifications for easy access. 
+ */
+function structurizeData() {
+  var articles = <%- JSON.stringify(articles) %>;
+  var laws = <%- JSON.stringify(laws) %>;
+  var tags = <%- JSON.stringify(tags) %>;
+
+  for (i in articles) {
+    article_dict[articles[i].id] = articles[i];
+  }
+  for (i in laws) {
+    law_dict[laws[i].id] = laws[i];
+  }
+  for (i in tags) {
+    tag_dict[tags[i].id] = tags[i];
+  }
+
+}
+
+/*
+ * Updates the DOM with a message that tells how many unseen
+ * notifications there are waiting to be displayed.
+ * @param {int} n: Number of unseen notifications.
+ */
+function updateNewNotificationsMsg(n) {
+  var div = document.getElementById('new-notifications-msg');
+  var words = n == 1 ? ['notificación', 'nueva'] : ['notificaciones', 'nuevas'];
+  div.innerHTML = 
+    '<a href="">' + 
+      '<span class="pure-badge-info">' + 
+        n + ' ' + words[0] + ' ' + words[1] + '. Click para ver.' +
+      '</span>' +
+    '</a>';
+}
+
+/*
+ * Gets the a notification's relevant data (in which tag -> law -> article
+ * an action happened?).
+ * @param {int} article_id: The ID of the article to which a notification
+ *   is related.
+ * @return {String} data: An HTML breadcrumb linking to the entities where
+ *   the action that triggered the notification happened.
+ */ 
+function lookupArticleData(article_id) {
+  var data = '';
+
+  var article = article_dict[article_id];
+  var law = law_dict[article.law];
+
+  var article_url = '/articulo/' + article.number;
+  var law_url = '/ley/' + law.slug;
+
+  var tagged = law.tag ? true : false;
+
+  if (tagged) {
+    var tag = tag_dict[law.tag];
+    var tag_url = '/reforma/' + tag.slug;
+    var data = tag.name + ' <i class="fa fa-angle-double-right"></i> ' +
+               law.name + ' <i class="fa fa-angle-double-right"></i> ' +
+               'Artículo ' + article.number;
+  } else {
+    var data = law.name + ' <i class="fa fa-angle-double-right"></i> ' +
+               'Artículo ' + article.number;
+  }
+
+  return data;
+}
+
+/*
+ * Gets an article's URL.
+ * @param {int} article_id: The ID of the article to which a notification
+ *   is related.
+ * @return {String} url: URL pointing to an article's page.
+ */
+function getArticleUrl(article_id) {
+  var url = '';
+
+  var article = article_dict[article_id];
+  var law = law_dict[article.law];
+
+  var article_url = '/articulo/' + article.number;
+  var law_url = '/ley/' + law.slug;
+
+  var tagged = law.tag ? true : false;
+
+  url = law_url + article_url;
+  if (tagged) {
+    var tag = tag_dict[law.tag];
+    var tag_url = '/reforma/' + tag.slug;
+    url = tag_url + law_url + article_url;
+  }
+
+  return url;
+}
+
+/*
+ * Having an array with the IDs of the notifications being shown in this view,
+ * call the notification's controller to mark them as "seen".
+ */
+function markNotificationsAsSeen() {
+  $.ajax({
+    url: '/notificaciones/marca_como_vistas',
+    method: 'POST',
+    data: {notifications: [<%= _.pluck(notifications, 'id') %>]},
+  }).done(function(data, textStatus, jqXHR) {
+    if (textStatus == 'success') {
+      $('.unseen-notification').each(function() {
+
+        // Change color to white.
+        $(this).animate({backgroundColor: '#fff'}, 'slow');
+
+        // Decrease navbar notification count by 1.
+        var dom_navbar_notifications_badge         = document.getElementById('navbar-notifications-badge');
+        var dom_navbar_notifications_counter       = document.getElementById('navbar-notifications-counter');
+        dom_navbar_notifications_counter.innerHTML = parseInt(dom_navbar_notifications_counter.innerHTML, 10) - 1;
+
+        if (parseInt(dom_navbar_notifications_counter.innerHTML, 10) == 0) {
+          dom_navbar_notifications_badge.className = 'pure-badge';
+        }
+
+      });
+    }
+  });
+}
+
+</script>
+
+<header class=" header l-box text-center">
+  <h1 class="l-no-margin-b header-title">
+    <span>Tus notificaciones</span>
+  </h1>
+  <h2 class="header-subtitle">
+    Aquí puedes ver los votos y las respuestas que tus comentarios han recibido
+  </h2>
+</header>
+
+<div id="new-notifications-msg" class="text-center">&nbsp;</div>
+
+<% if (typeof notifications === 'undefined' || notifications.length == 0) { %>
+  <div class='pure-u-1 pure-u-md-1-1 text-center card card-on-light l-box'>
+    No hay notificaciones que mostrar
+  </div>
+<% } else { %>
+  <div class="notification-container pure-u-md-1">
+    <ul class="empty-ul card-listing">
+      <% _.each(notifications, function(notification) { %>
+        <li id="notification-li-<%= notification.id %>" class="notification pure-u-md-1-2 text-center <% if (!notification.seen) { %> unseen-notification <% } %>">
+          <script>document.getElementById('notification-li-<%= notification.id %>').onclick=function(){location.href = getArticleUrl(<%= notification.article %>);};</script>
+          <%- partial('../modules/_notification_card', { notification: notification }) %>
+        </li>
+      <% })%>
+    </ul>
+  </div>
+<% } %>
+
+<% if ((page == 1 && more_pages) || (page > 1)) { %>
+  <div class='text-center l-container'>
+
+    <% if (page > 1) { %>
+      <a href="/notificaciones/<%= parseInt(page, 10) - 1 %>">
+        <button class="pure-button">
+          <i class="fa fa-angle-left"></i>
+        </button>
+      </a>
+    <% } else { %>
+      <button class="pure-button hidden">
+        <i class="fa fa-angle-left"></i>
+      </button>
+    <% } %>
+
+    <button class="pure-button">
+      <%= page %>
+    </button>
+
+    <% if (more_pages) { %>
+      <a href="/notificaciones/<%= parseInt(page, 10) + 1 %>">
+        <button class="pure-button <% if (has_unseen) { %> button-unseen-notifications <% } %>">
+          <i class="fa fa-angle-right"></i>
+        </button>
+      </a>
+    <% } else { %>
+      <button class="pure-button hidden">
+        <i class="fa fa-angle-right"></i>
+      </button>
+    <% } %>
+
+  </div>
+<% } %>

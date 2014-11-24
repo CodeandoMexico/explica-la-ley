@@ -1,0 +1,156 @@
+<style>
+li.title {
+  margin-left: 0px;
+}
+li.chapter {
+  margin-left: 50px;
+}
+li.section {
+  margin-left: 100px;
+}
+li.article_under_chapter {
+  margin-left: 100px;
+}
+li.article_under_section {
+  margin-left: 150px;
+}
+</style>
+
+<script type="text/javascript">
+
+/****************************************************************
+| This code manages some actions regarding to a law's division. |
+| It is included in this specific view since no other needs it. |
+****************************************************************/
+
+// Hold article, law, and tag objects. Their ID is the key.
+var article_under_section_dict = {};
+var article_under_chapter_dict = {};
+var section_dict               = {};
+var chapter_dict               = {};
+var title_dict                 = {};
+var law_dict                   = {};
+var tag_dict                   = {};
+structurizeData();
+
+/*
+ * Puts in a dictionary all of the articles, laws, and tags, titles, chapters,
+ * and sections related to this law.
+ */
+function structurizeData() {
+  var articles_under_section = <%- JSON.stringify(articles_under_section) %>;
+  var articles_under_chapter = <%- JSON.stringify(articles_under_chapter) %>;
+  var sections               = <%- JSON.stringify(sections) %>;
+  var chapters               = <%- JSON.stringify(chapters) %>;
+  var titles                 = <%- JSON.stringify(titles) %>;
+
+  articles_under_section.map(function(article) {
+    article_under_section_dict[article.id] = article;
+  });
+
+  articles_under_chapter.map(function(article) {
+    article_under_chapter_dict[article.id] = article;
+  });
+
+  sections.map(function(section) {
+    section_dict[section.id] = section;
+  });
+
+  chapters.map(function(chapter) {
+    chapter_dict[chapter.id] = chapter;
+  });
+
+  titles.map(function(title) {
+    title_dict[title.id] = title;
+  });
+
+}
+
+function getUrl(article_number) {
+  var tagged = <%= typeof(tag) !== 'undefined' %>;
+  var url = '';
+  if (tagged) {
+  } else {
+    url = '/ley/<%= law.slug %>/articulo/' + article_number;
+  }
+  return url;
+}
+
+function getLi(entity_type, obj) {
+  var html = ''
+  if (entity_type == 'article_under_section' || entity_type == 'article_under_chapter') {
+    html += '<li class="' + entity_type + '">';
+    html +=   '<a href="' + getUrl(obj.number) + '" target="_blank">';
+    html +=     'Artículo ' + obj.number;
+    html +=   '</a>';
+    html += '</li>';
+  } else {
+    html += '<li class="' + entity_type + '">';
+    html +=   obj.heading;
+    html += '</li>';
+  }
+  return html;
+}
+
+/*
+ * Builds index according to this law's divisions.
+ */ 
+function buildIndex() {
+  var index_dom = document.getElementById('index');
+  var html = '';
+  for (i in title_dict) {
+    html += getLi('title', title_dict[i]);
+    for (j in chapter_dict) {
+      if (chapter_dict[j].title == title_dict[i].id) {
+        html += getLi('chapter', chapter_dict[j]);
+        for (k in section_dict) {
+          if (section_dict[k].chapter == chapter_dict[j].id) {
+            html += getLi('section', section_dict[k]);
+            for (l in article_under_section_dict) {
+              if (article_under_section_dict[l].section == section_dict[k].id) {
+                html += getLi('article_under_section', article_under_section_dict[l]);
+              }
+            }
+          }
+        }
+        for (kk in article_under_chapter_dict) {
+          if (article_under_chapter_dict[kk].chapter == chapter_dict[j].id) {
+            html += getLi('article_under_chapter', article_under_chapter_dict[kk]);
+          }
+        }
+      }
+    }
+  }
+
+  if (html != '') {
+    index_dom.innerHTML = '<ul>' + html + '</ul>';
+  }
+}
+
+</script>
+
+<% var tagged = typeof tag !== 'undefined' %>
+
+<div class="law">
+  <header class='header l-box'>
+    <h1 class="l-no-margin-b header-title">
+      <% if (tagged) { %>
+        <u><a href="/reforma/<%= tag.slug %>"><%= tag.name %></a></u>
+        <i class="inactive-font fa fa-angle-double-right"></i>
+      <% } %>
+      <span class="inactive-font"><%= law.name %></span>
+    </h1>
+    <h2 class='header-subtitle'><%= law.summary %></h2>
+  </header>
+
+  <h3 class='l-box l-no-margin'>Índice</h3>
+
+  <div id="index" class='l-box l-no-margin'>
+    Aún no se ha construido el índice para esta ley.
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  buildIndex();
+</script>

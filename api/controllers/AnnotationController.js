@@ -6,7 +6,7 @@
  */
 
 function _error(msg, req, res) {
-  console.log('(!!) ERROR @: ' + req.options.controller + '/' + req.options.action);
+  console.log('(!!) ERROR @ ' + req.options.controller + '/' + req.options.action);
   console.log(msg);
   return res.send(500);
 }
@@ -30,7 +30,7 @@ module.exports = {
     .exec(function(err, user) {
       if (err) return _error(err, req, res);
       Annotation.create({
-        text: req.param('text'),
+        text: req.param('text').replace(/</g,"&lt;").replace(/>/g,"&gt;"),
         quote: req.param('quote'),
         ranges: req.param('ranges'),
         article: req.param('article'),

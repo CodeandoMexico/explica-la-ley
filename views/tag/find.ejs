@@ -1,17 +1,46 @@
 <div class="law">
-  <header class='text-center header l-box'>
-    <h1 class="l-no-margin-b header-title"><%= tag.name %></h1>
+  <header class=' header l-box'>
+    <h1 class="l-no-margin-b header-title">
+      <span class="inactive-font"><%= tag.name %></span>
+    </h1>
+    <% if (req.session.user && req.session.user.role == 'admin') { %>
+      <%-
+        partial('../modules/_admin_buttons', {
+          gui_id : tag.slug,
+          db_id  : tag.id,
+          origin : '/',
+          model  : 'tag'
+        })
+      %>
+    <% } %>
     <h2 class='header-subtitle'><%= tag.summary %></h2>
   </header>
 
-  <h3 class='text-center l-box l-no-margin'>Leyes dentro de esta reforma:</h3>
-  <ul class="pure-g empty-ul card-listing">
-   <% _.each(laws, function(law) { %>
-      <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-2 text-center card card-on-light card-w-meta l-box'>
-        <article class='l-box'>
-          <%- partial('../modules/_law_card_v2', {tag: tag, law: law, annotationCounter: annotationCounters[law.id]}) %>
-        </article>
-      </li>
-    <% })%>
-  </ul>
+  <form action="/ley/law/search" method="POST" class="pure-form pure-g l-box" role="form">
+    <div class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 center-block input-group'>
+      <% if (typeof searchTerm === 'undefined') { %>
+      <input type="text" name="text" id="filter" class="pure-input-1 input-w-icon" placeholder="Buscar ley en esta reforma" />
+      <% } else { %>
+      <input type="text" name="text" id="filter" class="pure-input-1 input-w-icon" placeholder="Buscar ley en esta reforma" value="<%= searchTerm %>" />
+      <% } %>
+      <i class='fa fa-search'></i>
+      <input type="hidden" name="tag" value="<%= tag.id %>" />
+    </div>
+  </form>
+
+  <h3 class='l-box l-no-margin'>Leyes dentro de esta reforma:</h3>
+
+  <% if (laws.length == 0) { %>
+    <h3 class='l-box l-no-margin'>No se encontraron leyes bajo este criterio</h3>
+  <% } else { %>
+    <ul class="pure-g empty-ul card-listing">
+     <% _.each(laws, function(law) { %>
+        <li class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-2 text-center card card-on-light card-w-meta l-box'>
+          <article class='l-box'>
+            <%- partial('../modules/_law_card_v2', {tag: tag, law: law, annotationCounter: annotationCounters[law.id]}) %>
+          </article>
+        </li>
+      <% })%>
+    </ul>
+  <% } %>
 </div>

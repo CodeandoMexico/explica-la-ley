@@ -1,0 +1,17 @@
+<h3 class="card-title"><%= law.name %></h3>
+<p class='card-description'>
+  <%=: law.summary.replace(/(<([^>]+)>)/ig,"") | truncate:100, ' ...' %>
+</p>
+<div class='card-bottom'>
+  <div class='l-spacer-b'>
+    <span class='card-meta'>
+      <i class='i-el i-el-article vertical-middle l-icon-spacer-r'></i>
+      <%= law.articles.length %><%= law.articles.length == 1 ? ' artículo': ' artículos'%>
+    </span>
+  </div>
+  <% if (law.tag) { %>
+    <a href='/reforma/<%= law.tag.slug %>/ley/<%= law.slug %>' class='pure-button el-button el-button-primary'>Ver más</a>
+  <% } else { %>
+    <a href='/ley/<%= law.slug %>' class='pure-button el-button el-button-primary'>Ver más</a>
+  <% } %>
+</div>

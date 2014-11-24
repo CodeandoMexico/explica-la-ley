@@ -1,22 +1,31 @@
 <div class="l-box article l-spacer-b">
-  <h1 class="article-title">Art&iacute;culo <%= article.number %></h1>
-
+  <h1 class="article-title l-no-margin-b header-title">
+    <% if (tagged) { %>
+      <u><a href="/reforma/<%= law.tag.slug %>"><%= law.tag.name %></a></u>
+      <i class="inactive-font fa fa-angle-double-right"></i>
+      <u><a href="/reforma/<%= law.tag.slug %>/ley/<%= law.slug %>"><%= law.name %></a></u>
+      <i class="inactive-font fa fa-angle-double-right"></i>
+    <% } else { %>
+      <u><a href="/ley/<%= law.slug %>"><%= law.name %></a></u>
+      <i class="inactive-font fa fa-angle-double-right"></i>
+    <% } %>
+    <span class="inactive-font">Artículo <%= article.number %></span>
+  </h1>
+  <% if (req.session.user && req.session.user.role == 'admin') { %>
+    <% var origin = tagged ? '/reforma/' + law.tag.slug + '/ley/' + law.slug : '/ley/' + law.slug %>
+    <%-
+      partial('../modules/_admin_buttons',{
+        gui_id : article.number,
+        db_id  : article.id,
+        origin : origin,
+        model  : 'article'
+      })
+    %>
+  <% } %>
   <p class='article-body'>
     <%- article.body %>
   </p>
-
 </div>
-
-<div class='pure-g l-box'>
-  <ul class="empty-ul footer-nav pure-u-1 text-center">
-    <li>
-      <a href="/reforma/<%= law.tag.slug %>/ley/<%= law.slug %>">Volver a la <%= law.name %></a>
-      </li><li>
-      <a href="/reforma/<%= law.tag.slug %>">Ver más leyes</a>
-    </li>
-  </ul>
-</div>
-
 
 <div hidden="hidden">
   <div id="retrieveLawData" data-law="<%= article.law.id %>" data-lawname="<%= article.law.name %>"></div>

@@ -31,9 +31,74 @@ module.exports.routes = {
     action: 'redirect'
   },
 
+  '/admin': {
+    controller: 'page',
+    action: 'admin'
+  },
+
+  '/reformas': {
+    controller: 'tag',
+    action: 'index'
+  },
+
+  '/leyes': {
+    controller: 'law',
+    action: 'index'
+  },
+
+  '/notificaciones': {
+    controller: 'notification',
+    action: 'find'
+  },
+
+  '/notificaciones/escucha': {
+    controller: 'notification',
+    action: 'liveUpdates'
+  },
+
+  '/notificaciones/no_vistas': {
+    controller: 'notification',
+    action: 'getUnseenCountJson'
+  },
+
+  '/notificaciones/marca_como_vistas': {
+    controller: 'notification',
+    action: 'markAsSeen'
+  },
+
+  '/notificaciones/:page': {
+    controller: 'notification',
+    action: 'find'
+  },
+
   '/ley': {
     controller: 'page',
     action: 'homepage'
+  },
+
+  '/ley/:law_slug': {
+    controller: 'law',
+    action: 'find'
+  },
+
+  '/ley/:law_slug/indice': {
+    controller: 'law',
+    action: 'showIndex'
+  },
+
+  '/ley/:law_slug/edit': {
+    controller: 'law',
+    action: 'edit'
+  },
+
+  '/ley/:law_slug/articulo/:article_number': {
+    controller: 'article',
+    action: 'find'
+  },
+
+  '/ley/:law_slug/articulo/:article_number/edit': {
+    controller: 'article',
+    action: 'edit'
   },
 
   '/login': {
@@ -59,6 +124,11 @@ module.exports.routes = {
     action: 'create'
   },
 
+  '/article/destroy': {
+    controller: 'article',
+    action: 'destroy'
+  },
+
   'post /article/search': {
     controller: 'article',
     action: 'search'
@@ -74,14 +144,24 @@ module.exports.routes = {
     action: 'create'
   },
 
-  'get /law/:id': {
+  '/law/destroy': {
     controller: 'law',
-    action: 'find'
+    action: 'destroy'
+  },
+
+  'post /law/search': {
+    controller: 'law',
+    action: 'search'
   },
 
   '/tag/create': {
     controller: 'tag',
     action: 'create'
+  },
+
+  '/tag/destroy': {
+    controller: 'tag',
+    action: 'destroy'
   },
 
   '/reforma/:tag_slug/edit': {
@@ -124,9 +204,19 @@ module.exports.routes = {
     action: 'votedown'
   },
 
-  'get /user': {
+  'get /perfil': {
     controller: 'user',
     action: 'profile'
+  },
+
+  'get /usuario/:user_id': {
+    controller: 'user',
+    action: 'find'
+  },
+
+  'post /user/saveBio': {
+    controller: 'user',
+    action: 'saveBio'
   },
 
   'post /user/saveEmail': {
@@ -154,6 +244,11 @@ module.exports.routes = {
     action: 'find'
   },
 
+  '/reforma/:tag_slug/ley/:law_slug/indice': {
+    controller: 'law',
+    action: 'showIndex'
+  },
+
   '/reforma/:tag_slug/ley/:law_slug/edit': {
     controller: 'law',
     action: 'edit'
@@ -168,5 +263,11 @@ module.exports.routes = {
     controller: 'article',
     action: 'edit'
   },
+
+  '/reforma/:tag_slug/ley/:law_slug/articulo/:article_number/destroy': {
+    controller: 'article',
+    action: 'destroy'
+  },
+
 
 };
