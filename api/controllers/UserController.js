@@ -11,6 +11,14 @@ function _error(msg, req, res) {
   return res.redirect('/');
 }
 
+function _success(msg, req, res, return_url) {
+  req.session.flash = {
+    type: 'success',
+    msg: msg
+  }
+  return res.redirect(return_url || '/');
+}
+
 module.exports = {
 
   login: function(req, res) {
@@ -136,7 +144,7 @@ module.exports = {
     .exec(function(err, users) {
       if (err) return _error(err, req, res, false);
       if (!users[0]) return _error('Usuario no encontrado', req, res, true);
-      return res.redirect('/perfil');
+      return _success('Perfil actualizado', req, res, '/perfil');
     });
   },
 
@@ -148,7 +156,7 @@ module.exports = {
     }).exec(function(err, user) {
       if (err) return _error(err, req, res);
       req.session.user.email = req.param('email');
-      return res.redirect('/perfil');
+      return _success('Perfil actualizado', req, res, '/perfil');
     });
   },
 
@@ -160,7 +168,7 @@ module.exports = {
     }).exec(function(err, user) {
       if (err) return _error(err, req, res);
       req.session.user.email = '';
-      return res.redirect('/perfil');
+      return _success('Perfil actualizado', req, res, '/perfil');
     });
   },
 
