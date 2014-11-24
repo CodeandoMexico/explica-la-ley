@@ -174,9 +174,8 @@ module.exports = {
       .exec(function(err, articles) {
         if (err) return _error(err, req, res, false);
         if (!articles) articles = []
-        law.articles = articles;
         res.locals.layout = 'layoutv2';
-        return res.view('law/find', {law: law, searchTerm: req.param('text')})
+        return res.view('law/find', {law: law, articles: articles, searchTerm: req.param('text')})
       });
     });
   },
