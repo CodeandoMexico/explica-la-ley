@@ -70,15 +70,42 @@ function lookupArticleData(article_id) {
   if (tagged) {
     var tag = tag_dict[law.tag];
     var tag_url = '/reforma/' + tag.slug;
-    var data = '<u><a href="' + tag_url + '" target="_blank">' + tag.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' +
-               '<u><a href="' + tag_url + law_url + '" target="_blank">' + law.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' +
-               '<u><a href="' + tag_url + law_url + article_url + '" target="_blank">Artículo ' + article.number + '</a></u>';
+    var data = tag.name + ' <i class="fa fa-angle-double-right"></i> ' +
+               law.name + ' <i class="fa fa-angle-double-right"></i> ' +
+               'Artículo ' + article.number;
   } else {
-    var data = '<u><a href="' + law_url + '" target="_blank">' + law.name + '</a></u> <i class="fa fa-angle-double-right"></i> ' +
-               '<u><a href="' + law_url + article_url + '" target="_blank">Artículo ' + article.number + '</a></u>';
+    var data = law.name + ' <i class="fa fa-angle-double-right"></i> ' +
+               'Artículo ' + article.number;
   }
 
   return data;
+}
+
+/*
+ * Gets an article's URL.
+ * @param {int} article_id: The ID of the article to which a notification
+ *   is related.
+ * @return {String} url: URL pointing to an article's page.
+ */
+function getArticleUrl(article_id) {
+  var url = '';
+
+  var article = article_dict[article_id];
+  var law = law_dict[article.law];
+
+  var article_url = '/articulo/' + article.number;
+  var law_url = '/ley/' + law.slug;
+
+  var tagged = law.tag ? true : false;
+
+  url = law_url + article_url;
+  if (tagged) {
+    var tag = tag_dict[law.tag];
+    var tag_url = '/reforma/' + tag.slug;
+    url = tag_url + law_url + article_url;
+  }
+
+  return url;
 }
 
 /*
@@ -132,7 +159,8 @@ function markNotificationsAsSeen() {
   <div class="notification-container pure-u-md-1">
     <ul class="empty-ul card-listing">
       <% _.each(notifications, function(notification) { %>
-        <li class="notification pure-u-md-1-2 text-center <% if (!notification.seen) { %> unseen-notification <% } %>">
+        <li id="notification-li-<%= notification.id %>" class="notification pure-u-md-1-2 text-center <% if (!notification.seen) { %> unseen-notification <% } %>">
+          <script>document.getElementById('notification-li-<%= notification.id %>').onclick=function(){location.href = getArticleUrl(<%= notification.article %>);};</script>
           <%- partial('../modules/_notification_card', { notification: notification }) %>
         </li>
       <% })%>

@@ -9,7 +9,9 @@
     <i class="notification-icon fa fa-comments"></i>
     Recibiste un comentario en <br />
   <% } %>
+  <br />
   <script>document.write(lookupArticleData(<%= notification.article %>))</script>
+  <br />
   <br />
   <i class="fa fa-clock-o"></i> <%= sails.config.globals.getFriendlyDate(notification.createdAt) %>
 </p>

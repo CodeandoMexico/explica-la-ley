@@ -42,6 +42,10 @@
   border: 2px solid #1BCC8C;
   position: relative;
 }
+.notification:hover {
+  cursor: pointer;
+  background-color: #E7E8EA;
+}
 .unseen-notification {
   background-color: #baefdc;
 }
