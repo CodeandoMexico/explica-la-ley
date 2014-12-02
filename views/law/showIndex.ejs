@@ -141,9 +141,18 @@ function buildIndex() {
       <span class="inactive-font"><%= law.name %></span>
     </h1>
     <h2 class='header-subtitle'><%= law.summary %></h2>
+    <h2>
+      <% if (tagged) { %>
+        <a href='/reforma/<%= law.tag.slug %>/ley/<%= law.slug %>'>
+          <i class="fa fa-th-large l-icon-spacer-r"></i>Artículos
+        </a>
+      <% } else { %>
+        <a href='/ley/<%= law.slug %>'>
+          <i class="fa fa-th-large l-icon-spacer-r"></i>Artículos
+        </a>
+      <% } %>
+    </h2>
   </header>
-
-  <h3 class='l-box l-no-margin'>Índice</h3>
 
   <div id="index" class='l-box l-no-margin'>
     Aún no se ha construido el índice para esta ley.
