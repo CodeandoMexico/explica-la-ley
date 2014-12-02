@@ -21,7 +21,19 @@
       %>
     <% } %>
     <h2 class='header-subtitle'><%= law.summary %></h2>
+    <h2>
+      <% if (tagged) { %>
+        <a href='/reforma/<%= law.tag.slug %>/ley/<%= law.slug %>/indice'>
+          <i class="fa fa-list-ul l-icon-spacer-r"></i>Índice
+        </a>
+      <% } else { %>
+        <a href='/ley/<%= law.slug %>/indice'>
+          <i class="fa fa-list-ul l-icon-spacer-r"></i>Índice
+        </a>
+      <% } %>
+    </h2>
   </header>
+
 
   <form action="/ley/article/search" method="POST" class="pure-form pure-g l-box" role="form">
     <div class='pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 center-block input-group'>
