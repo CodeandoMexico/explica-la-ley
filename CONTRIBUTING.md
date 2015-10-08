@@ -1,4 +1,4 @@
-# Contributing to "Cambia la Ley" ([español](/CONTRIBUYE.md))
+# Contributing to "Cambia la Ley" ([español](/COLABORA.md))
 
 1. [Getting involved](#getting-involved)
 2. [Discussion](#discussion)
