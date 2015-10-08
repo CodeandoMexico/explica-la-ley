@@ -15,6 +15,11 @@ module.exports = {
     res.redirect('/ley');
   },
 
+  privacyPolicy: function (req, res) {
+    res.locals.layout = 'layoutv2-full-width';
+    return res.view('pages/privacyPolicy');
+  },
+
   homepage: function(req, res) {
     // TODO: sort the laws by more annotations
     User.showcaseMembers(function(members) {
